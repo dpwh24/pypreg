@@ -6,7 +6,7 @@ Dave Walsh 22 Aug 2023
 Department of Biomedical and Health Informatics
 UMKC
 
-Looks at a pandas dataframe containing diagnositic, procedure, and DRG codes to report out the presence of
+Looks at a pandas dataframe containing diagnostic, procedure, and DRG codes to report out the presence of
 Cesarean section, Fetal growth restriction, Gestation Diabetes, Gestational Hypertension, and Preeclampsia.
 The function accepts codes from ICD9, ICD10, DRG, and CPT coding systems.
 """
@@ -40,7 +40,7 @@ def apo(df: pd.DataFrame,
     :return: Returns a pandas dataframe containing patient and pregnancy identifiers with boolean columns for
         - cesarean
         - fetal growth restriction
-        - gestational diabete
+        - gestational diabetes
         - gestational hypertension
         - preeclampsia
     """
@@ -153,9 +153,9 @@ def apo(df: pd.DataFrame,
 
     # Get the instances of the APOs
     cesarean_encs = cesarean_encs.merge(cesarean,
-                             how='inner',
-                             left_on=[type, version, 'join'],
-                             right_on=[type, version, code]).drop(columns=['join'])
+                                        how='inner',
+                                        left_on=[type, version, 'join'],
+                                        right_on=[type, version, code]).drop(columns=['join'])
     fg_encs = fg_encs.merge(fg,
                             how='inner',
                             left_on=[type, version, 'join'],

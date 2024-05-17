@@ -168,7 +168,7 @@ def validate_outcomes(df: pd.DataFrame,
     for outcome in outcome_list:
         # Iterate over each classified encounter in a patient
         for idx, row in df.iterrows():
-            # If the outcome in the row matches the current outcome in the hieracry - proceed
+            # If the outcome in the row matches the current outcome in the hierarchy - proceed
             if df.iloc[idx][outcome_col] == outcome:
                 # If the current row has not already been determined to be valid - proceed
                 if not df.iloc[idx]['outcome_valid']:
@@ -176,7 +176,8 @@ def validate_outcomes(df: pd.DataFrame,
                     df_valid = df[df['outcome_valid']]
                     # If there are no previously found valid classified encounters
                     if len(df_valid.index) == 0:
-                        # This encounter is valid by default as it sits at the top of the hierarchy in this patient's data
+                        # This encounter is valid by default as it sits at
+                        # the top of the hierarchy in this patient's data
                         df.outcome_valid.iloc[idx] = True
                         df.event_date.iloc[idx] = df[admit_col].iloc[idx]
                     else:
@@ -193,12 +194,12 @@ def validate_outcomes(df: pd.DataFrame,
                             valid = False
                             event_dt = bad_date
 
-                            if current_index[0] == 0: # First in the list
+                            if current_index[0] == 0:  # First in the list
                                 # Only need to check the event after
                                 valid, event_dt = next_event_valid(df_valid.iloc[0],
                                                                    df_valid.iloc[1],
                                                                    base=0)
-                            elif current_index[0] == df_valid.index.max(): # Last in the list
+                            elif current_index[0] == df_valid.index.max():  # Last in the list
                                 # Only need to check the event before
                                 valid, event_dt = next_event_valid(df_valid.iloc[current_index[0] - 1],
                                                                    df_valid.iloc[current_index[0]],
@@ -236,7 +237,8 @@ def next_event_valid(first_event: pd.DataFrame,
 
     valid_base = [0, 1]
     if base not in valid_base:
-        raise ValueError(f'next_event_valid: base must be one of {valid_base}. {valid_base[0]} to select the first event as the base, {valid_base[1]} for the other.')
+        raise ValueError(f'next_event_valid: base must be one of {valid_base}. {valid_base[0]}'
+                         f' to select the first event as the base, {valid_base[1]} for the other.')
 
     colname_translate = {outcome_list[0]: 'next_lb',
                          outcome_list[1]: 'next_sb',
@@ -284,7 +286,8 @@ def outcomes(df: pd.DataFrame,
             outcome_col]
 
     if len(df[patient_col].unique()) > 1:
-        raise ValueError(f'outcomes: More than 1 patient received. Limit dataframe to only include 1 patient at a time.')
+        raise ValueError(f'outcomes: More than 1 patient received. '
+                         f'Limit dataframe to only include 1 patient at a time.')
 
     df = df[cols]
 
@@ -307,7 +310,9 @@ def outcomes(df: pd.DataFrame,
 
     output = select_valid(output)
     output = set_preg_window(output)
-    output = number_pregnancy(output, admit_col=admit_date_col)
+    output = number_pregnancy(output,
+                              patient_col=patient_col,
+                              admit_col=admit_date_col)
     output = check_window(output)
 
     return output
@@ -319,7 +324,8 @@ def number_pregnancy(df: pd.DataFrame,
     """
     Utility function that numbers the pregnancies of a patient. Synonymous with gravida
 
-    :param df: Pandas dataframe with validated classified encounters where each row indicates an individual pregnancy outcome
+    :param df: Pandas dataframe with validated classified encounters where each row indicates an individual
+    pregnancy outcome
     :param patient_col: Column that contains the patient identifier
     :param admit_col: Column that contains the admit date of the encounter
 
@@ -492,7 +498,8 @@ def process_outcomes(df: pd.DataFrame,
                      code_col: str,
                      expanded: bool = False):
     """
-    Main function to classify pregnancies. Accepts a dataframe with the listed columns to begin the pregnancy classification.
+    Main function to classify pregnancies. Accepts a dataframe with the listed columns to begin the
+    pregnancy classification.
 
     :param df: Pandas dataframe with encounter data - rows should be unique to each code provided
     :param patient_col: Column containing the unique patient identifier

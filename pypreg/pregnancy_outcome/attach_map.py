@@ -1,7 +1,7 @@
 """
 Process to attach the outcome map to the data.
 
-Accepts a dataframe that contains, at a minimum, columns that hold a diagnositc, procedure, or DRG code;
+Accepts a dataframe that contains, at a minimum, columns that hold a diagnostic, procedure, or DRG code;
     a code-type descriptor to define if the code is diagnostic, procedure, or DRG;
     and version information about the code to indicate if the code is ICD9, ICD10, DRG, or CPT/HCPCS.
 """

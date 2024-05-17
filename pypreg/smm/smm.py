@@ -6,9 +6,9 @@ Dave Walsh 30 May 2023
 Department of Biomedical and Health Informatics
 UMKC
 
-Looks at a pandas dataframe containing ICD9 and IC10 diagnositic and procedure codes to report out the presence of
+Looks at a pandas dataframe containing ICD9 and IC10 diagnostic and procedure codes to report out the presence of
 Severe Maternal Morbidity (SMM) and transfusion. The function includes an option to report out the subgroups
-making up a SMM determination. The function can also accept codes in other systems, but will ignore them.
+making up an SMM determination. The function can also accept codes in other systems, but will ignore them.
 
 Since SMM is only defined in the context of a delivery encounter, the user should ensure that they are only
 processing data from delivery/outcome encounters.
@@ -46,7 +46,8 @@ def smm(df: pd.DataFrame,
     :param code: The DX or PX code assigned during that encounter
     :param indicators: Optional boolean to return the full slate of indicators and not only SMM and Transfusion columns
 
-    :return: Returns a condensed pandas dataframe with the delivery encounter identifier and indicators for SMM and transfusion.
+    :return: Returns a condensed pandas dataframe with the delivery encounter identifier and indicators for SMM
+    and transfusion.
     Optionally returned individualized indicators for each of the 20 other classes that make up SMM.
 
     """
@@ -197,7 +198,6 @@ def smm(df: pd.DataFrame,
     smm_encs = pd.concat([matched_dx9,
                           matched_dx10,
                           matched_px])
-
 
 
     # If the user wants a reporting of each indicator in addition to SMM and transfusion

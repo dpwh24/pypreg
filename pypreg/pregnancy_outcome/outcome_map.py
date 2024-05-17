@@ -4,14 +4,15 @@ They include the top-level code to account for idiosyncracies in different secon
 
 Original codes are sourced from:
     Moll K FK Wong H-L. Task order HHSF22301001T: Pregnancy outcomes
-validation final report. U.S. Food; Drug Administration; 2020. Available at: https://www.bestinitiative.org/wp-content/uploads/2020/08/Validating_
+validation final report. U.S. Food; Drug Administration; 2020. Available at:
+https://www.bestinitiative.org/wp-content/uploads/2020/08/Validating_
 Pregnancy_Outcomes_Linked_Database_Report_2020-1.pdf
 
 Crosswalked codes are retrieved via General Equivalence Mappings. ICD10 codes are mapped back to ICD9, and ICD9 codes
-are mapped forward to ICD10. The resulting codes are reviewed and kept if they are related to an obstetric outcome, and,
+are mapped forward to ICD10. The resulting codes were reviewed and kept if they are related to an obstetric outcome, and,
 if the original ICD10 code broadly refers to labor and delivery, then the mapped codes may also.
 
-Expanded codes are added based upon a review of ICD9 and ICD10 codes for other obstetric outcomes not captured,
+Expanded codes were added based upon a review of ICD9 and ICD10 codes for other obstetric outcomes not captured,
 specifically the delivered episode of care codes contained in ICD9.
 """
 
@@ -273,45 +274,59 @@ delivery[drg][drg][moll] = (
 # Convert to Pandas
 # ======================
 ectopic = pd.DataFrame.from_dict(ectopic, orient='index').stack().to_frame()
-ectopic = pd.DataFrame(ectopic[0].values.tolist(), index=ectopic.index)
+ectopic = pd.DataFrame(ectopic[0].values.tolist(),
+                       index=ectopic.index)
 ectopic = ectopic.stack().to_frame()
-ectopic = pd.DataFrame(ectopic[0].values.tolist(), index=ectopic.index).stack().reset_index().drop('level_3', axis=1)
+ectopic = pd.DataFrame(ectopic[0].values.tolist(),
+                       index=ectopic.index).stack().reset_index().drop('level_3', axis=1)
 ectopic['outcome'] = outcome_list[4]
 
 trophoblastic = pd.DataFrame.from_dict(trophoblastic, orient='index').stack().to_frame()
-trophoblastic = pd.DataFrame(trophoblastic[0].values.tolist(), index=trophoblastic.index)
+trophoblastic = pd.DataFrame(trophoblastic[0].values.tolist(),
+                             index=trophoblastic.index)
 trophoblastic = trophoblastic.stack().to_frame()
-trophoblastic = pd.DataFrame(trophoblastic[0].values.tolist(), index=trophoblastic.index).stack().reset_index().drop('level_3', axis=1)
+trophoblastic = pd.DataFrame(trophoblastic[0].values.tolist(),
+                             index=trophoblastic.index).stack().reset_index().drop('level_3', axis=1)
 trophoblastic['outcome'] = outcome_list[3]
 
 spontaneous_abortion = pd.DataFrame.from_dict(spontaneous_abortion, orient='index').stack().to_frame()
-spontaneous_abortion = pd.DataFrame(spontaneous_abortion[0].values.tolist(), index=spontaneous_abortion.index)
+spontaneous_abortion = pd.DataFrame(spontaneous_abortion[0].values.tolist(),
+                                    index=spontaneous_abortion.index)
 spontaneous_abortion = spontaneous_abortion.stack().to_frame()
-spontaneous_abortion = pd.DataFrame(spontaneous_abortion[0].values.tolist(), index=spontaneous_abortion.index).stack().reset_index().drop('level_3', axis=1)
+spontaneous_abortion = pd.DataFrame(spontaneous_abortion[0].values.tolist(),
+                                    index=spontaneous_abortion.index).stack().reset_index().drop('level_3', axis=1)
 spontaneous_abortion['outcome'] = outcome_list[6]
 
 therapeutic_abortion = pd.DataFrame.from_dict(therapeutic_abortion, orient='index').stack().to_frame()
-therapeutic_abortion = pd.DataFrame(therapeutic_abortion[0].values.tolist(), index=therapeutic_abortion.index)
+therapeutic_abortion = pd.DataFrame(therapeutic_abortion[0].values.tolist(),
+                                    index=therapeutic_abortion.index)
 therapeutic_abortion = therapeutic_abortion.stack().to_frame()
-therapeutic_abortion = pd.DataFrame(therapeutic_abortion[0].values.tolist(), index=therapeutic_abortion.index).stack().reset_index().drop('level_3', axis=1)
+therapeutic_abortion = pd.DataFrame(therapeutic_abortion[0].values.tolist(),
+                                    index=therapeutic_abortion.index).stack().reset_index().drop('level_3', axis=1)
 therapeutic_abortion['outcome'] = outcome_list[5]
 
 stillbirth = pd.DataFrame.from_dict(stillbirth, orient='index').stack().to_frame()
-stillbirth = pd.DataFrame(stillbirth[0].values.tolist(), index=stillbirth.index)
+stillbirth = pd.DataFrame(stillbirth[0].values.tolist(),
+                          index=stillbirth.index)
 stillbirth = stillbirth.stack().to_frame()
-stillbirth = pd.DataFrame(stillbirth[0].values.tolist(), index=stillbirth.index).stack().reset_index().drop('level_3', axis=1)
+stillbirth = pd.DataFrame(stillbirth[0].values.tolist(),
+                          index=stillbirth.index).stack().reset_index().drop('level_3', axis=1)
 stillbirth['outcome'] = outcome_list[1]
 
 live_birth = pd.DataFrame.from_dict(live_birth, orient='index').stack().to_frame()
-live_birth = pd.DataFrame(live_birth[0].values.tolist(), index=live_birth.index)
+live_birth = pd.DataFrame(live_birth[0].values.tolist(),
+                          index=live_birth.index)
 live_birth = live_birth.stack().to_frame()
-live_birth = pd.DataFrame(live_birth[0].values.tolist(), index=live_birth.index).stack().reset_index().drop('level_3', axis=1)
+live_birth = pd.DataFrame(live_birth[0].values.tolist(),
+                          index=live_birth.index).stack().reset_index().drop('level_3', axis=1)
 live_birth['outcome'] = outcome_list[0]
 
 delivery = pd.DataFrame.from_dict(delivery, orient='index').stack().to_frame()
-delivery = pd.DataFrame(delivery[0].values.tolist(), index=delivery.index)
+delivery = pd.DataFrame(delivery[0].values.tolist(),
+                        index=delivery.index)
 delivery = delivery.stack().to_frame()
-delivery = pd.DataFrame(delivery[0].values.tolist(), index=delivery.index).stack().reset_index().drop('level_3', axis=1)
+delivery = pd.DataFrame(delivery[0].values.tolist(),
+                        index=delivery.index).stack().reset_index().drop('level_3', axis=1)
 delivery['outcome'] = outcome_list[2]
 
 columns = ['type', 'version', 'schema', 'code', 'outcome']

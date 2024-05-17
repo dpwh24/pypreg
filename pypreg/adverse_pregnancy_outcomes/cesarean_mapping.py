@@ -1,7 +1,8 @@
 """
 Codes sourced from:
 
-Agency for Healthcare Research and Quality: https://qualityindicators.ahrq.gov/Downloads/Modules/IQI/V50-ICD10/TechSpecs/IQI%2021%20Cesarean%20Delivery%20Rate,%20Uncomplicated.pdf
+Agency for Healthcare Research and Quality:
+https://qualityindicators.ahrq.gov/Downloads/Modules/IQI/V50-ICD10/TechSpecs/IQI%2021%20Cesarean%20Delivery%20Rate,%20Uncomplicated.pdf
 
 Castillo, Wendy Camelo / Boggess, Kim / Stürmer, Til / Brookhart, M. Alan / Benjamin, Daniel K. / Funk, Michele Jonsson
     Trends in Glyburide Compared With Insulin Use for Gestational Diabetes Treatment in the United States, 2000-2011
@@ -21,7 +22,7 @@ code = 'code'
 cesarean[type] = dict()
 cesarean[type][version] = dict()
 cesarean[type][version][code] = (
-    "^74([0-24]|99)$", #74.9 excluded as child code should be used (could also describe hysterotomy 74.91
+    "^74([0-24]|99)$",  #74.9 excluded as child code should be used (could also describe hysterotomy 74.91
 )
 
 version = 'ICD10'
@@ -77,6 +78,7 @@ cesarean[type][version][code] = (
 
 cesarean = pd.DataFrame.from_dict(cesarean, orient='index').stack().to_frame()
 cesarean = pd.DataFrame(cesarean[0].values.tolist(), index=cesarean.index)
-cesarean = pd.DataFrame(cesarean[code].values.tolist(), index=cesarean.index).stack().reset_index().drop('level_2', axis=1)
+cesarean = pd.DataFrame(cesarean[code].values.tolist(), index=cesarean.index).stack().reset_index().drop('level_2',
+                                                                                                         axis=1)
 
 cesarean.columns = ['type', 'version', 'code']

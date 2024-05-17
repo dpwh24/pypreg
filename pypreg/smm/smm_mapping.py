@@ -525,108 +525,150 @@ transfusion[type][version][code] = (
 # Convert to Pandas
 # ======================
 acute_mi = pd.DataFrame.from_dict(acute_mi, orient='index').stack().to_frame()
-acute_mi = pd.DataFrame(acute_mi[0].values.tolist(), index=acute_mi.index)
-acute_mi = pd.DataFrame(acute_mi[code].values.tolist(), index=acute_mi.index).stack().reset_index().drop('level_2', axis=1)
+acute_mi = pd.DataFrame(acute_mi[0].values.tolist(),
+                        index=acute_mi.index)
+acute_mi = pd.DataFrame(acute_mi[code].values.tolist(),
+                        index=acute_mi.index).stack().reset_index().drop('level_2', axis=1)
 acute_mi['indicator'] = 'acute_myocardial_infarction'
 
 aneur = pd.DataFrame.from_dict(aneur, orient='index').stack().to_frame()
-aneur = pd.DataFrame(aneur[0].values.tolist(), index=aneur.index)
-aneur = pd.DataFrame(aneur[code].values.tolist(), index=aneur.index).stack().reset_index().drop('level_2', axis=1)
+aneur = pd.DataFrame(aneur[0].values.tolist(),
+                     index=aneur.index)
+aneur = pd.DataFrame(aneur[code].values.tolist(),
+                     index=aneur.index).stack().reset_index().drop('level_2', axis=1)
 aneur['indicator'] = 'aneurysm'
 
 renal = pd.DataFrame.from_dict(renal, orient='index').stack().to_frame()
-renal = pd.DataFrame(renal[0].values.tolist(), index=renal.index)
-renal = pd.DataFrame(renal[code].values.tolist(), index=renal.index).stack().reset_index().drop('level_2', axis=1)
+renal = pd.DataFrame(renal[0].values.tolist(),
+                     index=renal.index)
+renal = pd.DataFrame(renal[code].values.tolist(),
+                     index=renal.index).stack().reset_index().drop('level_2', axis=1)
 renal['indicator'] = 'acute_renal_failure'
 
 adult_rds = pd.DataFrame.from_dict(adult_rds, orient='index').stack().to_frame()
-adult_rds = pd.DataFrame(adult_rds[0].values.tolist(), index=adult_rds.index)
-adult_rds = pd.DataFrame(adult_rds[code].values.tolist(), index=adult_rds.index).stack().reset_index().drop('level_2', axis=1)
+adult_rds = pd.DataFrame(adult_rds[0].values.tolist(),
+                         index=adult_rds.index)
+adult_rds = pd.DataFrame(adult_rds[code].values.tolist(),
+                         index=adult_rds.index).stack().reset_index().drop('level_2', axis=1)
 adult_rds['indicator'] = 'adult_respiratory_distress_syndrome'
 
 amniotic_emb = pd.DataFrame.from_dict(amniotic_emb, orient='index').stack().to_frame()
-amniotic_emb = pd.DataFrame(amniotic_emb[0].values.tolist(), index=amniotic_emb.index)
-amniotic_emb = pd.DataFrame(amniotic_emb[code].values.tolist(), index=amniotic_emb.index).stack().reset_index().drop('level_2', axis=1)
+amniotic_emb = pd.DataFrame(amniotic_emb[0].values.tolist(),
+                            index=amniotic_emb.index)
+amniotic_emb = pd.DataFrame(amniotic_emb[code].values.tolist(),
+                            index=amniotic_emb.index).stack().reset_index().drop('level_2', axis=1)
 amniotic_emb['indicator'] = 'amniotic_fluid_embolism'
 
 card_arrest = pd.DataFrame.from_dict(card_arrest, orient='index').stack().to_frame()
-card_arrest = pd.DataFrame(card_arrest[0].values.tolist(), index=card_arrest.index)
-card_arrest = pd.DataFrame(card_arrest[code].values.tolist(), index=card_arrest.index).stack().reset_index().drop('level_2', axis=1)
+card_arrest = pd.DataFrame(card_arrest[0].values.tolist(),
+                           index=card_arrest.index)
+card_arrest = pd.DataFrame(card_arrest[code].values.tolist(),
+                           index=card_arrest.index).stack().reset_index().drop('level_2', axis=1)
 card_arrest['indicator'] = 'cardiac_arrest_ventricular_fibrillation'
 
 cardiac_rhythm = pd.DataFrame.from_dict(cardiac_rhythm, orient='index').stack().to_frame()
-cardiac_rhythm = pd.DataFrame(cardiac_rhythm[0].values.tolist(), index=cardiac_rhythm.index)
-cardiac_rhythm = pd.DataFrame(cardiac_rhythm[code].values.tolist(), index=cardiac_rhythm.index).stack().reset_index().drop('level_2', axis=1)
+cardiac_rhythm = pd.DataFrame(cardiac_rhythm[0].values.tolist(),
+                              index=cardiac_rhythm.index)
+cardiac_rhythm = pd.DataFrame(cardiac_rhythm[code].values.tolist(),
+                              index=cardiac_rhythm.index).stack().reset_index().drop('level_2', axis=1)
 cardiac_rhythm['indicator'] = 'conversion_of_cardiac_rhythm'
 
 intra_coag = pd.DataFrame.from_dict(intra_coag, orient='index').stack().to_frame()
-intra_coag = pd.DataFrame(intra_coag[0].values.tolist(), index=intra_coag.index)
-intra_coag = pd.DataFrame(intra_coag[code].values.tolist(), index=intra_coag.index).stack().reset_index().drop('level_2', axis=1)
+intra_coag = pd.DataFrame(intra_coag[0].values.tolist(),
+                          index=intra_coag.index)
+intra_coag = pd.DataFrame(intra_coag[code].values.tolist(),
+                          index=intra_coag.index).stack().reset_index().drop('level_2', axis=1)
 intra_coag['indicator'] = 'disseminated_intravascular_coagulation'
 
 eclampsia = pd.DataFrame.from_dict(eclampsia, orient='index').stack().to_frame()
-eclampsia = pd.DataFrame(eclampsia[0].values.tolist(), index=eclampsia.index)
-eclampsia = pd.DataFrame(eclampsia[code].values.tolist(), index=eclampsia.index).stack().reset_index().drop('level_2', axis=1)
+eclampsia = pd.DataFrame(eclampsia[0].values.tolist(),
+                         index=eclampsia.index)
+eclampsia = pd.DataFrame(eclampsia[code].values.tolist(),
+                         index=eclampsia.index).stack().reset_index().drop('level_2', axis=1)
 eclampsia['indicator'] = 'eclampsia'
 
 heart_fail = pd.DataFrame.from_dict(heart_fail, orient='index').stack().to_frame()
-heart_fail = pd.DataFrame(heart_fail[0].values.tolist(), index=heart_fail.index)
-heart_fail = pd.DataFrame(heart_fail[code].values.tolist(), index=heart_fail.index).stack().reset_index().drop('level_2', axis=1)
+heart_fail = pd.DataFrame(heart_fail[0].values.tolist(),
+                          index=heart_fail.index)
+heart_fail = pd.DataFrame(heart_fail[code].values.tolist(),
+                          index=heart_fail.index).stack().reset_index().drop('level_2', axis=1)
 heart_fail['indicator'] = 'heart_failure_arrest_during_surgery_or_procedure'
 
 puerp_cv = pd.DataFrame.from_dict(puerp_cv, orient='index').stack().to_frame()
-puerp_cv = pd.DataFrame(puerp_cv[0].values.tolist(), index=puerp_cv.index)
-puerp_cv = pd.DataFrame(puerp_cv[code].values.tolist(), index=puerp_cv.index).stack().reset_index().drop('level_2', axis=1)
+puerp_cv = pd.DataFrame(puerp_cv[0].values.tolist(),
+                        index=puerp_cv.index)
+puerp_cv = pd.DataFrame(puerp_cv[code].values.tolist(),
+                        index=puerp_cv.index).stack().reset_index().drop('level_2', axis=1)
 puerp_cv['indicator'] = 'puerperal_cerebrovascular_disorders'
 
 pulm_edema = pd.DataFrame.from_dict(pulm_edema, orient='index').stack().to_frame()
-pulm_edema = pd.DataFrame(pulm_edema[0].values.tolist(), index=pulm_edema.index)
-pulm_edema = pd.DataFrame(pulm_edema[code].values.tolist(), index=pulm_edema.index).stack().reset_index().drop('level_2', axis=1)
+pulm_edema = pd.DataFrame(pulm_edema[0].values.tolist(),
+                          index=pulm_edema.index)
+pulm_edema = pd.DataFrame(pulm_edema[code].values.tolist(),
+                          index=pulm_edema.index).stack().reset_index().drop('level_2', axis=1)
 pulm_edema['indicator'] = 'pulmonary_edema_acute_heart_failure'
 
 anest_comp = pd.DataFrame.from_dict(anest_comp, orient='index').stack().to_frame()
-anest_comp = pd.DataFrame(anest_comp[0].values.tolist(), index=anest_comp.index)
-anest_comp = pd.DataFrame(anest_comp[code].values.tolist(), index=anest_comp.index).stack().reset_index().drop('level_2', axis=1)
+anest_comp = pd.DataFrame(anest_comp[0].values.tolist(),
+                          index=anest_comp.index)
+anest_comp = pd.DataFrame(anest_comp[code].values.tolist(),
+                          index=anest_comp.index).stack().reset_index().drop('level_2', axis=1)
 anest_comp['indicator'] = 'severe_anesthesia_complications'
 
 sepsis = pd.DataFrame.from_dict(sepsis, orient='index').stack().to_frame()
-sepsis = pd.DataFrame(sepsis[0].values.tolist(), index=sepsis.index)
-sepsis = pd.DataFrame(sepsis[code].values.tolist(), index=sepsis.index).stack().reset_index().drop('level_2', axis=1)
+sepsis = pd.DataFrame(sepsis[0].values.tolist(),
+                      index=sepsis.index)
+sepsis = pd.DataFrame(sepsis[code].values.tolist(),
+                      index=sepsis.index).stack().reset_index().drop('level_2', axis=1)
 sepsis['indicator'] = 'sepsis'
 
 shock = pd.DataFrame.from_dict(shock, orient='index').stack().to_frame()
-shock = pd.DataFrame(shock[0].values.tolist(), index=shock.index)
-shock = pd.DataFrame(shock[code].values.tolist(), index=shock.index).stack().reset_index().drop('level_2', axis=1)
+shock = pd.DataFrame(shock[0].values.tolist(),
+                     index=shock.index)
+shock = pd.DataFrame(shock[code].values.tolist(),
+                     index=shock.index).stack().reset_index().drop('level_2', axis=1)
 shock['indicator'] = 'shock'
 
 sickle_cell = pd.DataFrame.from_dict(sickle_cell, orient='index').stack().to_frame()
-sickle_cell = pd.DataFrame(sickle_cell[0].values.tolist(), index=sickle_cell.index)
-sickle_cell = pd.DataFrame(sickle_cell[code].values.tolist(), index=sickle_cell.index).stack().reset_index().drop('level_2', axis=1)
+sickle_cell = pd.DataFrame(sickle_cell[0].values.tolist(),
+                           index=sickle_cell.index)
+sickle_cell = pd.DataFrame(sickle_cell[code].values.tolist(),
+                           index=sickle_cell.index).stack().reset_index().drop('level_2', axis=1)
 sickle_cell['indicator'] = 'sickle_cell_disease_with_crisis'
 
 embolism = pd.DataFrame.from_dict(embolism, orient='index').stack().to_frame()
-embolism = pd.DataFrame(embolism[0].values.tolist(), index=embolism.index)
-embolism = pd.DataFrame(embolism[code].values.tolist(), index=embolism.index).stack().reset_index().drop('level_2', axis=1)
+embolism = pd.DataFrame(embolism[0].values.tolist(),
+                        index=embolism.index)
+embolism = pd.DataFrame(embolism[code].values.tolist(),
+                        index=embolism.index).stack().reset_index().drop('level_2', axis=1)
 embolism['indicator'] = 'air_and_thrombotic_embolism'
 
 hysterectomy = pd.DataFrame.from_dict(hysterectomy, orient='index').stack().to_frame()
-hysterectomy = pd.DataFrame(hysterectomy[0].values.tolist(), index=hysterectomy.index)
-hysterectomy = pd.DataFrame(hysterectomy[code].values.tolist(), index=hysterectomy.index).stack().reset_index().drop('level_2', axis=1)
+hysterectomy = pd.DataFrame(hysterectomy[0].values.tolist(),
+                            index=hysterectomy.index)
+hysterectomy = pd.DataFrame(hysterectomy[code].values.tolist(),
+                            index=hysterectomy.index).stack().reset_index().drop('level_2', axis=1)
 hysterectomy['indicator'] = 'hysterectomy'
 
 trach = pd.DataFrame.from_dict(trach, orient='index').stack().to_frame()
-trach = pd.DataFrame(trach[0].values.tolist(), index=trach.index)
-trach = pd.DataFrame(trach[code].values.tolist(), index=trach.index).stack().reset_index().drop('level_2', axis=1)
+trach = pd.DataFrame(trach[0].values.tolist(),
+                     index=trach.index)
+trach = pd.DataFrame(trach[code].values.tolist(),
+                     index=trach.index).stack().reset_index().drop('level_2', axis=1)
 trach['indicator'] = 'temporary_tracheostomy'
 
 vent = pd.DataFrame.from_dict(vent, orient='index').stack().to_frame()
-vent = pd.DataFrame(vent[0].values.tolist(), index=vent.index)
-vent = pd.DataFrame(vent[code].values.tolist(), index=vent.index).stack().reset_index().drop('level_2', axis=1)
+vent = pd.DataFrame(vent[0].values.tolist(),
+                    index=vent.index)
+vent = pd.DataFrame(vent[code].values.tolist(),
+                    index=vent.index).stack().reset_index().drop('level_2', axis=1)
 vent['indicator'] = 'ventilation'
 
 transfusion = pd.DataFrame.from_dict(transfusion, orient='index').stack().to_frame()
-transfusion = pd.DataFrame(transfusion[0].values.tolist(), index=transfusion.index)
-transfusion = pd.DataFrame(transfusion[code].values.tolist(), index=transfusion.index).stack().reset_index().drop('level_2', axis=1)
+transfusion = pd.DataFrame(transfusion[0].values.tolist(),
+                           index=transfusion.index)
+transfusion = pd.DataFrame(transfusion[code].values.tolist(),
+                           index=transfusion.index).stack().reset_index().drop('level_2', axis=1)
 
 columns = ['smm_type', 'smm_version', 'smm_code', 'indicator']
 acute_mi.columns = columns

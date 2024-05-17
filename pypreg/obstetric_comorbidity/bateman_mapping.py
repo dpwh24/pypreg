@@ -61,7 +61,7 @@ eclampsia[version] = (
 )
 
 # ======================
-# Chronic renal disase
+# Chronic renal disease
 # ======================
 renal_disease = dict()
 renal_disease[version] = (
@@ -256,7 +256,7 @@ ischemic_hd['indicator'] = 'chronic ischemic heart disease'
 
 congenital_hd = pd.DataFrame.from_dict(congenital_hd, orient='index').stack().to_frame()
 congenital_hd = congenital_hd.reset_index().drop('level_1', axis=1)
-congenital_hd['indicator'] = 'congential heart disease'
+congenital_hd['indicator'] = 'congenital heart disease'
 
 lupus = pd.DataFrame.from_dict(lupus, orient='index').stack().to_frame()
 lupus = lupus.reset_index().drop('level_1', axis=1)

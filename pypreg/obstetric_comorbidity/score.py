@@ -11,7 +11,7 @@ def get_score(df: pd.DataFrame,
     """
     Entry point to the scoring section that directs the inputs to the appropriate version.
 
-    :param df: pandas dataframe containing patient and pregnancy identifiers with combordity indicators and weights
+    :param df: pandas dataframe containing patient and pregnancy identifiers with comorbidity indicators and weights
     :param method: Choice of 'leonard' or 'bateman' for obstetric index
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col:column that gives the pregnancy identifier
@@ -45,12 +45,12 @@ def bateman_score(df: pd.DataFrame,
     Totals up the score for the Batemen obstetric index. More severe preeclampsia and eclampsia preclude
      mild preeclampsia. Pre-existing hypertension and/or preeclampsia/eclampsia precludes gestational hypertension.
 
-    :param df: pandas dataframe containing patient and pregnancy identifiers with combordity indicators and weights
+    :param df: pandas dataframe containing patient and pregnancy identifiers with comorbidity indicators and weights
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
 
     -mild preeclampsia is only included if severe preeclampsia/eclampsia is absent
-    -gestational hypertension is only included if there is no pre-existing hypternsion nor preeclampsia/eclampsia
+    -gestational hypertension is only included if there is no pre-existing hypertension nor preeclampsia/eclampsia
 
     :return: Pandas dataframe containing patient and pregnancy identifiers with the total score
 
@@ -138,11 +138,12 @@ def leonard_score(df: pd.DataFrame,
     """
     Totals up the two Leonard scores. There are no caveats with this method like there are with Bateman
 
-    :param df: pandas dataframe containing patient and pregnancy identifiers with combordity indicators and weights
+    :param df: pandas dataframe containing patient and pregnancy identifiers with comorbidity indicators and weights
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
 
-    :return: Pandas dataframe containing patient and pregnancy identifiers with the score for SMM and non-Transfusion SMM
+    :return: Pandas dataframe containing patient and pregnancy identifiers with the score for SMM and
+    non-Transfusion SMM
     """
     from .leonard_mapping import leonard_map
 

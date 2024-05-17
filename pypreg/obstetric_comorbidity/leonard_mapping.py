@@ -317,7 +317,7 @@ bariatric['indicator'] = 'bariatric surgery'
 
 gi_disease = pd.DataFrame.from_dict(gi_disease, orient='index').stack().to_frame()
 gi_disease = gi_disease.reset_index().drop('level_1', axis=1)
-gi_disease['indicator'] = 'gastrointenstinal disease'
+gi_disease['indicator'] = 'gastrointestinal disease'
 
 mental_health = pd.DataFrame.from_dict(mental_health, orient='index').stack().to_frame()
 mental_health = mental_health.reset_index().drop('level_1', axis=1)
@@ -376,33 +376,33 @@ thyrotoxicosis.columns = columns
 age_category = ['<35', '>=35']
 
 # Assign weights for each condition for SMM and non-transfusion SMM
-weights = {gest_dm['indicator'][0]: (1,1),
-           hiv['indicator'][0]: (30,13),
-           diabetes['indicator'][0]: (9,6),
-           cesarean['indicator'][0]: (4,0),
-           pulm_ht['indicator'][0]: (50,32),
-           multiple_gest['indicator'][0]: (20,8),
-           asthma['indicator'][0]: (11,9),
-           bleeding['indicator'][0]: (34,23),
-           obesity['indicator'][0]: (5,4),
-           cardiac_disease['indicator'][0]: (31,22),
-           hypertension['indicator'][0]: (10,7),
-           renal['indicator'][0]: (38,26),
-           autoimmune['indicator'][0]: (10,7),
-           placenta_previa['indicator'][0]: (27,13),
-           preeclampsia['indicator'][0]: (26,16),
-           mild_preeclampsia['indicator'][0]: (11,6),
-           substance_use['indicator'][0]: (10,5),
-           anemia['indicator'][0]: (20,7),
-           bariatric['indicator'][0]: (0,0),
-           gi_disease['indicator'][0]: (12,8),
-           mental_health['indicator'][0]: (7,4),
-           neuromuscular['indicator'][0]: (9,8),
-           abruption['indicator'][0]: (18,7),
-           accreta['indicator'][0]: (59,36),
-           preterm['indicator'][0]: (18,12),
-           thyrotoxicosis['indicator'][0]: (6,0),
-           age_category[1]: (2,1)
+weights = {gest_dm['indicator'][0]: (1, 1),
+           hiv['indicator'][0]: (30, 13),
+           diabetes['indicator'][0]: (9, 6),
+           cesarean['indicator'][0]: (4, 0),
+           pulm_ht['indicator'][0]: (50, 32),
+           multiple_gest['indicator'][0]: (20, 8),
+           asthma['indicator'][0]: (11, 9),
+           bleeding['indicator'][0]: (34, 23),
+           obesity['indicator'][0]: (5, 4),
+           cardiac_disease['indicator'][0]: (31, 22),
+           hypertension['indicator'][0]: (10, 7),
+           renal['indicator'][0]: (38, 26),
+           autoimmune['indicator'][0]: (10, 7),
+           placenta_previa['indicator'][0]: (27, 13),
+           preeclampsia['indicator'][0]: (26, 16),
+           mild_preeclampsia['indicator'][0]: (11, 6),
+           substance_use['indicator'][0]: (10, 5),
+           anemia['indicator'][0]: (20, 7),
+           bariatric['indicator'][0]: (0, 0),
+           gi_disease['indicator'][0]: (12, 8),
+           mental_health['indicator'][0]: (7, 4),
+           neuromuscular['indicator'][0]: (9, 8),
+           abruption['indicator'][0]: (18, 7),
+           accreta['indicator'][0]: (59, 36),
+           preterm['indicator'][0]: (18, 12),
+           thyrotoxicosis['indicator'][0]: (6, 0),
+           age_category[1]: (2, 1)
            }
 
 weights = pd.DataFrame.from_dict(weights, orient='index', columns=['smm score', 'non-transfusion smm score'])
