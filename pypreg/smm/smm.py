@@ -6,12 +6,13 @@ Dave Walsh 30 May 2023
 Department of Biomedical and Health Informatics
 UMKC
 
-Looks at a pandas dataframe containing ICD9 and IC10 diagnostic and procedure codes to report out the presence of
-Severe Maternal Morbidity (SMM) and TRANSFUSION. The function includes an option to report out the subgroups
-making up an SMM determination. The function can also accept codes in other systems, but will ignore them.
+Looks at a pandas dataframe containing ICD9 and IC10 diagnostic and procedure
+codes to report out the presence of Severe Maternal Morbidity (SMM) and TRANSFUSION.
+The function includes an option to report out the subgroups making up an SMM
+determination. The function can also accept codes in other systems, but will ignore them.
 
-Since SMM is only defined in the context of a delivery encounter, the user should ensure that they are only
-processing data from delivery/outcome encounters.
+Since SMM is only defined in the context of a delivery encounter,
+the user should ensure that they are only processing data from delivery/outcome encounters.
 
 SMM definition is based on the CDC definition:
 https://www.cdc.gov/reproductivehealth/maternalinfanthealth/smm/severe-morbidity-ICD.htm
@@ -23,9 +24,9 @@ https://saferbirth.org/wp-content/uploads/Updated-AIM-SMM-Code-List_10152021.xls
 
 """
 
-from .smm_mapping import _SMM, TRANSFUSION, ICD9, ICD10
-import pandas as pd
 import warnings
+import pandas as pd
+from .smm_mapping import _SMM, TRANSFUSION, ICD9, ICD10
 
 
 def smm(df: pd.DataFrame,
@@ -38,23 +39,28 @@ def smm(df: pd.DataFrame,
     Processes a pandas dataframe to indicate if an encounter contained codes consistent with
     Severe Maternal Morbidity(SMM).
 
-    :param df: A pandas dataframe that contains at least 4 columns to identify the delivery encounter, the code_type of CODE,
-    the VERSION of the CODE, and the CODE itself - encounters may exist on multiple lines to account for multiple codes
+    :param df: A pandas dataframe that contains at least 4 columns to identify
+    the delivery encounter, the code_type of CODE, the VERSION of the CODE,
+    and the CODE itself - encounters may exist on multiple lines to account
+    for multiple codes
     :param enc_id: Encounter identifier that contains the pregnancy outcome
     :param code_type: One of either DX - Diagnosis or PX - Procedure
-    :param version:  Only accepts CODE versions for ICD9 or ICD10 (9/ICD9, 10/ICD10/ICD10-CM/ICD10-PCS)
+    :param version:  Only accepts CODE versions for ICD9 or ICD10
+    (9/ICD9, 10/ICD10/ICD10-CM/ICD10-PCS)
     :param code: The DX or PX CODE assigned during that encounter
-    :param indicators: Optional boolean to return the full slate of indicators and not only SMM and Transfusion columns
+    :param indicators: Optional boolean to return the full slate of indicators
+    and not only SMM and Transfusion columns
 
-    :return: Returns a condensed pandas dataframe with the delivery encounter identifier and indicators for SMM
-    and TRANSFUSION.
+    :return: Returns a condensed pandas dataframe with the delivery
+    encounter identifier and indicators for SMM and TRANSFUSION.
     Optionally returned individualized indicators for each of the 20 other classes that make up SMM.
 
     """
 
     # Error checking to ensure the reported columns are contained in the dataframe
     if not {enc_id, code_type, version, code}.issubset(df.columns):
-        raise KeyError(f"Ensure that columns {[enc_id, code_type, version, code]} are present in the data.")
+        raise KeyError(f"Ensure that columns {[enc_id, code_type, version, code]}"
+                       f" are present in the data.")
 
     package_cols = {enc_id: 'encounter_id',
                     version: 'VERSION',
@@ -90,32 +96,39 @@ def smm(df: pd.DataFrame,
     # Make a copy of the dataframe to avoid warnings about working on the original
     df = df[[enc_id, code_type, version, code]].copy()
 
-    # Check the contents of the Type column and warn user if the contents don't match the expected types
-    # This doesn't constitute an error as the dataset could contain valid codes from other systems for other uses
+    # Check the contents of the Type column and warn user if
+    # the contents don't match the expected types. This doesn't
+    # constitute an error as the dataset could contain valid
+    # codes from other systems for other uses.
     df[code_type] = df[code_type].str.lower()
     df_types = set(df[code_type].unique().flat)
     this_types = set([val for value in types.values() for val in value])
     if not df_types.issubset(this_types):
-        warnings.warn(f"Some CODE types ({df_types-this_types}) do not match {this_types}."
+        warnings.warn(f"Some code types ({df_types-this_types}) do not match {this_types}."
                       f" Ensure these are not in error.", stacklevel=2)
 
-    # Check the contents of the Version column and warn user if the contents don't match the expected
-    # This doesn't constitute an error as the dataset could contain valid codes from other systems for other uses
+    # Check the contents of the Version column and warn user
+    # if the contents don't match the expected. This doesn't
+    # constitute an error as the dataset could contain valid
+    # codes from other systems for other uses
     df[version] = df[version].str.upper()
     df_versions = set(df[version].unique().flat)
     this_versions = set([val for value in versions.values() for val in value])
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some CODE versions ({df_versions-this_versions}) do not match {this_versions}."
+        warnings.warn(f"Some code versions ({df_versions-this_versions})"
+                      f" do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Convert dictionary to dataframe
     types = pd.DataFrame.from_dict(types, orient='index').stack().to_frame()
-    types = pd.DataFrame(types[0].values.tolist(), index=types.index).reset_index().drop('level_1', axis=1)
+    types = pd.DataFrame(types[0].values.tolist(),
+                         index=types.index).reset_index().drop('level_1', axis=1)
     types.columns = [code_type, 'type_match']
 
     # Convert dictionary to dataframe
     versions = pd.DataFrame.from_dict(versions, orient='index').stack().to_frame()
-    versions = pd.DataFrame(versions[0].values.tolist(), index=versions.index).reset_index().drop('level_1', axis=1)
+    versions = pd.DataFrame(versions[0].values.tolist(),
+                            index=versions.index).reset_index().drop('level_1', axis=1)
     versions.columns = [version, 'version_match']
 
     # Replace Type and Version in the provided dataframe with standard forms
@@ -203,12 +216,14 @@ def smm(df: pd.DataFrame,
     # If the user wants a reporting of each indicator in addition to SMM and TRANSFUSION
     if indicators:
         # Join the SMM panda again, but keep the indicator column.
-        # This may result in an indicator not being present in the final output as it's not present in the data
+        # This may result in an indicator not being present in the
+        # final output as it's not present in the data
         matched_dx9_indicators = matched_dx9.merge(_SMM[['indicator',
                                                          'smm_type',
                                                          'smm_version',
                                                          'smm_code']],
-                                                   how='right',  #right merge to keep all indicator columns
+                                                   # right merge to keep all indicator columns
+                                                   how='right',
                                                    left_on=[code_type,
                                                             version,
                                                             'regex'],
@@ -219,7 +234,8 @@ def smm(df: pd.DataFrame,
                                                            'smm_type',
                                                            'smm_version',
                                                            'smm_code']],
-                                                     how='right',  # right merge to keep all indicator columns
+                                                     # right merge to keep all indicator columns
+                                                     how='right',
                                                      left_on=[code_type,
                                                               version,
                                                               'regex'],
@@ -230,7 +246,8 @@ def smm(df: pd.DataFrame,
                                                        'smm_type',
                                                        'smm_version',
                                                        'smm_code']],
-                                                 how='right',  # right merge to keep all indicator columns
+                                                 # right merge to keep all indicator columns
+                                                 how='right',
                                                  left_on=[code_type,
                                                           version,
                                                           'regex'],

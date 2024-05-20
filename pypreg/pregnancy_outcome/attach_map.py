@@ -1,14 +1,15 @@
 """
 Process to attach the outcome map to the data.
 
-Accepts a dataframe that contains, at a minimum, columns that hold a diagnostic, procedure, or DRG CODE;
-    a CODE-code_type descriptor to define if the CODE is diagnostic, procedure, or DRG;
-    and VERSION information about the CODE to indicate if the CODE is ICD9, ICD10, DRG, or CPT/HCPCS.
+Accepts a dataframe that contains, at a minimum, columns that hold a
+diagnostic, PROCEDURE, or DRG CODE; a CODE_TYPE descriptor to define
+if the CODE is diagnostic, PROCEDURE, or DRG; and VERSION information
+about the CODE to indicate if the CODE is ICD9, ICD10, DRG, or CPT/HCPCS.
 """
 
 
 import pandas as pd
-from .outcome_map import outcomes, icd9, icd10
+from .outcome_map import OUTCOMES, ICD9, ICD10
 
 
 def attach_map(df: pd.DataFrame,
@@ -17,30 +18,31 @@ def attach_map(df: pd.DataFrame,
                version_col: str,
                expanded: bool = False):
     """
-    Method to attach outcome classification to diagnostic, procedure, and DRG codes. Moll/Crosswalk codes are used by
-    default, user may expand the list by setting the expanded parameter.
+    Method to attach outcome classification to diagnostic, PROCEDURE,
+    and DRG codes. Moll/Crosswalk codes are used by default, user may
+    expand the list by setting the EXPANDED parameter.
 
     :param df: pandas dataframe containing diagnostic codes and the CODE versions
 
     :param code_col: Column containing diagnostic codes
     :param type_col: Column containing information about the category of CODE (DX/PX/DRG)
     :param version_col: Column containing VERSION info about the CODE (ICD9/ICD10/CPT/DRG)
-    :param expanded: Defaults to False, user may elect to include the expanded CODE selection or only use
-                    the Moll/Crosswalk codes
+    :param expanded: Defaults to False, user may elect to include the EXPANDED
+    CODE selection or only use the Moll/Crosswalk codes
 
     :return: Returns the original dataframe with the outcome classification
     """
 
-    cols = df.columns
+    # cols = df.columns
 
     # Set reference for versions to be consistent
-    versions = [icd9,
-                icd10]
+    versions = [ICD9,
+                ICD10]
 
     # The regex does not consider dots, remove them
     df['adjusted_code'] = df[code_col].str.replace('.', '', regex=False)
 
-    # Limit the outcomes regex to their relevant sections to avoid erroneous matches
+    # Limit the OUTCOMES regex to their relevant sections to avoid erroneous matches
     dx9_outcomes, dx10_outcomes, px_outcomes, drg_outcomes = map_version_split(expanded)
 
     # Limit the data to be matched by code_type
@@ -53,16 +55,20 @@ def attach_map(df: pd.DataFrame,
     df_dx10 = df_dx[df_dx[version_col] == versions[1]].copy()
 
     # Apply the regex to the cleaned CODE column
-    df_dx9['regex'] = df_dx9['adjusted_code'].replace(dx9_outcomes['CODE'].to_list(), dx9_outcomes['CODE'].to_list(),
+    df_dx9['regex'] = df_dx9['adjusted_code'].replace(dx9_outcomes['CODE'].to_list(),
+                                                      dx9_outcomes['CODE'].to_list(),
                                                       regex=True)
     df_dx10['regex'] = df_dx10['adjusted_code'].replace(dx10_outcomes['CODE'].to_list(),
-                                                        dx10_outcomes['CODE'].to_list(), regex=True)
-    df_px['regex'] = df_px['adjusted_code'].replace(px_outcomes['CODE'].to_list(), px_outcomes['CODE'].to_list(),
+                                                        dx10_outcomes['CODE'].to_list(),
+                                                        regex=True)
+    df_px['regex'] = df_px['adjusted_code'].replace(px_outcomes['CODE'].to_list(),
+                                                    px_outcomes['CODE'].to_list(),
                                                     regex=True)
-    df_drg['regex'] = df_drg['adjusted_code'].replace(drg_outcomes['CODE'].to_list(), drg_outcomes['CODE'].to_list(),
+    df_drg['regex'] = df_drg['adjusted_code'].replace(drg_outcomes['CODE'].to_list(),
+                                                      drg_outcomes['CODE'].to_list(),
                                                       regex=True)
 
-    # Attach the outcomes by matching on the regex string
+    # Attach the OUTCOMES by matching on the regex string
     matched_dx9 = df_dx9.merge(dx9_outcomes[['CODE', 'outcome']],
                                how='inner',
                                left_on='regex',
@@ -101,24 +107,25 @@ def map_version_split(expanded: bool = False):
      -diagnostic codes
       -ICD-9
       -ICD-10
-     -procedure codes
+     -PROCEDURE codes
      -diagnostic related group codes
-    :param expanded: Boolean to indicate that an expanded CODE list is desired.
+    :param expanded: Boolean to indicate that an EXPANDED CODE list is desired.
     Defaults to only the CODE list adapted from Moll.
-    :return: Returns 4 dataframes with pregnancy endpoint codes in this order: ICD-9 diagnostic codes,
-    ICD-10 diagnostic codes, procedure codes, diagnostic related group codes.
+    :return: Returns 4 dataframes with pregnancy endpoint codes in this order:
+    ICD-9 diagnostic codes, ICD-10 diagnostic codes, PROCEDURE codes,
+    diagnostic related group codes.
     """
 
     # Limit the map to Moll/Crosswalk by default
-    map_df = outcomes[outcomes.schema != 'expanded']
+    map_df = OUTCOMES[OUTCOMES.schema != 'EXPANDED']
 
-    # Reassign the full outcomes list if user expands
+    # Reassign the full OUTCOMES list if user expands
     if expanded:
-        map_df = outcomes
+        map_df = OUTCOMES
 
-    # Limit the outcomes regex to their relevant sections to avoid erroneous matches
-    dx9_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == icd9)]
-    dx10_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == icd10)]
+    # Limit the OUTCOMES regex to their relevant sections to avoid erroneous matches
+    dx9_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == ICD9)]
+    dx10_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == ICD10)]
     px_outcomes = map_df[map_df.CODE_TYPE == 'PX']
     drg_outcomes = map_df[map_df.CODE_TYPE == 'DRG']
 

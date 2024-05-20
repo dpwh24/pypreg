@@ -6,18 +6,23 @@ Dave Walsh 13 June 2023
 Department of Biomedical and Health Informatics
 UMKC
 
-Looks at a pandas dataframe containing patient and pregnancy identifiers with diagnostic codes.
-Diagnostic codes must be labeled as ICD9 or ICD10. User indicates the desired comorbidity index.
+Looks at a pandas dataframe containing patient and pregnancy
+identifiers with diagnostic codes. Diagnostic codes must be
+labeled as ICD9 or ICD10. User indicates the desired comorbidity index.
 Returns the total score for each patient/pregnancy.
 
 Codes and scores are attributable to:
-    Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA, Creanga AA, Callaghan WM, Gagne JJ.
-    Development of a comorbidity index for use in obstetric patients. Obstet Gynecol. 2013 Nov;122(5):957-965.
-    doi: 10.1097/AOG.0b013e3182a603bb. PMID: 24104771; PMCID: PMC3829199.
+    Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA,
+        Creanga AA, Callaghan WM, Gagne JJ. Development of a comorbidity
+        index for use in obstetric patients. Obstet Gynecol.
+        2013 Nov;122(5):957-965. doi: 10.1097/AOG.0b013e3182a603bb.
+        PMID: 24104771; PMCID: PMC3829199.
 
     Leonard SA, Kennedy CJ, Carmichael SL, Lyell DJ, Main EK.
-    An Expanded Obstetric Comorbidity Scoring System for Predicting Severe Maternal Morbidity. Obstet Gynecol.
-    2020 Sep;136(3):440-449. doi: 10.1097/AOG.0000000000004022. PMID: 32769656; PMCID: PMC7523732.
+        An Expanded Obstetric Comorbidity Scoring System for
+        Predicting Severe Maternal Morbidity. Obstet Gynecol.
+        2020 Sep;136(3):440-449. doi: 10.1097/AOG.0000000000004022.
+        PMID: 32769656; PMCID: PMC7523732.
 
 """
 
@@ -32,15 +37,17 @@ def calc_index(df: pd.DataFrame,
                method: str,
                age_col: str = None,):
     """
-    Main function. Accepts a pandas dataframe of patient encounter data. Only ICD9/ICD10 diagnostic codes are accepted.
-    Appends the Leonard or Bateman score as chosen by the user. Bateman returns a single score, Leonard returns both a
-    TRANSFUSION and non-TRANSFUSION score.
+    Main function. Accepts a pandas dataframe of patient encounter data.
+    Only ICD9/ICD10 diagnostic codes are accepted. Appends the Leonard or
+    Bateman score as chosen by the user. Bateman returns a single score,
+    Leonard returns both a TRANSFUSION and non-TRANSFUSION score.
 
-    :param df: Pandas dataframe containing patient and pregnancy identifiers with ICD9/10 diagnostic codes
+    :param df: Pandas dataframe containing patient and pregnancy identifiers
+        with ICD9/10 diagnostic codes
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
     :param code_col: column that gives the diagnostic codes
-    :param version_col: column that indicates if the given diagnostic CODE is ICD9 or ICD10.
+    :param version_col: column that indicates if the given diagnostic code is ICD9 or ICD10.
     Accepts 9, ICD9, 10, ICD10, and ICD10-CMS
     :param method: Choice of 'leonard' or 'bateman' for obstetric index scores
     :param age_col: Optional column that gives the age of the patient
@@ -49,7 +56,9 @@ def calc_index(df: pd.DataFrame,
 
     # Error checking to ensure the reported columns are contained in the dataframe
     if not {patient_col, pregnancy_col, code_col, version_col}.issubset(df.columns):
-        raise KeyError(f"Ensure that columns {[patient_col, pregnancy_col, code_col, version_col]} are present in the data.")
+        raise KeyError(f"Ensure that columns "
+                       f"{[patient_col, pregnancy_col, code_col, version_col]} "
+                       f"are present in the data.")
 
     package_cols = {patient_col: 'group_id',
                     pregnancy_col: 'preg_num',
@@ -99,8 +108,10 @@ def calc_index(df: pd.DataFrame,
     else:
         df = df[[patient_col, pregnancy_col, version_col, code_col]].copy()
 
-    # Check the contents of the Version column and warn user if the contents don't match the expected
-    # This doesn't constitute an error as the dataset could contain valid codes from other systems for other uses
+    # Check the contents of the Version column and warn user if
+    # the contents don't match the expected. This doesn't constitute
+    # an error as the dataset could contain valid codes from other
+    # systems for other uses
     df[version_col] = df[version_col].astype(str)
     df[version_col] = df[version_col].str.upper()
     df_versions = set(df[version_col].unique().flat)
@@ -109,12 +120,14 @@ def calc_index(df: pd.DataFrame,
     import warnings
 
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some CODE versions ({df_versions - this_versions}) do not match {this_versions}."
+        warnings.warn(f"Some CODE versions ({df_versions - this_versions})"
+                      f" do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Convert dictionary to dataframe
     versions = pd.DataFrame.from_dict(versions, orient='index').stack().to_frame()
-    versions = pd.DataFrame(versions[0].values.tolist(), index=versions.index).reset_index().drop('level_1', axis=1)
+    versions = pd.DataFrame(versions[0].values.tolist(),
+                            index=versions.index).reset_index().drop('level_1', axis=1)
     versions.columns = ['VERSION', 'version_match']
 
     # Replace Version in the provided dataframe with a standard form

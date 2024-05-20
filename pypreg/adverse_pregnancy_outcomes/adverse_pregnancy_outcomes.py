@@ -42,7 +42,7 @@ def apo(df: pd.DataFrame,
     with boolean columns for
         - cesarean
         - fetal growth restriction
-        - gestational diabetes
+        - gestational DIABETES
         - gestational hypertension
         - preeclampsia
 

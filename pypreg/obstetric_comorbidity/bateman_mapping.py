@@ -1,70 +1,72 @@
 """
 Source material codes have been translated into regex.
-They include the top-level CODE where feasible to account for idiosyncracies in different secondary data sources.
+They include the top-level CODE where feasible to account for
+idiosyncracies in different secondary data sources.
 
 Codes are sourced from:
-Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA, Creanga AA, Callaghan WM, Gagne JJ.
-    Development of a comorbidity index for use in obstetric patients. Obstet Gynecol. 2013 Nov;122(5):957-965.
+Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA,
+    Creanga AA, Callaghan WM, Gagne JJ. Development of a comorbidity index
+    for use in obstetric patients. Obstet Gynecol. 2013 Nov;122(5):957-965.
     doi: 10.1097/AOG.0b013e3182a603bb. PMID: 24104771; PMCID: PMC3829199.
 """
 
 import pandas as pd
 
-version = 'ICD9'
+VERSION = 'ICD9'
 
 # ======================
 # Pulmonary hypertension
 # ======================
-pulm_ht = dict()
-pulm_ht[version] = (
+PULM_HT = dict()
+PULM_HT[VERSION] = (
     "416[0,8,9].*",
 )
 
 # ======================
 # Placenta previa
 # ======================
-placenta_prev = dict()
-placenta_prev[version] = (
+PLACENTA_PREV = dict()
+PLACENTA_PREV[VERSION] = (
     "641[0,1].*",
 )
 
 # ======================
 # Sickle cell
 # ======================
-sickle_cell = dict()
-sickle_cell[version] = (
+SICKLE_CELL = dict()
+SICKLE_CELL[VERSION] = (
     "282[4,6].*",
 )
 
 # ======================
 # Gestational hypertension
 # ======================
-gest_ht = dict()
-gest_ht[version] = (
+GEST_HT = dict()
+GEST_HT[VERSION] = (
     "6423.*",
 )
 
 # ======================
 # Mild preeclampsia or unspecified preeclampsia
 # ======================
-mild_pe = dict()
-mild_pe[version] = (
+MILD_PE = dict()
+MILD_PE[VERSION] = (
     "642[4,7].*",
 )
 
 # ======================
 # Severe preeclampsia / ECLAMPSIA
 # ======================
-eclampsia = dict()
-eclampsia[version] = (
+ECLAMPSIA = dict()
+ECLAMPSIA[VERSION] = (
     "642[5,6].*",
 )
 
 # ======================
 # Chronic RENAL disease
 # ======================
-renal_disease = dict()
-renal_disease[version] = (
+RENAL_DISEASE = dict()
+RENAL_DISEASE[VERSION] = (
     "58[1-3,5,7,8].*",
     "6462.*",
 )
@@ -72,8 +74,8 @@ renal_disease[version] = (
 # ======================
 # Preexisting hypertension
 # ======================
-hypertension = dict()
-hypertension[version] = (
+HYPERTENSION = dict()
+HYPERTENSION[VERSION] = (
     "40[1-5].*",
     "642[0-2,7].*",
 )
@@ -81,32 +83,32 @@ hypertension[version] = (
 # ======================
 # Chronic ischemic heart disease
 # ======================
-ischemic_hd = dict()
-ischemic_hd[version] = (
+ISCHEMIC_HD = dict()
+ISCHEMIC_HD[VERSION] = (
     "41[2-4].*",
 )
 
 # ======================
 # Congenital heart disease
 # ======================
-congenital_hd = dict()
-congenital_hd[version] = (
+CONGENITAL_HD = dict()
+CONGENITAL_HD[VERSION] = (
     "74([5-6]|7[0-4]).*",
 )
 
 # ======================
 # Systemic lupus erythematosus
 # ======================
-lupus = dict()
-lupus[version] = (
+LUPUS = dict()
+LUPUS[VERSION] = (
     "7100.*",
 )
 
 # ======================
 # Human immunodeficiency virus
 # ======================
-hiv = dict()
-hiv[version] = (
+HIV = dict()
+HIV[VERSION] = (
     "042.*",
     "V08.*",
 )
@@ -114,8 +116,8 @@ hiv[version] = (
 # ======================
 # Multiple gestation
 # ======================
-multiple_gest = dict()
-multiple_gest[version] = (
+MULTIPLE_GEST = dict()
+MULTIPLE_GEST[VERSION] = (
     "V27[2-8].*",
     "651.*",
 )
@@ -123,8 +125,8 @@ multiple_gest[version] = (
 # ======================
 # Drug abuse
 # ======================
-drug_abuse = dict()
-drug_abuse[version] = (
+DRUG_ABUSE = dict()
+DRUG_ABUSE[VERSION] = (
     "30(4|5[2-9]).*",
     "6483.*",
 )
@@ -132,8 +134,8 @@ drug_abuse[version] = (
 # ======================
 # Alcohol abuse
 # ======================
-alcohol_abuse = dict()
-alcohol_abuse[version] = (
+ALCOHOL_ABUSE = dict()
+ALCOHOL_ABUSE[VERSION] = (
     "291.*",
     "30(3|50).*",
 )
@@ -141,8 +143,8 @@ alcohol_abuse[version] = (
 # ======================
 # Tobacco abuse
 # ======================
-tobacco_abuse = dict()
-tobacco_abuse[version] = (
+TOBACCO_ABUSE = dict()
+TOBACCO_ABUSE[VERSION] = (
     "3051.*",
     "6490.*",
 )
@@ -150,8 +152,8 @@ tobacco_abuse[version] = (
 # ======================
 # Cardiac valvular disease
 # ======================
-card_valv = dict()
-card_valv[version] = (
+CARD_VALV = dict()
+CARD_VALV[VERSION] = (
     "39[4-7].*",
     "424.*",
 )
@@ -159,24 +161,24 @@ card_valv[version] = (
 # ======================
 # Chronic congestive heart failure
 # ======================
-congestive_hf = dict()
-congestive_hf[version] = (
+CONGESTIVE_HF = dict()
+CONGESTIVE_HF[VERSION] = (
     "428[2-4][2-3].*",
 )
 
 # ======================
 # Asthma
 # ======================
-asthma = dict()
-asthma[version] = (
+ASTHMA = dict()
+ASTHMA[VERSION] = (
     "493.*",
 )
 
 # ======================
 # Preexisting diabetes mellitus
 # ======================
-diabetes = dict()
-diabetes[version] = (
+DIABETES = dict()
+DIABETES[VERSION] = (
     "250.*",
     "6480.*",
 )
@@ -184,16 +186,16 @@ diabetes[version] = (
 # ======================
 # Gestational diabetes mellitus
 # ======================
-gest_dm = dict()
-gest_dm[version] = (
+GEST_DM = dict()
+GEST_DM[VERSION] = (
     "6488.*",
 )
 
 # ======================
 # Obesity
 # ======================
-obesity = dict()
-obesity[version] = (
+OBESITY = dict()
+OBESITY[VERSION] = (
     "2780.*",
     "6491.*",
     "V85[3-4].*",
@@ -202,209 +204,209 @@ obesity[version] = (
 # ======================
 # Cystic fibrosis
 # ======================
-cystic_fibrosis = dict()
-cystic_fibrosis[version] = (
+CYSTIC_FIBROSIS = dict()
+CYSTIC_FIBROSIS[VERSION] = (
     "2770.*",
 )
 
 # ======================
 # Previous cesarean delivery
 # ======================
-previous_csec = dict()
-previous_csec[version] = (
+PREVIOUS_CSEC = dict()
+PREVIOUS_CSEC[VERSION] = (
     "6542.*",
 )
 
 # ======================
 # Convert to Pandas
 # ======================
-pulm_ht = pd.DataFrame.from_dict(pulm_ht, orient='index').stack().to_frame()
-pulm_ht = pulm_ht.reset_index().drop('level_1', axis=1)
-pulm_ht['indicator'] = 'pulmonary hypertension'
+PULM_HT = pd.DataFrame.from_dict(PULM_HT, orient='index').stack().to_frame()
+PULM_HT = PULM_HT.reset_index().drop('level_1', axis=1)
+PULM_HT['indicator'] = 'pulmonary HYPERTENSION'
 
-placenta_prev = pd.DataFrame.from_dict(placenta_prev, orient='index').stack().to_frame()
-placenta_prev = placenta_prev.reset_index().drop('level_1', axis=1)
-placenta_prev['indicator'] = 'placenta previa'
+PLACENTA_PREV = pd.DataFrame.from_dict(PLACENTA_PREV, orient='index').stack().to_frame()
+PLACENTA_PREV = PLACENTA_PREV.reset_index().drop('level_1', axis=1)
+PLACENTA_PREV['indicator'] = 'placenta previa'
 
-sickle_cell = pd.DataFrame.from_dict(sickle_cell, orient='index').stack().to_frame()
-sickle_cell = sickle_cell.reset_index().drop('level_1', axis=1)
-sickle_cell['indicator'] = 'sickle cell disease'
+SICKLE_CELL = pd.DataFrame.from_dict(SICKLE_CELL, orient='index').stack().to_frame()
+SICKLE_CELL = SICKLE_CELL.reset_index().drop('level_1', axis=1)
+SICKLE_CELL['indicator'] = 'sickle cell disease'
 
-gest_ht = pd.DataFrame.from_dict(gest_ht, orient='index').stack().to_frame()
-gest_ht = gest_ht.reset_index().drop('level_1', axis=1)
-gest_ht['indicator'] = 'gestational hypertension'
+GEST_HT = pd.DataFrame.from_dict(GEST_HT, orient='index').stack().to_frame()
+GEST_HT = GEST_HT.reset_index().drop('level_1', axis=1)
+GEST_HT['indicator'] = 'gestational HYPERTENSION'
 
-mild_pe = pd.DataFrame.from_dict(mild_pe, orient='index').stack().to_frame()
-mild_pe = mild_pe.reset_index().drop('level_1', axis=1)
-mild_pe['indicator'] = 'mild preeclampsia'
+MILD_PE = pd.DataFrame.from_dict(MILD_PE, orient='index').stack().to_frame()
+MILD_PE = MILD_PE.reset_index().drop('level_1', axis=1)
+MILD_PE['indicator'] = 'mild preeclampsia'
 
-eclampsia = pd.DataFrame.from_dict(eclampsia, orient='index').stack().to_frame()
-eclampsia = eclampsia.reset_index().drop('level_1', axis=1)
-eclampsia['indicator'] = 'ECLAMPSIA'
+ECLAMPSIA = pd.DataFrame.from_dict(ECLAMPSIA, orient='index').stack().to_frame()
+ECLAMPSIA = ECLAMPSIA.reset_index().drop('level_1', axis=1)
+ECLAMPSIA['indicator'] = 'ECLAMPSIA'
 
-renal_disease = pd.DataFrame.from_dict(renal_disease, orient='index').stack().to_frame()
-renal_disease = renal_disease.reset_index().drop('level_1', axis=1)
-renal_disease['indicator'] = 'chronic RENAL disease'
+RENAL_DISEASE = pd.DataFrame.from_dict(RENAL_DISEASE, orient='index').stack().to_frame()
+RENAL_DISEASE = RENAL_DISEASE.reset_index().drop('level_1', axis=1)
+RENAL_DISEASE['indicator'] = 'chronic RENAL disease'
 
-hypertension = pd.DataFrame.from_dict(hypertension, orient='index').stack().to_frame()
-hypertension = hypertension.reset_index().drop('level_1', axis=1)
-hypertension['indicator'] = 'preexisting hypertension'
+HYPERTENSION = pd.DataFrame.from_dict(HYPERTENSION, orient='index').stack().to_frame()
+HYPERTENSION = HYPERTENSION.reset_index().drop('level_1', axis=1)
+HYPERTENSION['indicator'] = 'preexisting HYPERTENSION'
 
-ischemic_hd = pd.DataFrame.from_dict(ischemic_hd, orient='index').stack().to_frame()
-ischemic_hd = ischemic_hd.reset_index().drop('level_1', axis=1)
-ischemic_hd['indicator'] = 'chronic ischemic heart disease'
+ISCHEMIC_HD = pd.DataFrame.from_dict(ISCHEMIC_HD, orient='index').stack().to_frame()
+ISCHEMIC_HD = ISCHEMIC_HD.reset_index().drop('level_1', axis=1)
+ISCHEMIC_HD['indicator'] = 'chronic ischemic heart disease'
 
-congenital_hd = pd.DataFrame.from_dict(congenital_hd, orient='index').stack().to_frame()
-congenital_hd = congenital_hd.reset_index().drop('level_1', axis=1)
-congenital_hd['indicator'] = 'congenital heart disease'
+CONGENITAL_HD = pd.DataFrame.from_dict(CONGENITAL_HD, orient='index').stack().to_frame()
+CONGENITAL_HD = CONGENITAL_HD.reset_index().drop('level_1', axis=1)
+CONGENITAL_HD['indicator'] = 'congenital heart disease'
 
-lupus = pd.DataFrame.from_dict(lupus, orient='index').stack().to_frame()
-lupus = lupus.reset_index().drop('level_1', axis=1)
-lupus['indicator'] = 'lupus'
+LUPUS = pd.DataFrame.from_dict(LUPUS, orient='index').stack().to_frame()
+LUPUS = LUPUS.reset_index().drop('level_1', axis=1)
+LUPUS['indicator'] = 'lupus'
 
-hiv = pd.DataFrame.from_dict(hiv, orient='index').stack().to_frame()
-hiv = hiv.reset_index().drop('level_1', axis=1)
-hiv['indicator'] = 'hiv'
+HIV = pd.DataFrame.from_dict(HIV, orient='index').stack().to_frame()
+HIV = HIV.reset_index().drop('level_1', axis=1)
+HIV['indicator'] = 'hiv'
 
-multiple_gest = pd.DataFrame.from_dict(multiple_gest, orient='index').stack().to_frame()
-multiple_gest = multiple_gest.reset_index().drop('level_1', axis=1)
-multiple_gest['indicator'] = 'multiple gestation'
+MULTIPLE_GEST = pd.DataFrame.from_dict(MULTIPLE_GEST, orient='index').stack().to_frame()
+MULTIPLE_GEST = MULTIPLE_GEST.reset_index().drop('level_1', axis=1)
+MULTIPLE_GEST['indicator'] = 'multiple gestation'
 
-drug_abuse = pd.DataFrame.from_dict(drug_abuse, orient='index').stack().to_frame()
-drug_abuse = drug_abuse.reset_index().drop('level_1', axis=1)
-drug_abuse['indicator'] = 'drug abuse'
+DRUG_ABUSE = pd.DataFrame.from_dict(DRUG_ABUSE, orient='index').stack().to_frame()
+DRUG_ABUSE = DRUG_ABUSE.reset_index().drop('level_1', axis=1)
+DRUG_ABUSE['indicator'] = 'drug abuse'
 
-alcohol_abuse = pd.DataFrame.from_dict(alcohol_abuse, orient='index').stack().to_frame()
-alcohol_abuse = alcohol_abuse.reset_index().drop('level_1', axis=1)
-alcohol_abuse['indicator'] = 'alcohol abuse'
+ALCOHOL_ABUSE = pd.DataFrame.from_dict(ALCOHOL_ABUSE, orient='index').stack().to_frame()
+ALCOHOL_ABUSE = ALCOHOL_ABUSE.reset_index().drop('level_1', axis=1)
+ALCOHOL_ABUSE['indicator'] = 'alcohol abuse'
 
-tobacco_abuse = pd.DataFrame.from_dict(tobacco_abuse, orient='index').stack().to_frame()
-tobacco_abuse = tobacco_abuse.reset_index().drop('level_1', axis=1)
-tobacco_abuse['indicator'] = 'tobacco use'
+TOBACCO_ABUSE = pd.DataFrame.from_dict(TOBACCO_ABUSE, orient='index').stack().to_frame()
+TOBACCO_ABUSE = TOBACCO_ABUSE.reset_index().drop('level_1', axis=1)
+TOBACCO_ABUSE['indicator'] = 'tobacco use'
 
-card_valv = pd.DataFrame.from_dict(card_valv, orient='index').stack().to_frame()
-card_valv = card_valv.reset_index().drop('level_1', axis=1)
-card_valv['indicator'] = 'cardiac valvular disease'
+CARD_VALV = pd.DataFrame.from_dict(CARD_VALV, orient='index').stack().to_frame()
+CARD_VALV = CARD_VALV.reset_index().drop('level_1', axis=1)
+CARD_VALV['indicator'] = 'cardiac valvular disease'
 
-congestive_hf = pd.DataFrame.from_dict(congestive_hf, orient='index').stack().to_frame()
-congestive_hf = congestive_hf.reset_index().drop('level_1', axis=1)
-congestive_hf['indicator'] = 'chronic congestive heart failure'
+CONGESTIVE_HF = pd.DataFrame.from_dict(CONGESTIVE_HF, orient='index').stack().to_frame()
+CONGESTIVE_HF = CONGESTIVE_HF.reset_index().drop('level_1', axis=1)
+CONGESTIVE_HF['indicator'] = 'chronic congestive heart failure'
 
-asthma = pd.DataFrame.from_dict(asthma, orient='index').stack().to_frame()
-asthma = asthma.reset_index().drop('level_1', axis=1)
-asthma['indicator'] = 'asthma'
+ASTHMA = pd.DataFrame.from_dict(ASTHMA, orient='index').stack().to_frame()
+ASTHMA = ASTHMA.reset_index().drop('level_1', axis=1)
+ASTHMA['indicator'] = 'asthma'
 
-diabetes = pd.DataFrame.from_dict(diabetes, orient='index').stack().to_frame()
-diabetes = diabetes.reset_index().drop('level_1', axis=1)
-diabetes['indicator'] = 'preexisting diabetes'
+DIABETES = pd.DataFrame.from_dict(DIABETES, orient='index').stack().to_frame()
+DIABETES = DIABETES.reset_index().drop('level_1', axis=1)
+DIABETES['indicator'] = 'preexisting diabetes'
 
-gest_dm = pd.DataFrame.from_dict(gest_dm, orient='index').stack().to_frame()
-gest_dm = gest_dm.reset_index().drop('level_1', axis=1)
-gest_dm['indicator'] = 'gestational diabetes'
+GEST_DM = pd.DataFrame.from_dict(GEST_DM, orient='index').stack().to_frame()
+GEST_DM = GEST_DM.reset_index().drop('level_1', axis=1)
+GEST_DM['indicator'] = 'gestational diabetes'
 
-obesity = pd.DataFrame.from_dict(obesity, orient='index').stack().to_frame()
-obesity = obesity.reset_index().drop('level_1', axis=1)
-obesity['indicator'] = 'obesity'
+OBESITY = pd.DataFrame.from_dict(OBESITY, orient='index').stack().to_frame()
+OBESITY = OBESITY.reset_index().drop('level_1', axis=1)
+OBESITY['indicator'] = 'obesity'
 
-cystic_fibrosis = pd.DataFrame.from_dict(cystic_fibrosis, orient='index').stack().to_frame()
-cystic_fibrosis = cystic_fibrosis.reset_index().drop('level_1', axis=1)
-cystic_fibrosis['indicator'] = 'cystic fibrosis'
+CYSTIC_FIBROSIS = pd.DataFrame.from_dict(CYSTIC_FIBROSIS, orient='index').stack().to_frame()
+CYSTIC_FIBROSIS = CYSTIC_FIBROSIS.reset_index().drop('level_1', axis=1)
+CYSTIC_FIBROSIS['indicator'] = 'cystic fibrosis'
 
-previous_csec = pd.DataFrame.from_dict(previous_csec, orient='index').stack().to_frame()
-previous_csec = previous_csec.reset_index().drop('level_1', axis=1)
-previous_csec['indicator'] = 'previous cesarean'
+PREVIOUS_CSEC = pd.DataFrame.from_dict(PREVIOUS_CSEC, orient='index').stack().to_frame()
+PREVIOUS_CSEC = PREVIOUS_CSEC.reset_index().drop('level_1', axis=1)
+PREVIOUS_CSEC['indicator'] = 'previous cesarean'
 
 
-columns = ['VERSION', 'CODE', 'indicator']
-pulm_ht.columns = columns
-placenta_prev.columns = columns
-sickle_cell.columns = columns
-gest_ht.columns = columns
-mild_pe.columns = columns
-eclampsia.columns = columns
-renal_disease.columns = columns
-hypertension.columns = columns
-ischemic_hd.columns = columns
-congenital_hd.columns = columns
-lupus.columns = columns
-hiv.columns = columns
-multiple_gest.columns = columns
-drug_abuse.columns = columns
-alcohol_abuse.columns = columns
-tobacco_abuse.columns = columns
-card_valv.columns = columns
-congestive_hf.columns = columns
-asthma.columns = columns
-diabetes.columns = columns
-gest_dm.columns = columns
-obesity.columns = columns
-cystic_fibrosis.columns = columns
-previous_csec.columns = columns
+SCORE_COLUMNS = ['version', 'code', 'indicator']
+PULM_HT.columns = SCORE_COLUMNS
+PLACENTA_PREV.columns = SCORE_COLUMNS
+SICKLE_CELL.columns = SCORE_COLUMNS
+GEST_HT.columns = SCORE_COLUMNS
+MILD_PE.columns = SCORE_COLUMNS
+ECLAMPSIA.columns = SCORE_COLUMNS
+RENAL_DISEASE.columns = SCORE_COLUMNS
+HYPERTENSION.columns = SCORE_COLUMNS
+ISCHEMIC_HD.columns = SCORE_COLUMNS
+CONGENITAL_HD.columns = SCORE_COLUMNS
+LUPUS.columns = SCORE_COLUMNS
+HIV.columns = SCORE_COLUMNS
+MULTIPLE_GEST.columns = SCORE_COLUMNS
+DRUG_ABUSE.columns = SCORE_COLUMNS
+ALCOHOL_ABUSE.columns = SCORE_COLUMNS
+TOBACCO_ABUSE.columns = SCORE_COLUMNS
+CARD_VALV.columns = SCORE_COLUMNS
+CONGESTIVE_HF.columns = SCORE_COLUMNS
+ASTHMA.columns = SCORE_COLUMNS
+DIABETES.columns = SCORE_COLUMNS
+GEST_DM.columns = SCORE_COLUMNS
+OBESITY.columns = SCORE_COLUMNS
+CYSTIC_FIBROSIS.columns = SCORE_COLUMNS
+PREVIOUS_CSEC.columns = SCORE_COLUMNS
 
-age_category = ['<35',
+AGE_CATEGORY = ['<35',
                 '35-39',
                 '40-44',
                 '>44']
 
-weights = {pulm_ht['indicator'][0]: 4,
-           placenta_prev['indicator'][0]: 2,
-           sickle_cell['indicator'][0]: 3,
-           gest_ht['indicator'][0]: 1,
-           mild_pe['indicator'][0]: 2,
-           eclampsia['indicator'][0]: 5,
-           renal_disease['indicator'][0]: 1,
-           hypertension['indicator'][0]: 1,
-           ischemic_hd['indicator'][0]: 3,
-           congenital_hd['indicator'][0]: 4,
-           lupus['indicator'][0]: 2,
-           hiv['indicator'][0]: 2,
-           multiple_gest['indicator'][0]: 2,
-           drug_abuse['indicator'][0]: 2,
-           alcohol_abuse['indicator'][0]: 1,
-           tobacco_abuse['indicator'][0]: 0,
-           card_valv['indicator'][0]: 2,
-           congestive_hf['indicator'][0]: 5,
-           asthma['indicator'][0]: 1,
-           diabetes['indicator'][0]: 1,
-           gest_dm['indicator'][0]: 0,
-           obesity['indicator'][0]: 0,
-           cystic_fibrosis['indicator'][0]: 0,
-           previous_csec['indicator'][0]: 1,
-           age_category[1]: 1,
-           age_category[2]: 2,
-           age_category[3]: 3,
+WEIGHTS = {PULM_HT['indicator'][0]: 4,
+           PLACENTA_PREV['indicator'][0]: 2,
+           SICKLE_CELL['indicator'][0]: 3,
+           GEST_HT['indicator'][0]: 1,
+           MILD_PE['indicator'][0]: 2,
+           ECLAMPSIA['indicator'][0]: 5,
+           RENAL_DISEASE['indicator'][0]: 1,
+           HYPERTENSION['indicator'][0]: 1,
+           ISCHEMIC_HD['indicator'][0]: 3,
+           CONGENITAL_HD['indicator'][0]: 4,
+           LUPUS['indicator'][0]: 2,
+           HIV['indicator'][0]: 2,
+           MULTIPLE_GEST['indicator'][0]: 2,
+           DRUG_ABUSE['indicator'][0]: 2,
+           ALCOHOL_ABUSE['indicator'][0]: 1,
+           TOBACCO_ABUSE['indicator'][0]: 0,
+           CARD_VALV['indicator'][0]: 2,
+           CONGESTIVE_HF['indicator'][0]: 5,
+           ASTHMA['indicator'][0]: 1,
+           DIABETES['indicator'][0]: 1,
+           GEST_DM['indicator'][0]: 0,
+           OBESITY['indicator'][0]: 0,
+           CYSTIC_FIBROSIS['indicator'][0]: 0,
+           PREVIOUS_CSEC['indicator'][0]: 1,
+           AGE_CATEGORY[1]: 1,
+           AGE_CATEGORY[2]: 2,
+           AGE_CATEGORY[3]: 3,
            }
 
-weights = pd.DataFrame.from_dict(weights, orient='index', columns=['weight'])
+WEIGHTS = pd.DataFrame.from_dict(WEIGHTS, orient='index', columns=['weight'])
 
-bateman_map = pd.concat([
-    pulm_ht,
-    placenta_prev,
-    sickle_cell,
-    gest_ht,
-    mild_pe,
-    eclampsia,
-    renal_disease,
-    hypertension,
-    ischemic_hd,
-    congenital_hd,
-    lupus,
-    hiv,
-    multiple_gest,
-    drug_abuse,
-    alcohol_abuse,
-    tobacco_abuse,
-    card_valv,
-    congestive_hf,
-    asthma,
-    diabetes,
-    gest_dm,
-    obesity,
-    cystic_fibrosis,
-    previous_csec
+BATEMAN_MAP = pd.concat([
+    PULM_HT,
+    PLACENTA_PREV,
+    SICKLE_CELL,
+    GEST_HT,
+    MILD_PE,
+    ECLAMPSIA,
+    RENAL_DISEASE,
+    HYPERTENSION,
+    ISCHEMIC_HD,
+    CONGENITAL_HD,
+    LUPUS,
+    HIV,
+    MULTIPLE_GEST,
+    DRUG_ABUSE,
+    ALCOHOL_ABUSE,
+    TOBACCO_ABUSE,
+    CARD_VALV,
+    CONGESTIVE_HF,
+    ASTHMA,
+    DIABETES,
+    GEST_DM,
+    OBESITY,
+    CYSTIC_FIBROSIS,
+    PREVIOUS_CSEC
 ])
 
-bateman_map = bateman_map.merge(weights,
+BATEMAN_MAP = BATEMAN_MAP.merge(WEIGHTS,
                                 how='right',
                                 left_on='indicator',
                                 right_index=True)

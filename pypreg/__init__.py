@@ -1,10 +1,10 @@
 """
 This package collects methods for classifying pregnancies,
-identifying severe maternal morbidity, adverse pregnancy outcomes,
+identifying severe maternal morbidity, adverse pregnancy OUTCOMES,
 and calculating obstetric comorbidity scores.
 
 Pregnancy classification:
- -outcomes, outcome_list, map_version_split, process_outcomes
+ -OUTCOMES, OUTCOME_LIST, map_version_split, process_outcomes
 
  SMM:
  -smm

@@ -1,5 +1,5 @@
 """
-Utility function to process a pandas dataframe of codes and
+Utility functions to process a pandas dataframe of codes and
 attach the comorbidity scores from one of the maps.
 """
 import pandas as pd
@@ -11,7 +11,7 @@ def assign_weights(df: pd.DataFrame,
                    code_col: str,
                    version_col: str,
                    method: str,
-                   age_col:  str = None):
+                   age_col: str = None):
     """
     Entry method to attach weights to diagnosis codes and age categories based on the method chosen.
 
@@ -23,11 +23,12 @@ def assign_weights(df: pd.DataFrame,
     :param method: Choice of 'bateman' or 'leonard' for the index
     :param age_col: Optional, column that gives the patient age
 
-    :return: Returns the original dataframe with the indicator classification and the weight for the CODE class
+    :return: Returns the original dataframe with the indicator
+        classification and the weight for the CODE class
     """
 
-    from .bateman_mapping import bateman_map
-    from .leonard_mapping import leonard_map
+    from .bateman_mapping import BATEMAN_MAP
+    from .leonard_mapping import LEONARD_MAP
 
     map_df = None
     versions = ['ICD9',
@@ -35,10 +36,10 @@ def assign_weights(df: pd.DataFrame,
 
     # Select the map based on the method chosen
     if method == 'bateman':
-        map_df = bateman_map
+        map_df = BATEMAN_MAP
         df = df[df[version_col] == versions[0]]
     elif method == 'leonard':
-        map_df = leonard_map
+        map_df = LEONARD_MAP
         df = df[df[version_col] == versions[1]]
 
     # Remove . from the codes to make regex matching easier
@@ -48,7 +49,8 @@ def assign_weights(df: pd.DataFrame,
     df.rename(columns={code_col: 'CODE'}, inplace=True)
 
     # Set up the regex match
-    df['join'] = df[code_col].replace(map_df['CODE'].to_list(), map_df['CODE'].to_list(), regex=True)
+    df['join'] = df[code_col].replace(map_df['CODE'].to_list(),
+                                      map_df['CODE'].to_list(), regex=True)
 
     # Join on the matching regex pattern
     output = df.merge(map_df,
@@ -72,8 +74,9 @@ def age_category(df: pd.DataFrame,
                  age_col: str,
                  method: str):
     """
-    Utility to classify the age category by method. Bateman uses the age at LMP, so the minimum age captured during a
-    pregnancy will be used. Leonard uses the age at delivery, so the maximum age captured during delivery will be used.
+    Utility to classify the age category by method. Bateman uses the
+    age at LMP, so the minimum age captured during a pregnancy will be used.
+    Leonard uses the age at delivery, so the maximum age captured during delivery will be used.
 
     :param df: pandas dataframe containing patient and pregnancy identifiers with age
     :param patient_col: column that gives the patient identifier
@@ -84,8 +87,8 @@ def age_category(df: pd.DataFrame,
     :return: Returns a pandas dataframe with the age category
     """
 
-    from .bateman_mapping import age_category as bateman_categories
-    from .leonard_mapping import age_category as leonard_categories
+    from .bateman_mapping import AGE_CATEGORY as bateman_categories
+    from .leonard_mapping import AGE_CATEGORY as leonard_categories
 
     # Set up the age bins for each method
     bateman_bins = [0, 34, 39, 44, 110]
@@ -136,4 +139,3 @@ def age_weights(df: pd.DataFrame,
                       right_on='indicator')
 
     return output
-
