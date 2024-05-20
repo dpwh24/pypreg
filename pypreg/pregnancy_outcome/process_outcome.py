@@ -14,7 +14,7 @@ EVENT_DATE = 'event_date'
 
 # Dictionary that defines the distance to the next feasible event date.
 #     Key: Current event outcome class
-#     Value: List of days to next outcome type in order:
+#     Value: List of days to next outcome code_type in order:
 #         0: live_birth
 #         1: stillbirth
 #         2: unknown delivery
@@ -39,7 +39,7 @@ def subsequent_outcome(df: pd.DataFrame,
 
     Distance is based on that given by Moll. next_outcome is a globally defined dictionary.
 
-    :param df: Pandas dataframe that contains pregnancy outcomes of a single type
+    :param df: Pandas dataframe that contains pregnancy outcomes of a single code_type
     :param outcome: String that defines the outcome classification - use the outcome_list
     :param admit_col: Column in the dataframe that contains the date of the outcome
 
@@ -403,22 +403,22 @@ def standardize_type_and_version(df: pd.DataFrame,
                                  type_col: str,
                                  version_col: str):
     """
-    Utility function to standardize the data present in the type and version columns to allow for later matching.
+    Utility function to standardize the data present in the code_type and VERSION columns to allow for later matching.
     Function will warn user about variations that are not acceptable to allow them to correct the information
     before running again.
 
     :param df: Pandas dataframe that contains patient encounter data with diagnostic, procedure, and DRG codes and
-    code metadata. Codes should be labeled as being diagnostic, procedure, or DRG with the appropriate coding system.
-    :param type_col: Column containing code information regarding diagnostic, procedure, or DRG
-    :param version_col: Column containing information about the coding system for the code
+    CODE metadata. Codes should be labeled as being diagnostic, procedure, or DRG with the appropriate coding system.
+    :param type_col: Column containing CODE information regarding diagnostic, procedure, or DRG
+    :param version_col: Column containing information about the coding system for the CODE
 
-    :return: Returns the original pandas dataframe with the type and version data replaced with standard forms if they
+    :return: Returns the original pandas dataframe with the code_type and VERSION data replaced with standard forms if they
     match acceptable variations.
     """
 
     import warnings
 
-    # Types can accept a code label as dx/diagnosis/diagnostic, px/procedure, drg/diagnostic related group
+    # Types can accept a CODE label as dx/diagnosis/diagnostic, px/procedure, drg/diagnostic related group
     types = dict()
     types['DX'] = ('dx',
                    'diagnosis',
@@ -448,7 +448,7 @@ def standardize_type_and_version(df: pd.DataFrame,
     df_types = set(df[type_col].unique().flat)
     this_types = set([val for value in types.values() for val in value])
     if not df_types.issubset(this_types):
-        warnings.warn(f"Some code types ({df_types-this_types}) do not match {this_types}."
+        warnings.warn(f"Some CODE types ({df_types-this_types}) do not match {this_types}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Check the contents of the Version column and warn user if the contents don't match the expected
@@ -457,7 +457,7 @@ def standardize_type_and_version(df: pd.DataFrame,
     df_versions = set(df[version_col].unique().flat)
     this_versions = set([val for value in versions.values() for val in value])
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some code versions ({df_versions-this_versions}) do not match {this_versions}."
+        warnings.warn(f"Some CODE versions ({df_versions-this_versions}) do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Convert dictionary to dataframe
@@ -501,13 +501,13 @@ def process_outcomes(df: pd.DataFrame,
     Main function to classify pregnancies. Accepts a dataframe with the listed columns to begin the
     pregnancy classification.
 
-    :param df: Pandas dataframe with encounter data - rows should be unique to each code provided
+    :param df: Pandas dataframe with encounter data - rows should be unique to each CODE provided
     :param patient_col: Column containing the unique patient identifier
     :param encounter_col: Column containing the encounter identifier
     :param admit_date_col: Column containing the admit date for the encounter
-    :param version_col: Column containing the coding system for the provided code
-    :param type_col: Column containing if the code describes a procedure, diagnosis, or DRG
-    :param code_col: Column containing the code.
+    :param version_col: Column containing the coding system for the provided CODE
+    :param type_col: Column containing if the CODE describes a procedure, diagnosis, or DRG
+    :param code_col: Column containing the CODE.
     :param expanded: Boolean flag to indicate if the classification should use the Moll and crosswalked codes or if the
     additional codes added by the author should be included in the classification process
 
@@ -521,9 +521,9 @@ def process_outcomes(df: pd.DataFrame,
     package_cols = {admit_date_col: 'admit',
                     patient_col: 'group_id',
                     encounter_col: 'encounter_id',
-                    version_col: 'version',
-                    type_col: 'type',
-                    code_col: 'code',
+                    version_col: 'VERSION',
+                    type_col: 'code_type',
+                    code_col: 'CODE',
                     }
     # Set a dictionary to restore the original column names
     restore_cols = {i: j for j, i in package_cols.items()}
@@ -542,12 +542,12 @@ def process_outcomes(df: pd.DataFrame,
     # Set the column names to what is used throughout the package
     df.rename(columns=package_cols, inplace=True)
 
-    # Standardize the code metadata
+    # Standardize the CODE metadata
     data = standardize_type_and_version(df,
                                         type_col,
                                         version_col)
 
-    # Classify each row based on the code and code metadata
+    # Classify each row based on the CODE and CODE metadata
     data = attach_map(data,
                       code_col,
                       type_col,

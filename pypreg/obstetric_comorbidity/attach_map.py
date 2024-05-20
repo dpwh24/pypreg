@@ -15,15 +15,15 @@ def assign_weights(df: pd.DataFrame,
     """
     Entry method to attach weights to diagnosis codes and age categories based on the method chosen.
 
-    :param df: pandas dataframe containing diagnostic codes and the code versions
+    :param df: pandas dataframe containing diagnostic codes and the CODE versions
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
     :param code_col: Column containing diagnostic codes
-    :param version_col: Column containing version info about the code (ICD9/ICD10)
+    :param version_col: Column containing VERSION info about the CODE (ICD9/ICD10)
     :param method: Choice of 'bateman' or 'leonard' for the index
     :param age_col: Optional, column that gives the patient age
 
-    :return: Returns the original dataframe with the indicator classification and the weight for the code class
+    :return: Returns the original dataframe with the indicator classification and the weight for the CODE class
     """
 
     from .bateman_mapping import bateman_map
@@ -44,17 +44,17 @@ def assign_weights(df: pd.DataFrame,
     # Remove . from the codes to make regex matching easier
     df[code_col] = df[code_col].str.replace('.', '', regex=False)
 
-    # Rename the code column
-    df.rename(columns={code_col: 'code'}, inplace=True)
+    # Rename the CODE column
+    df.rename(columns={code_col: 'CODE'}, inplace=True)
 
     # Set up the regex match
-    df['join'] = df[code_col].replace(map_df['code'].to_list(), map_df['code'].to_list(), regex=True)
+    df['join'] = df[code_col].replace(map_df['CODE'].to_list(), map_df['CODE'].to_list(), regex=True)
 
     # Join on the matching regex pattern
     output = df.merge(map_df,
                       how='left',
                       left_on='join',
-                      right_on='code',
+                      right_on='CODE',
                       suffixes=('', '_y')).drop(columns=['join', 'code_y'])
 
     # If the age column is given, include the age category in the score
@@ -125,7 +125,7 @@ def age_weights(df: pd.DataFrame,
     Attach the weights for age categories.
 
     :param df: pandas dataframe containing the age category as assigned in the age_category method
-    :param map_df: pandas dataframe of the index method's code map
+    :param map_df: pandas dataframe of the index method's CODE map
 
     :return: returns the original dataframe with the weights assigned to the age category
     """

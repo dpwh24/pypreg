@@ -1,6 +1,6 @@
 """
 Source material codes have been translated into regex and crosswalked to ICD-9 by David Walsh.
-They include the top-level code to account for idiosyncracies in different secondary data sources.
+They include the top-level CODE to account for idiosyncracies in different secondary data sources.
 
 Original codes are sourced from:
     Moll K FK Wong H-L. Task order HHSF22301001T: Pregnancy outcomes
@@ -10,7 +10,7 @@ Pregnancy_Outcomes_Linked_Database_Report_2020-1.pdf
 
 Crosswalked codes are retrieved via General Equivalence Mappings. ICD10 codes are mapped back to ICD9, and ICD9 codes
 are mapped forward to ICD10. The resulting codes were reviewed and kept if they are related to an obstetric outcome, and,
-if the original ICD10 code broadly refers to labor and delivery, then the mapped codes may also.
+if the original ICD10 CODE broadly refers to labor and delivery, then the mapped codes may also.
 
 Expanded codes were added based upon a review of ICD9 and ICD10 codes for other obstetric outcomes not captured,
 specifically the delivered episode of care codes contained in ICD9.
@@ -209,7 +209,7 @@ live_birth[diagnosis][icd9][expanded] = (
 )
 
 # ======================
-# Delivery of Unknown type
+# Delivery of Unknown code_type
 # ======================
 delivery = dict()
 delivery[diagnosis] = dict()
@@ -329,7 +329,7 @@ delivery = pd.DataFrame(delivery[0].values.tolist(),
                         index=delivery.index).stack().reset_index().drop('level_3', axis=1)
 delivery['outcome'] = outcome_list[2]
 
-columns = ['type', 'version', 'schema', 'code', 'outcome']
+columns = ['code_type', 'VERSION', 'schema', 'CODE', 'outcome']
 ectopic.columns = columns
 trophoblastic.columns = columns
 spontaneous_abortion.columns = columns

@@ -34,13 +34,13 @@ def calc_index(df: pd.DataFrame,
     """
     Main function. Accepts a pandas dataframe of patient encounter data. Only ICD9/ICD10 diagnostic codes are accepted.
     Appends the Leonard or Bateman score as chosen by the user. Bateman returns a single score, Leonard returns both a
-    transfusion and non-transfusion score.
+    TRANSFUSION and non-TRANSFUSION score.
 
     :param df: Pandas dataframe containing patient and pregnancy identifiers with ICD9/10 diagnostic codes
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
     :param code_col: column that gives the diagnostic codes
-    :param version_col: column that indicates if the given diagnostic code is ICD9 or ICD10.
+    :param version_col: column that indicates if the given diagnostic CODE is ICD9 or ICD10.
     Accepts 9, ICD9, 10, ICD10, and ICD10-CMS
     :param method: Choice of 'leonard' or 'bateman' for obstetric index scores
     :param age_col: Optional column that gives the age of the patient
@@ -53,8 +53,8 @@ def calc_index(df: pd.DataFrame,
 
     package_cols = {patient_col: 'group_id',
                     pregnancy_col: 'preg_num',
-                    version_col: 'version',
-                    code_col: 'code'
+                    version_col: 'VERSION',
+                    code_col: 'CODE'
                     }
     restore_cols = {i: j for j, i in package_cols.items()}
 
@@ -109,13 +109,13 @@ def calc_index(df: pd.DataFrame,
     import warnings
 
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some code versions ({df_versions - this_versions}) do not match {this_versions}."
+        warnings.warn(f"Some CODE versions ({df_versions - this_versions}) do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Convert dictionary to dataframe
     versions = pd.DataFrame.from_dict(versions, orient='index').stack().to_frame()
     versions = pd.DataFrame(versions[0].values.tolist(), index=versions.index).reset_index().drop('level_1', axis=1)
-    versions.columns = ['version', 'version_match']
+    versions.columns = ['VERSION', 'version_match']
 
     # Replace Version in the provided dataframe with a standard form
     df = df.merge(versions,

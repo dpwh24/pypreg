@@ -15,7 +15,7 @@ pe = dict()
 
 type = 'DX'
 version = 'ICD9'
-code = 'code'
+code = 'CODE'
 
 pe[type] = dict()
 pe[type][version] = dict()
@@ -34,4 +34,4 @@ pe = pd.DataFrame.from_dict(pe, orient='index').stack().to_frame()
 pe = pd.DataFrame(pe[0].values.tolist(), index=pe.index)
 pe = pd.DataFrame(pe[code].values.tolist(), index=pe.index).stack().reset_index().drop('level_2', axis=1)
 
-pe.columns = ['type', 'version', 'code']
+pe.columns = ['code_type', 'VERSION', 'CODE']

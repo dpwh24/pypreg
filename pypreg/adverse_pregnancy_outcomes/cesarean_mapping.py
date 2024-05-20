@@ -8,7 +8,7 @@ Castillo, Wendy Camelo / Boggess, Kim / Stürmer, Til / Brookhart, M. Alan / Ben
     Trends in Glyburide Compared With Insulin Use for Gestational Diabetes Treatment in the United States, 2000-2011
     Obstetrics & Gynecology , Vol. 123, No. 6 Ovid Technologies (Wolters Kluwer Health) p. 1177-1184
 
-And code search using keyword "cesar" and including any procedure which indicates cesarean was performed
+And CODE search using keyword "cesar" and including any procedure which indicates cesarean was performed
 """
 
 import pandas as pd
@@ -17,12 +17,12 @@ cesarean = dict()
 
 type = 'PX'
 version = 'ICD9'
-code = 'code'
+code = 'CODE'
 
 cesarean[type] = dict()
 cesarean[type][version] = dict()
 cesarean[type][version][code] = (
-    "^74([0-24]|99)$",  #74.9 excluded as child code should be used (could also describe hysterotomy 74.91
+    "^74([0-24]|99)$",  #74.9 excluded as child CODE should be used (could also describe hysterotomy 74.91
 )
 
 version = 'ICD10'
@@ -81,4 +81,4 @@ cesarean = pd.DataFrame(cesarean[0].values.tolist(), index=cesarean.index)
 cesarean = pd.DataFrame(cesarean[code].values.tolist(), index=cesarean.index).stack().reset_index().drop('level_2',
                                                                                                          axis=1)
 
-cesarean.columns = ['type', 'version', 'code']
+cesarean.columns = ['code_type', 'VERSION', 'CODE']

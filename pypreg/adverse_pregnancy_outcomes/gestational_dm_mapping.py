@@ -14,7 +14,7 @@ gdm = dict()
 
 type = 'DX'
 version = 'ICD9'
-code = 'code'
+code = 'CODE'
 
 gdm[type] = dict()
 gdm[type][version] = dict()
@@ -34,4 +34,4 @@ gdm = pd.DataFrame.from_dict(gdm, orient='index').stack().to_frame()
 gdm = pd.DataFrame(gdm[0].values.tolist(), index=gdm.index)
 gdm = pd.DataFrame(gdm[code].values.tolist(), index=gdm.index).stack().reset_index().drop('level_2', axis=1)
 
-gdm.columns = ['type', 'version', 'code']
+gdm.columns = ['code_type', 'VERSION', 'CODE']

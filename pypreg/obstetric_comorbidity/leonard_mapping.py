@@ -1,6 +1,6 @@
 """
 Source material codes have been translated into regex.
-They include the top-level code where feasible to account for idiosyncracies in different secondary data sources.
+They include the top-level CODE where feasible to account for idiosyncracies in different secondary data sources.
 
 Codes are sourced from:
 Leonard SA, Kennedy CJ, Carmichael SL, Lyell DJ, Main EK.
@@ -109,7 +109,7 @@ hypertension[version] = (
 )
 
 # ======================
-# Chronic renal disease
+# Chronic RENAL disease
 # ======================
 renal = dict()
 renal[version] = (
@@ -285,7 +285,7 @@ hypertension['indicator'] = 'chronic hypertension'
 
 renal = pd.DataFrame.from_dict(renal, orient='index').stack().to_frame()
 renal = renal.reset_index().drop('level_1', axis=1)
-renal['indicator'] = 'renal disease'
+renal['indicator'] = 'RENAL disease'
 
 autoimmune = pd.DataFrame.from_dict(autoimmune, orient='index').stack().to_frame()
 autoimmune = autoimmune.reset_index().drop('level_1', axis=1)
@@ -344,7 +344,7 @@ thyrotoxicosis = thyrotoxicosis.reset_index().drop('level_1', axis=1)
 thyrotoxicosis['indicator'] = 'thyrotoxicosis'
 
 # Fix column names
-columns = ['version', 'code', 'indicator']
+columns = ['VERSION', 'CODE', 'indicator']
 gest_dm.columns = columns
 hiv.columns = columns
 diabetes.columns = columns
@@ -375,7 +375,7 @@ thyrotoxicosis.columns = columns
 # Add an age category to the map
 age_category = ['<35', '>=35']
 
-# Assign weights for each condition for SMM and non-transfusion SMM
+# Assign weights for each condition for SMM and non-TRANSFUSION SMM
 weights = {gest_dm['indicator'][0]: (1, 1),
            hiv['indicator'][0]: (30, 13),
            diabetes['indicator'][0]: (9, 6),
@@ -405,7 +405,7 @@ weights = {gest_dm['indicator'][0]: (1, 1),
            age_category[1]: (2, 1)
            }
 
-weights = pd.DataFrame.from_dict(weights, orient='index', columns=['smm score', 'non-transfusion smm score'])
+weights = pd.DataFrame.from_dict(weights, orient='index', columns=['smm score', 'non-TRANSFUSION smm score'])
 
 # Consolidate the map
 leonard_map = pd.concat([

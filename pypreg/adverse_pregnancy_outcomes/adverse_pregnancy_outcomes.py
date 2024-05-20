@@ -6,14 +6,15 @@ Dave Walsh 22 Aug 2023
 Department of Biomedical and Health Informatics
 UMKC
 
-Looks at a pandas dataframe containing diagnostic, procedure, and DRG codes to report out the presence of
-Cesarean section, Fetal growth restriction, Gestation Diabetes, Gestational Hypertension, and Preeclampsia.
-The function accepts codes from ICD9, ICD10, DRG, and CPT coding systems.
+Looks at a pandas dataframe containing diagnostic, procedure, and DRG codes to report
+out the presence of Cesarean section, Fetal growth restriction, Gestation Diabetes,
+Gestational Hypertension, and Preeclampsia. The function accepts codes from ICD9,
+ICD10, DRG, and CPT coding systems.
 """
 
 
-import pandas as pd
 import warnings
+import pandas as pd
 from .cesarean_mapping import cesarean
 from .fetal_growth_mapping import fg
 from .gestational_dm_mapping import gdm
@@ -24,36 +25,41 @@ from .preeclampsia_mapping import pe
 def apo(df: pd.DataFrame,
         patient_id: str,
         preg_id: str,
-        type: str,
+        code_type: str,
         version: str,
         code: str):
     """
     Main function
-    :param df: Pandas dataframe that contains encounter level data for each pregnancy, rows should be unique to each
-    code for a given encounter
+    :param df: Pandas dataframe that contains encounter level data for each pregnancy,
+    rows should be unique to each CODE for a given encounter
     :param patient_id: Column containing the unique patient identifier
     :param preg_id: Column containing the pregnancy identifier
-    :param type: Column containing if the code describes a procedure, diagnosis, or DRG
-    :param version: Column containing the coding system for the provided code
-    :param code: Column containing the code
+    :param code_type: Column containing if the CODE describes a procedure, diagnosis, or DRG
+    :param version: Column containing the coding system for the provided CODE
+    :param code: Column containing the CODE
 
-    :return: Returns a pandas dataframe containing patient and pregnancy identifiers with boolean columns for
+    :return: Returns a pandas dataframe containing patient and pregnancy identifiers
+    with boolean columns for
         - cesarean
         - fetal growth restriction
         - gestational diabetes
         - gestational hypertension
         - preeclampsia
+
+    :raises: KeyError
+        If column names are supplied that are not present in the data.
     """
 
     # Error checking to ensure the reported columns are contained in the dataframe
-    if not {patient_id, preg_id, type, version, code}.issubset(df.columns):
-        raise KeyError(f"Ensure that columns {[patient_id, preg_id, type, version, code]} are present in the data.")
+    if not {patient_id, preg_id, code_type, version, code}.issubset(df.columns):
+        raise KeyError(f"Ensure that columns {[patient_id, preg_id, code_type, version, code]}"
+                       f" are present in the data.")
 
     package_cols = {patient_id: 'patient_sk',
                     preg_id: 'preg_id',
-                    version: 'version',
-                    type: 'type',
-                    code: 'code'
+                    version: 'VERSION',
+                    code_type: 'code_type',
+                    code: 'CODE'
                     }
     restore_cols = {i: j for j, i in package_cols.items()}
 
@@ -61,12 +67,12 @@ def apo(df: pd.DataFrame,
     patient_id = package_cols[patient_id]
     preg_id = package_cols[preg_id]
     version = package_cols[version]
-    type = package_cols[type]
+    code_type = package_cols[code_type]
     code = package_cols[code]
 
     df.rename(columns=package_cols, inplace=True)
 
-    # Types can accept a code label as dx/diagnosis or px/procedure
+    # Types can accept a CODE label as dx/diagnosis or px/procedure
     types = dict()
     types['DX'] = ('dx',
                    'diagnosis')
@@ -92,40 +98,45 @@ def apo(df: pd.DataFrame,
                         "CPT")
 
     # Make a copy of the dataframe to avoid warnings about working on the original
-    df = df[[patient_id, preg_id, type, version, code]].copy()
+    df = df[[patient_id, preg_id, code_type, version, code]].copy()
 
-    # Check the contents of the Type column and warn user if the contents don't match the expected types
-    # This doesn't constitute an error as the dataset could contain valid codes from other systems for other uses
-    df[type] = df[type].str.lower()
-    df_types = set(df[type].unique().flat)
+    # Check the contents of the code_type column and warn user if the contents don't
+    # match the expected types. This doesn't constitute an error as the dataset could
+    # contain valid codes from other systems for other uses.
+    df[code_type] = df[code_type].str.lower()
+    df_types = set(df[code_type].unique().flat)
     this_types = set([val for value in types.values() for val in value])
     if not df_types.issubset(this_types):
-        warnings.warn(f"Some code types ({df_types - this_types}) do not match {this_types}."
+        warnings.warn(f"Some CODE types ({df_types - this_types}) do not match {this_types}."
                       f" Ensure these are not in error.", stacklevel=2)
 
-    # Check the contents of the Version column and warn user if the contents don't match the expected
-    # This doesn't constitute an error as the dataset could contain valid codes from other systems for other uses
+    # Check the contents of the Version column and warn user if the contents
+    # don't match the expected. This doesn't constitute an error as the dataset
+    # could contain valid codes from other systems for other uses.
     df[version] = df[version].str.upper()
     df_versions = set(df[version].unique().flat)
     this_versions = set([val for value in versions.values() for val in value])
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some code versions ({df_versions - this_versions}) do not match {this_versions}."
+        warnings.warn(f"Some CODE versions ({df_versions - this_versions})"
+                      f" do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Convert dictionary to dataframe
     types = pd.DataFrame.from_dict(types, orient='index').stack().to_frame()
-    types = pd.DataFrame(types[0].values.tolist(), index=types.index).reset_index().drop('level_1', axis=1)
-    types.columns = [type, 'type_match']
+    types = pd.DataFrame(types[0].values.tolist(),
+                         index=types.index).reset_index().drop('level_1', axis=1)
+    types.columns = [code_type, 'type_match']
 
     # Convert dictionary to dataframe
     versions = pd.DataFrame.from_dict(versions, orient='index').stack().to_frame()
-    versions = pd.DataFrame(versions[0].values.tolist(), index=versions.index).reset_index().drop('level_1', axis=1)
+    versions = pd.DataFrame(versions[0].values.tolist(),
+                            index=versions.index).reset_index().drop('level_1', axis=1)
     versions.columns = [version, 'version_match']
 
     # Replace Type and Version in the provided dataframe with standard forms
     df = df.merge(types,
                   how='inner',
-                  left_on=type,
+                  left_on=code_type,
                   right_on='type_match',
                   suffixes=('_x', '')) \
         .merge(versions,
@@ -133,7 +144,7 @@ def apo(df: pd.DataFrame,
                left_on=version,
                right_on='version_match',
                suffixes=('_x', '')) \
-        .drop(columns=[f'{version}_x', 'version_match', f'{type}_x', 'type_match'])
+        .drop(columns=[f'{version}_x', 'version_match', f'{code_type}_x', 'type_match'])
 
     # Remove decimals from codes
     df[code] = df[code].str.replace(r'\.', '', regex=True)
@@ -141,37 +152,47 @@ def apo(df: pd.DataFrame,
     df[code] = df[code].str.upper()
 
     cesarean_encs = df.copy()
-    cesarean_encs['join'] = df[code].replace(cesarean['code'].to_list(), cesarean['code'].to_list(), regex=True)
+    cesarean_encs['join'] = df[code].replace(cesarean['CODE'].to_list(),
+                                             cesarean['CODE'].to_list(),
+                                             regex=True)
     fg_encs = df.copy()
-    fg_encs['join'] = df[code].replace(fg['code'].to_list(), fg['code'].to_list(), regex=True)
+    fg_encs['join'] = df[code].replace(fg['CODE'].to_list(),
+                                       fg['CODE'].to_list(),
+                                       regex=True)
     gdm_encs = df.copy()
-    gdm_encs['join'] = df[code].replace(gdm['code'].to_list(), gdm['code'].to_list(), regex=True)
+    gdm_encs['join'] = df[code].replace(gdm['CODE'].to_list(),
+                                        gdm['CODE'].to_list(),
+                                        regex=True)
     ght_encs = df.copy()
-    ght_encs['join'] = df[code].replace(ght['code'].to_list(), ght['code'].to_list(), regex=True)
+    ght_encs['join'] = df[code].replace(ght['CODE'].to_list(),
+                                        ght['CODE'].to_list(),
+                                        regex=True)
     pe_encs = df.copy()
-    pe_encs['join'] = df[code].replace(pe['code'].to_list(), pe['code'].to_list(), regex=True)
+    pe_encs['join'] = df[code].replace(pe['CODE'].to_list(),
+                                       pe['CODE'].to_list(),
+                                       regex=True)
 
     # Get the instances of the APOs
     cesarean_encs = cesarean_encs.merge(cesarean,
                                         how='inner',
-                                        left_on=[type, version, 'join'],
-                                        right_on=[type, version, code]).drop(columns=['join'])
+                                        left_on=[code_type, version, 'join'],
+                                        right_on=[code_type, version, code]).drop(columns=['join'])
     fg_encs = fg_encs.merge(fg,
                             how='inner',
-                            left_on=[type, version, 'join'],
-                            right_on=[type, version, code]).drop(columns=['join'])
+                            left_on=[code_type, version, 'join'],
+                            right_on=[code_type, version, code]).drop(columns=['join'])
     gdm_encs = gdm_encs.merge(gdm,
                               how='inner',
-                              left_on=[type, version, 'join'],
-                              right_on=[type, version, code]).drop(columns=['join'])
+                              left_on=[code_type, version, 'join'],
+                              right_on=[code_type, version, code]).drop(columns=['join'])
     ght_encs = ght_encs.merge(ght,
                               how='inner',
-                              left_on=[type, version, 'join'],
-                              right_on=[type, version, code]).drop(columns=['join'])
+                              left_on=[code_type, version, 'join'],
+                              right_on=[code_type, version, code]).drop(columns=['join'])
     pe_encs = pe_encs.merge(pe,
                             how='inner',
-                            left_on=[type, version, 'join'],
-                            right_on=[type, version, code]).drop(columns=['join'])
+                            left_on=[code_type, version, 'join'],
+                            right_on=[code_type, version, code]).drop(columns=['join'])
 
     # Limit to only the pregnancy identifiers
     cesarean_encs = cesarean_encs[[patient_id, preg_id]].drop_duplicates()

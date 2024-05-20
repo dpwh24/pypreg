@@ -1,6 +1,6 @@
 """
 Update 03Jan2024
-Codes in FAD SAS code do not appear to be current with CDC nor HCUP definitions.
+Codes in FAD SAS CODE do not appear to be current with CDC nor HCUP definitions.
 Codes were instead harmonized with CDC definition per:
     https://www.cdc.gov/reproductivehealth/maternalinfanthealth/smm/severe-morbidity-ICD.htm
 
@@ -16,36 +16,36 @@ Codes with wildcards in the source material include the top level codes here to 
 idiosyncracies in different secondary data sources.
 
 ICD9 codes from:
-Leonard SA, Kennedy CJ, Carmichael SL, Lyell DJ, Main EK An Expanded Obstetric Comorbidity Scoring System
-    for Predicting Severe Maternal Morbidity. 2020-08. Obstetrics & Gynecology, Vol. 136, No. 3
-    Ovid Technologies (Wolters Kluwer Health) p. 440-449
+Leonard SA, Kennedy CJ, Carmichael SL, Lyell DJ, Main EK An Expanded Obstetric Comorbidity
+    Scoring System for Predicting Severe Maternal Morbidity. 2020-08. Obstetrics & Gynecology,
+    Vol. 136, No. 3 Ovid Technologies (Wolters Kluwer Health) p. 440-449
 
 """
 
 
 import pandas as pd
 
-icd9 = 'ICD9'
-icd10 = 'ICD10'
+ICD9 = 'ICD9'
+ICD10 = 'ICD10'
 
 # ======================
 # Acute Myocardial Infarction
 # ======================
-acute_mi = dict()
+ACUTE_MI = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-acute_mi[type] = dict()
-acute_mi[type][version] = dict()
-acute_mi[type][version][code] = (
+ACUTE_MI[CODE_TYPE] = dict()
+ACUTE_MI[CODE_TYPE][VERSION] = dict()
+ACUTE_MI[CODE_TYPE][VERSION][CODE] = (
     r"^410.*",
 )
 
-version = icd10
-acute_mi[type][version] = dict()
-acute_mi[type][version][code] = (
+VERSION = ICD10
+ACUTE_MI[CODE_TYPE][VERSION] = dict()
+ACUTE_MI[CODE_TYPE][VERSION][CODE] = (
     r"^I21.*",
     r"^I22.*",
 )
@@ -53,19 +53,19 @@ acute_mi[type][version][code] = (
 # ======================
 # Aneurysm
 # ======================
-aneur = dict()
+ANEUR = dict()
 
-version = icd9
+VERSION = ICD9
 
-aneur[type] = dict()
-aneur[type][version] = dict()
-aneur[type][version][code] = (
+ANEUR[CODE_TYPE] = dict()
+ANEUR[CODE_TYPE][VERSION] = dict()
+ANEUR[CODE_TYPE][VERSION][CODE] = (
     "^441.*",
 )
 
-version = icd10
-aneur[type][version] = dict()
-aneur[type][version][code] = (
+VERSION = ICD10
+ANEUR[CODE_TYPE][VERSION] = dict()
+ANEUR[CODE_TYPE][VERSION][CODE] = (
     r"^I71.*",
     r"^I790$",
 )
@@ -73,22 +73,22 @@ aneur[type][version][code] = (
 # ======================
 # Acute Renal Failure
 # ======================
-renal = dict()
+RENAL = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-renal[type] = dict()
-renal[type][version] = dict()
-renal[type][version][code] = (
+RENAL[CODE_TYPE] = dict()
+RENAL[CODE_TYPE][VERSION] = dict()
+RENAL[CODE_TYPE][VERSION][CODE] = (
     r"^584[5-9]$",
     r"^6693.*",
 )
 
-version = icd10
-renal[type][version] = dict()
-renal[type][version][code] = (
+VERSION = ICD10
+RENAL[CODE_TYPE][VERSION] = dict()
+RENAL[CODE_TYPE][VERSION][CODE] = (
     "^N17.*",
     "^O904$",
 )
@@ -96,23 +96,23 @@ renal[type][version][code] = (
 # ======================
 # Adult Respiratory Distress Syndrome
 # ======================
-adult_rds = dict()
+ADULT_RDS = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-adult_rds[type] = dict()
-adult_rds[type][version] = dict()
-adult_rds[type][version][code] = (
+ADULT_RDS[CODE_TYPE] = dict()
+ADULT_RDS[CODE_TYPE][VERSION] = dict()
+ADULT_RDS[CODE_TYPE][VERSION][CODE] = (
     r"^5185.*",
     r"^5188[124]$",
     r"^7991$",
 )
 
-version = icd10
-adult_rds[type][version] = dict()
-adult_rds[type][version][code] = (
+VERSION = ICD10
+ADULT_RDS[CODE_TYPE][VERSION] = dict()
+ADULT_RDS[CODE_TYPE][VERSION][CODE] = (
     r"^J80$",
     r"^J95([1-3]$|82.*)",
     r"^J96[029].*",
@@ -120,44 +120,44 @@ adult_rds[type][version][code] = (
 )
 
 # ======================
-# Amniotic fluid embolism
+# Amniotic fluid EMBOLISM
 # ======================
-amniotic_emb = dict()
+AMNIOTIC_EMB = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-amniotic_emb[type] = dict()
-amniotic_emb[type][version] = dict()
-amniotic_emb[type][version][code] = (
+AMNIOTIC_EMB[CODE_TYPE] = dict()
+AMNIOTIC_EMB[CODE_TYPE][VERSION] = dict()
+AMNIOTIC_EMB[CODE_TYPE][VERSION][CODE] = (
     r"^6731.*",
 )
 
-version = icd10
-amniotic_emb[type][version] = dict()
-amniotic_emb[type][version][code] = (
+VERSION = ICD10
+AMNIOTIC_EMB[CODE_TYPE][VERSION] = dict()
+AMNIOTIC_EMB[CODE_TYPE][VERSION][CODE] = (
     r"^O881(1[239]|[23])$",
 )
 
 # ======================
 # Cardiac arrest/ventricular fibrilation
 # ======================
-card_arrest = dict()
+CARD_ARREST = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-card_arrest[type] = dict()
-card_arrest[type][version] = dict()
-card_arrest[type][version][code] = (
+CARD_ARREST[CODE_TYPE] = dict()
+CARD_ARREST[CODE_TYPE][VERSION] = dict()
+CARD_ARREST[CODE_TYPE][VERSION][CODE] = (
     r"^427(4[12]|5)$",
 )
 
-version = icd10
-card_arrest[type][version] = dict()
-card_arrest[type][version][code] = (
+VERSION = ICD10
+CARD_ARREST[CODE_TYPE][VERSION] = dict()
+CARD_ARREST[CODE_TYPE][VERSION][CODE] = (
     r"^I46.*",
     r"^I490.*",
 )
@@ -165,21 +165,21 @@ card_arrest[type][version][code] = (
 # ======================
 # Conversion of cardiac rhythm
 # ======================
-cardiac_rhythm = dict()
+CARDIAC_RHYTHM = dict()
 
-type = 'PX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'PX'
+VERSION = ICD9
+CODE = 'CODE'
 
-cardiac_rhythm[type] = dict()
-cardiac_rhythm[type][version] = dict()
-cardiac_rhythm[type][version][code] = (
+CARDIAC_RHYTHM[CODE_TYPE] = dict()
+CARDIAC_RHYTHM[CODE_TYPE][VERSION] = dict()
+CARDIAC_RHYTHM[CODE_TYPE][VERSION][CODE] = (
     r"^996.*",
 )
 
-version = icd10
-cardiac_rhythm[type][version] = dict()
-cardiac_rhythm[type][version][code] = (
+VERSION = ICD10
+CARDIAC_RHYTHM[CODE_TYPE][VERSION] = dict()
+CARDIAC_RHYTHM[CODE_TYPE][VERSION][CODE] = (
     r"^5A2204Z$",
     r"^5A12012$",
 )
@@ -187,23 +187,23 @@ cardiac_rhythm[type][version][code] = (
 # ======================
 # Disseminated intravascular coagulation
 # ======================
-intra_coag = dict()
+INTRA_COAG = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-intra_coag[type] = dict()
-intra_coag[type][version] = dict()
-intra_coag[type][version][code] = (
+INTRA_COAG[CODE_TYPE] = dict()
+INTRA_COAG[CODE_TYPE][VERSION] = dict()
+INTRA_COAG[CODE_TYPE][VERSION][CODE] = (
     r"^286[69]$",
     r"^6413.*",
     r"^6663.*",
 )
 
-version = icd10
-intra_coag[type][version] = dict()
-intra_coag[type][version][code] = (
+VERSION = ICD10
+INTRA_COAG[CODE_TYPE][VERSION] = dict()
+INTRA_COAG[CODE_TYPE][VERSION][CODE] = (
     r"^D6(5|8[89])$",
     r"^O4[56]0[0-29][239]$",
     r"^O670$",
@@ -213,57 +213,57 @@ intra_coag[type][version][code] = (
 # ======================
 # Eclampsia
 # ======================
-eclampsia = dict()
+ECLAMPSIA = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-eclampsia[type] = dict()
-eclampsia[type][version] = dict()
-eclampsia[type][version][code] = (
+ECLAMPSIA[CODE_TYPE] = dict()
+ECLAMPSIA[CODE_TYPE][VERSION] = dict()
+ECLAMPSIA[CODE_TYPE][VERSION][CODE] = (
     r"^6426.*",
 )
 
-version = icd10
-eclampsia[type][version] = dict()
-eclampsia[type][version][code] = (
+VERSION = ICD10
+ECLAMPSIA[CODE_TYPE][VERSION] = dict()
+ECLAMPSIA[CODE_TYPE][VERSION][CODE] = (
     r"^O15.*",
 )
 
 # ======================
 # Heart failure / arrest during surgery or procedure
 # ======================
-heart_fail = dict()
+HEART_FAIL = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-heart_fail[type] = dict()
-heart_fail[type][version] = dict()
-heart_fail[type][version][code] = (
+HEART_FAIL[CODE_TYPE] = dict()
+HEART_FAIL[CODE_TYPE][VERSION] = dict()
+HEART_FAIL[CODE_TYPE][VERSION][CODE] = (
     r"^9971$",
 )
 
-version = icd10
-heart_fail[type][version] = dict()
-heart_fail[type][version][code] = (
+VERSION = ICD10
+HEART_FAIL[CODE_TYPE][VERSION] = dict()
+HEART_FAIL[CODE_TYPE][VERSION][CODE] = (
     r"^I97(1[23]|71)[01]$",
 )
 
 # ======================
 # Puerperal cerebrovascular disorders
 # ======================
-puerp_cv = dict()
+PUERP_CV = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-puerp_cv[type] = dict()
-puerp_cv[type][version] = dict()
-puerp_cv[type][version][code] = (
+PUERP_CV[CODE_TYPE] = dict()
+PUERP_CV[CODE_TYPE][VERSION] = dict()
+PUERP_CV[CODE_TYPE][VERSION][CODE] = (
     r"^0463$",
     r"^34839$",
     r"^36234$",
@@ -272,9 +272,9 @@ puerp_cv[type][version][code] = (
     r"^99702$",
 )
 
-version = icd10
-puerp_cv[type][version] = dict()
-puerp_cv[type][version][code] = (
+VERSION = ICD10
+PUERP_CV[CODE_TYPE][VERSION] = dict()
+PUERP_CV[CODE_TYPE][VERSION][CODE] = (
     r"^A812$",
     r"^G4[56].*",
     r"^G9349$",
@@ -288,22 +288,22 @@ puerp_cv[type][version][code] = (
 # ======================
 # Pulmonary edema / Acute heart failure
 # ======================
-pulm_edema = dict()
+PULM_EDEMA = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-pulm_edema[type] = dict()
-pulm_edema[type][version] = dict()
-pulm_edema[type][version][code] = (
+PULM_EDEMA[CODE_TYPE] = dict()
+PULM_EDEMA[CODE_TYPE][VERSION] = dict()
+PULM_EDEMA[CODE_TYPE][VERSION][CODE] = (
     r"^5184$",
     r"^428([01]|[2-4][013]|9)$",
 )
 
-version = icd10
-pulm_edema[type][version] = dict()
-pulm_edema[type][version][code] = (
+VERSION = ICD10
+PULM_EDEMA[CODE_TYPE][VERSION] = dict()
+PULM_EDEMA[CODE_TYPE][VERSION][CODE] = (
     r"^J810$",
     r"^I50([19]|[2-4][013]|81[0134]|8[2-49])$",
 )
@@ -311,22 +311,22 @@ pulm_edema[type][version][code] = (
 # ======================
 # Severe anesthesia complications
 # ======================
-anest_comp = dict()
+ANEST_COMP = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-anest_comp[type] = dict()
-anest_comp[type][version] = dict()
-anest_comp[type][version][code] = (
+ANEST_COMP[CODE_TYPE] = dict()
+ANEST_COMP[CODE_TYPE][VERSION] = dict()
+ANEST_COMP[CODE_TYPE][VERSION][CODE] = (
     r"^668[0-2].*",
     r"^995(4|86)$",
 )
 
-version = icd10
-anest_comp[type][version] = dict()
-anest_comp[type][version][code] = (
+VERSION = ICD10
+ANEST_COMP[CODE_TYPE][VERSION] = dict()
+ANEST_COMP[CODE_TYPE][VERSION][CODE] = (
     r"^O29(1[129]|2[19])[239]$",
     r"^O74[0-3]$",
     r"^O89(0.*|[12]$)",
@@ -336,15 +336,15 @@ anest_comp[type][version][code] = (
 # ======================
 # Sepsis
 # ======================
-sepsis = dict()
+SEPSIS = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-sepsis[type] = dict()
-sepsis[type][version] = dict()
-sepsis[type][version][code] = (
+SEPSIS[CODE_TYPE] = dict()
+SEPSIS[CODE_TYPE][VERSION] = dict()
+SEPSIS[CODE_TYPE][VERSION][CODE] = (
     r"^038.*",
     r"^6702.*",
     r"^99802$",
@@ -353,9 +353,9 @@ sepsis[type][version][code] = (
     r"^449$",
 )
 
-version = icd10
-sepsis[type][version] = dict()
-sepsis[type][version][code] = (
+VERSION = ICD10
+SEPSIS[CODE_TYPE][VERSION] = dict()
+SEPSIS[CODE_TYPE][VERSION][CODE] = (
     r"^O85$",
     r"^R652[01]$",
     r"^O8604$",
@@ -368,23 +368,23 @@ sepsis[type][version][code] = (
 # ======================
 # Shock
 # ======================
-shock = dict()
+SHOCK = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-shock[type] = dict()
-shock[type][version] = dict()
-shock[type][version][code] = (
+SHOCK[CODE_TYPE] = dict()
+SHOCK[CODE_TYPE][VERSION] = dict()
+SHOCK[CODE_TYPE][VERSION][CODE] = (
     r"^6691.*",
     r"^7855[019]$",
     r"^99(50|80[019]?)$",
 )
 
-version = icd10
-shock[type][version] = dict()
-shock[type][version][code] = (
+VERSION = ICD10
+SHOCK[CODE_TYPE][VERSION] = dict()
+SHOCK[CODE_TYPE][VERSION][CODE] = (
     r"^O751$",
     r"^R57.*",
     r"^T(782X|886X|811[019])XA$",
@@ -393,44 +393,44 @@ shock[type][version][code] = (
 # ======================
 # Sickle cell disease with crisis
 # ======================
-sickle_cell = dict()
+SICKLE_CELL = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-sickle_cell[type] = dict()
-sickle_cell[type][version] = dict()
-sickle_cell[type][version][code] = (
+SICKLE_CELL[CODE_TYPE] = dict()
+SICKLE_CELL[CODE_TYPE][VERSION] = dict()
+SICKLE_CELL[CODE_TYPE][VERSION][CODE] = (
     r"^282(42|6[249])$",
     r"^28952$",
 )
 
-version = icd10
-sickle_cell[type][version] = dict()
-sickle_cell[type][version][code] = (
+VERSION = ICD10
+SICKLE_CELL[CODE_TYPE][VERSION] = dict()
+SICKLE_CELL[CODE_TYPE][VERSION][CODE] = (
     r"^D57(0[0-2]|[248]1[129])$",
 )
 
 # ======================
-# Air and thrombotic embolism
+# Air and thrombotic EMBOLISM
 # ======================
-embolism = dict()
+EMBOLISM = dict()
 
-type = 'DX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'DX'
+VERSION = ICD9
+CODE = 'CODE'
 
-embolism[type] = dict()
-embolism[type][version] = dict()
-embolism[type][version][code] = (
+EMBOLISM[CODE_TYPE] = dict()
+EMBOLISM[CODE_TYPE][VERSION] = dict()
+EMBOLISM[CODE_TYPE][VERSION][CODE] = (
     r"^415(0$|1.*)",
     r"^673[0238].*",
 )
 
-version = icd10
-embolism[type][version] = dict()
-embolism[type][version][code] = (
+VERSION = ICD10
+EMBOLISM[CODE_TYPE][VERSION] = dict()
+EMBOLISM[CODE_TYPE][VERSION][CODE] = (
     r"^I26.*",
     r"^O88[0238](1[239]|[23])$",
     r"^T800XXA$",
@@ -439,281 +439,282 @@ embolism[type][version][code] = (
 # ======================
 # Hysterectomy
 # ======================
-hysterectomy = dict()
+HYSTERECTOMY = dict()
 
-type = 'PX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'PX'
+VERSION = ICD9
+CODE = 'CODE'
 
 # Removing the top level codes consistent with AIM codesheet removes 63 occurences from HF data
-hysterectomy[type] = dict()
-hysterectomy[type][version] = dict()
-hysterectomy[type][version][code] = (
+HYSTERECTOMY[CODE_TYPE] = dict()
+HYSTERECTOMY[CODE_TYPE][VERSION] = dict()
+HYSTERECTOMY[CODE_TYPE][VERSION][CODE] = (
     "^68([3-7]9?|9)$",
 )
 
-version = icd10
-hysterectomy[type][version] = dict()
-hysterectomy[type][version][code] = (
+VERSION = ICD10
+HYSTERECTOMY[CODE_TYPE][VERSION] = dict()
+HYSTERECTOMY[CODE_TYPE][VERSION][CODE] = (
     r"^0UT9[07]Z[LZ]$",
 )
 
 # ======================
 # Temporary tracheostomy
 # ======================
-trach = dict()
+TRACH = dict()
 
-type = 'PX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'PX'
+VERSION = ICD9
+CODE = 'CODE'
 
-trach[type] = dict()
-trach[type][version] = dict()
-trach[type][version][code] = (
+TRACH[CODE_TYPE] = dict()
+TRACH[CODE_TYPE][VERSION] = dict()
+TRACH[CODE_TYPE][VERSION][CODE] = (
     r"^311$",
 )
 
-version = icd10
-trach[type][version] = dict()
-trach[type][version][code] = (
+VERSION = ICD10
+TRACH[CODE_TYPE][VERSION] = dict()
+TRACH[CODE_TYPE][VERSION][CODE] = (
     r"^0B11[034]F4$",
 )
 
 # ======================
 # Ventilation
 # ======================
-vent = dict()
+VENT = dict()
 
-type = 'PX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'PX'
+VERSION = ICD9
+CODE = 'CODE'
 
-vent[type] = dict()
-vent[type][version] = dict()
-vent[type][version][code] = (
+VENT[CODE_TYPE] = dict()
+VENT[CODE_TYPE][VERSION] = dict()
+VENT[CODE_TYPE][VERSION][CODE] = (
     r"^967[0-2]$",
 )
 
-version = icd10
-vent[type][version] = dict()
-vent[type][version][code] = (
+VERSION = ICD10
+VENT[CODE_TYPE][VERSION] = dict()
+VENT[CODE_TYPE][VERSION][CODE] = (
     r"^5A19[3-5]5Z$",
 )
 
 # ======================
 # Transfusion
 # ======================
-transfusion = dict()
+TRANSFUSION = dict()
 
-type = 'PX'
-version = icd9
-code = 'code'
+CODE_TYPE = 'PX'
+VERSION = ICD9
+CODE = 'CODE'
 
-transfusion[type] = dict()
-transfusion[type][version] = dict()
-transfusion[type][version][code] = (
+TRANSFUSION[CODE_TYPE] = dict()
+TRANSFUSION[CODE_TYPE][VERSION] = dict()
+TRANSFUSION[CODE_TYPE][VERSION][CODE] = (
     r"^990.*",
 )
 
-version = icd10
-transfusion[type][version] = dict()
-transfusion[type][version][code] = (
+VERSION = ICD10
+TRANSFUSION[CODE_TYPE][VERSION] = dict()
+TRANSFUSION[CODE_TYPE][VERSION][CODE] = (
     r"^302[34][03][HK-NPRT][01]$",
 )
 
 # ======================
 # Convert to Pandas
 # ======================
-acute_mi = pd.DataFrame.from_dict(acute_mi, orient='index').stack().to_frame()
-acute_mi = pd.DataFrame(acute_mi[0].values.tolist(),
-                        index=acute_mi.index)
-acute_mi = pd.DataFrame(acute_mi[code].values.tolist(),
-                        index=acute_mi.index).stack().reset_index().drop('level_2', axis=1)
-acute_mi['indicator'] = 'acute_myocardial_infarction'
+ACUTE_MI = pd.DataFrame.from_dict(ACUTE_MI, orient='index').stack().to_frame()
+ACUTE_MI = pd.DataFrame(ACUTE_MI[0].values.tolist(),
+                        index=ACUTE_MI.index)
+ACUTE_MI = pd.DataFrame(ACUTE_MI[CODE].values.tolist(),
+                        index=ACUTE_MI.index).stack().reset_index().drop('level_2', axis=1)
+ACUTE_MI['indicator'] = 'acute_myocardial_infarction'
 
-aneur = pd.DataFrame.from_dict(aneur, orient='index').stack().to_frame()
-aneur = pd.DataFrame(aneur[0].values.tolist(),
-                     index=aneur.index)
-aneur = pd.DataFrame(aneur[code].values.tolist(),
-                     index=aneur.index).stack().reset_index().drop('level_2', axis=1)
-aneur['indicator'] = 'aneurysm'
+ANEUR = pd.DataFrame.from_dict(ANEUR, orient='index').stack().to_frame()
+ANEUR = pd.DataFrame(ANEUR[0].values.tolist(),
+                     index=ANEUR.index)
+ANEUR = pd.DataFrame(ANEUR[CODE].values.tolist(),
+                     index=ANEUR.index).stack().reset_index().drop('level_2', axis=1)
+ANEUR['indicator'] = 'aneurysm'
 
-renal = pd.DataFrame.from_dict(renal, orient='index').stack().to_frame()
-renal = pd.DataFrame(renal[0].values.tolist(),
-                     index=renal.index)
-renal = pd.DataFrame(renal[code].values.tolist(),
-                     index=renal.index).stack().reset_index().drop('level_2', axis=1)
-renal['indicator'] = 'acute_renal_failure'
+RENAL = pd.DataFrame.from_dict(RENAL, orient='index').stack().to_frame()
+RENAL = pd.DataFrame(RENAL[0].values.tolist(),
+                     index=RENAL.index)
+RENAL = pd.DataFrame(RENAL[CODE].values.tolist(),
+                     index=RENAL.index).stack().reset_index().drop('level_2', axis=1)
+RENAL['indicator'] = 'acute_renal_failure'
 
-adult_rds = pd.DataFrame.from_dict(adult_rds, orient='index').stack().to_frame()
-adult_rds = pd.DataFrame(adult_rds[0].values.tolist(),
-                         index=adult_rds.index)
-adult_rds = pd.DataFrame(adult_rds[code].values.tolist(),
-                         index=adult_rds.index).stack().reset_index().drop('level_2', axis=1)
-adult_rds['indicator'] = 'adult_respiratory_distress_syndrome'
+ADULT_RDS = pd.DataFrame.from_dict(ADULT_RDS, orient='index').stack().to_frame()
+ADULT_RDS = pd.DataFrame(ADULT_RDS[0].values.tolist(),
+                         index=ADULT_RDS.index)
+ADULT_RDS = pd.DataFrame(ADULT_RDS[CODE].values.tolist(),
+                         index=ADULT_RDS.index).stack().reset_index().drop('level_2', axis=1)
+ADULT_RDS['indicator'] = 'adult_respiratory_distress_syndrome'
 
-amniotic_emb = pd.DataFrame.from_dict(amniotic_emb, orient='index').stack().to_frame()
-amniotic_emb = pd.DataFrame(amniotic_emb[0].values.tolist(),
-                            index=amniotic_emb.index)
-amniotic_emb = pd.DataFrame(amniotic_emb[code].values.tolist(),
-                            index=amniotic_emb.index).stack().reset_index().drop('level_2', axis=1)
-amniotic_emb['indicator'] = 'amniotic_fluid_embolism'
+AMNIOTIC_EMB = pd.DataFrame.from_dict(AMNIOTIC_EMB, orient='index').stack().to_frame()
+AMNIOTIC_EMB = pd.DataFrame(AMNIOTIC_EMB[0].values.tolist(),
+                            index=AMNIOTIC_EMB.index)
+AMNIOTIC_EMB = pd.DataFrame(AMNIOTIC_EMB[CODE].values.tolist(),
+                            index=AMNIOTIC_EMB.index).stack().reset_index().drop('level_2', axis=1)
+AMNIOTIC_EMB['indicator'] = 'amniotic_fluid_embolism'
 
-card_arrest = pd.DataFrame.from_dict(card_arrest, orient='index').stack().to_frame()
-card_arrest = pd.DataFrame(card_arrest[0].values.tolist(),
-                           index=card_arrest.index)
-card_arrest = pd.DataFrame(card_arrest[code].values.tolist(),
-                           index=card_arrest.index).stack().reset_index().drop('level_2', axis=1)
-card_arrest['indicator'] = 'cardiac_arrest_ventricular_fibrillation'
+CARD_ARREST = pd.DataFrame.from_dict(CARD_ARREST, orient='index').stack().to_frame()
+CARD_ARREST = pd.DataFrame(CARD_ARREST[0].values.tolist(),
+                           index=CARD_ARREST.index)
+CARD_ARREST = pd.DataFrame(CARD_ARREST[CODE].values.tolist(),
+                           index=CARD_ARREST.index).stack().reset_index().drop('level_2', axis=1)
+CARD_ARREST['indicator'] = 'cardiac_arrest_ventricular_fibrillation'
 
-cardiac_rhythm = pd.DataFrame.from_dict(cardiac_rhythm, orient='index').stack().to_frame()
-cardiac_rhythm = pd.DataFrame(cardiac_rhythm[0].values.tolist(),
-                              index=cardiac_rhythm.index)
-cardiac_rhythm = pd.DataFrame(cardiac_rhythm[code].values.tolist(),
-                              index=cardiac_rhythm.index).stack().reset_index().drop('level_2', axis=1)
-cardiac_rhythm['indicator'] = 'conversion_of_cardiac_rhythm'
+CARDIAC_RHYTHM = pd.DataFrame.from_dict(CARDIAC_RHYTHM, orient='index').stack().to_frame()
+CARDIAC_RHYTHM = pd.DataFrame(CARDIAC_RHYTHM[0].values.tolist(),
+                              index=CARDIAC_RHYTHM.index)
+CARDIAC_RHYTHM = pd.DataFrame(CARDIAC_RHYTHM[CODE].values.tolist(),
+                              index=CARDIAC_RHYTHM.index).stack().reset_index().drop('level_2',
+                                                                                     axis=1)
+CARDIAC_RHYTHM['indicator'] = 'conversion_of_cardiac_rhythm'
 
-intra_coag = pd.DataFrame.from_dict(intra_coag, orient='index').stack().to_frame()
-intra_coag = pd.DataFrame(intra_coag[0].values.tolist(),
-                          index=intra_coag.index)
-intra_coag = pd.DataFrame(intra_coag[code].values.tolist(),
-                          index=intra_coag.index).stack().reset_index().drop('level_2', axis=1)
-intra_coag['indicator'] = 'disseminated_intravascular_coagulation'
+INTRA_COAG = pd.DataFrame.from_dict(INTRA_COAG, orient='index').stack().to_frame()
+INTRA_COAG = pd.DataFrame(INTRA_COAG[0].values.tolist(),
+                          index=INTRA_COAG.index)
+INTRA_COAG = pd.DataFrame(INTRA_COAG[CODE].values.tolist(),
+                          index=INTRA_COAG.index).stack().reset_index().drop('level_2', axis=1)
+INTRA_COAG['indicator'] = 'disseminated_intravascular_coagulation'
 
-eclampsia = pd.DataFrame.from_dict(eclampsia, orient='index').stack().to_frame()
-eclampsia = pd.DataFrame(eclampsia[0].values.tolist(),
-                         index=eclampsia.index)
-eclampsia = pd.DataFrame(eclampsia[code].values.tolist(),
-                         index=eclampsia.index).stack().reset_index().drop('level_2', axis=1)
-eclampsia['indicator'] = 'eclampsia'
+ECLAMPSIA = pd.DataFrame.from_dict(ECLAMPSIA, orient='index').stack().to_frame()
+ECLAMPSIA = pd.DataFrame(ECLAMPSIA[0].values.tolist(),
+                         index=ECLAMPSIA.index)
+ECLAMPSIA = pd.DataFrame(ECLAMPSIA[CODE].values.tolist(),
+                         index=ECLAMPSIA.index).stack().reset_index().drop('level_2', axis=1)
+ECLAMPSIA['indicator'] = 'ECLAMPSIA'
 
-heart_fail = pd.DataFrame.from_dict(heart_fail, orient='index').stack().to_frame()
-heart_fail = pd.DataFrame(heart_fail[0].values.tolist(),
-                          index=heart_fail.index)
-heart_fail = pd.DataFrame(heart_fail[code].values.tolist(),
-                          index=heart_fail.index).stack().reset_index().drop('level_2', axis=1)
-heart_fail['indicator'] = 'heart_failure_arrest_during_surgery_or_procedure'
+HEART_FAIL = pd.DataFrame.from_dict(HEART_FAIL, orient='index').stack().to_frame()
+HEART_FAIL = pd.DataFrame(HEART_FAIL[0].values.tolist(),
+                          index=HEART_FAIL.index)
+HEART_FAIL = pd.DataFrame(HEART_FAIL[CODE].values.tolist(),
+                          index=HEART_FAIL.index).stack().reset_index().drop('level_2', axis=1)
+HEART_FAIL['indicator'] = 'heart_failure_arrest_during_surgery_or_procedure'
 
-puerp_cv = pd.DataFrame.from_dict(puerp_cv, orient='index').stack().to_frame()
-puerp_cv = pd.DataFrame(puerp_cv[0].values.tolist(),
-                        index=puerp_cv.index)
-puerp_cv = pd.DataFrame(puerp_cv[code].values.tolist(),
-                        index=puerp_cv.index).stack().reset_index().drop('level_2', axis=1)
-puerp_cv['indicator'] = 'puerperal_cerebrovascular_disorders'
+PUERP_CV = pd.DataFrame.from_dict(PUERP_CV, orient='index').stack().to_frame()
+PUERP_CV = pd.DataFrame(PUERP_CV[0].values.tolist(),
+                        index=PUERP_CV.index)
+PUERP_CV = pd.DataFrame(PUERP_CV[CODE].values.tolist(),
+                        index=PUERP_CV.index).stack().reset_index().drop('level_2', axis=1)
+PUERP_CV['indicator'] = 'puerperal_cerebrovascular_disorders'
 
-pulm_edema = pd.DataFrame.from_dict(pulm_edema, orient='index').stack().to_frame()
-pulm_edema = pd.DataFrame(pulm_edema[0].values.tolist(),
-                          index=pulm_edema.index)
-pulm_edema = pd.DataFrame(pulm_edema[code].values.tolist(),
-                          index=pulm_edema.index).stack().reset_index().drop('level_2', axis=1)
-pulm_edema['indicator'] = 'pulmonary_edema_acute_heart_failure'
+PULM_EDEMA = pd.DataFrame.from_dict(PULM_EDEMA, orient='index').stack().to_frame()
+PULM_EDEMA = pd.DataFrame(PULM_EDEMA[0].values.tolist(),
+                          index=PULM_EDEMA.index)
+PULM_EDEMA = pd.DataFrame(PULM_EDEMA[CODE].values.tolist(),
+                          index=PULM_EDEMA.index).stack().reset_index().drop('level_2', axis=1)
+PULM_EDEMA['indicator'] = 'pulmonary_edema_acute_heart_failure'
 
-anest_comp = pd.DataFrame.from_dict(anest_comp, orient='index').stack().to_frame()
-anest_comp = pd.DataFrame(anest_comp[0].values.tolist(),
-                          index=anest_comp.index)
-anest_comp = pd.DataFrame(anest_comp[code].values.tolist(),
-                          index=anest_comp.index).stack().reset_index().drop('level_2', axis=1)
-anest_comp['indicator'] = 'severe_anesthesia_complications'
+ANEST_COMP = pd.DataFrame.from_dict(ANEST_COMP, orient='index').stack().to_frame()
+ANEST_COMP = pd.DataFrame(ANEST_COMP[0].values.tolist(),
+                          index=ANEST_COMP.index)
+ANEST_COMP = pd.DataFrame(ANEST_COMP[CODE].values.tolist(),
+                          index=ANEST_COMP.index).stack().reset_index().drop('level_2', axis=1)
+ANEST_COMP['indicator'] = 'severe_anesthesia_complications'
 
-sepsis = pd.DataFrame.from_dict(sepsis, orient='index').stack().to_frame()
-sepsis = pd.DataFrame(sepsis[0].values.tolist(),
-                      index=sepsis.index)
-sepsis = pd.DataFrame(sepsis[code].values.tolist(),
-                      index=sepsis.index).stack().reset_index().drop('level_2', axis=1)
-sepsis['indicator'] = 'sepsis'
+SEPSIS = pd.DataFrame.from_dict(SEPSIS, orient='index').stack().to_frame()
+SEPSIS = pd.DataFrame(SEPSIS[0].values.tolist(),
+                      index=SEPSIS.index)
+SEPSIS = pd.DataFrame(SEPSIS[CODE].values.tolist(),
+                      index=SEPSIS.index).stack().reset_index().drop('level_2', axis=1)
+SEPSIS['indicator'] = 'SEPSIS'
 
-shock = pd.DataFrame.from_dict(shock, orient='index').stack().to_frame()
-shock = pd.DataFrame(shock[0].values.tolist(),
-                     index=shock.index)
-shock = pd.DataFrame(shock[code].values.tolist(),
-                     index=shock.index).stack().reset_index().drop('level_2', axis=1)
-shock['indicator'] = 'shock'
+SHOCK = pd.DataFrame.from_dict(SHOCK, orient='index').stack().to_frame()
+SHOCK = pd.DataFrame(SHOCK[0].values.tolist(),
+                     index=SHOCK.index)
+SHOCK = pd.DataFrame(SHOCK[CODE].values.tolist(),
+                     index=SHOCK.index).stack().reset_index().drop('level_2', axis=1)
+SHOCK['indicator'] = 'SHOCK'
 
-sickle_cell = pd.DataFrame.from_dict(sickle_cell, orient='index').stack().to_frame()
-sickle_cell = pd.DataFrame(sickle_cell[0].values.tolist(),
-                           index=sickle_cell.index)
-sickle_cell = pd.DataFrame(sickle_cell[code].values.tolist(),
-                           index=sickle_cell.index).stack().reset_index().drop('level_2', axis=1)
-sickle_cell['indicator'] = 'sickle_cell_disease_with_crisis'
+SICKLE_CELL = pd.DataFrame.from_dict(SICKLE_CELL, orient='index').stack().to_frame()
+SICKLE_CELL = pd.DataFrame(SICKLE_CELL[0].values.tolist(),
+                           index=SICKLE_CELL.index)
+SICKLE_CELL = pd.DataFrame(SICKLE_CELL[CODE].values.tolist(),
+                           index=SICKLE_CELL.index).stack().reset_index().drop('level_2', axis=1)
+SICKLE_CELL['indicator'] = 'sickle_cell_disease_with_crisis'
 
-embolism = pd.DataFrame.from_dict(embolism, orient='index').stack().to_frame()
-embolism = pd.DataFrame(embolism[0].values.tolist(),
-                        index=embolism.index)
-embolism = pd.DataFrame(embolism[code].values.tolist(),
-                        index=embolism.index).stack().reset_index().drop('level_2', axis=1)
-embolism['indicator'] = 'air_and_thrombotic_embolism'
+EMBOLISM = pd.DataFrame.from_dict(EMBOLISM, orient='index').stack().to_frame()
+EMBOLISM = pd.DataFrame(EMBOLISM[0].values.tolist(),
+                        index=EMBOLISM.index)
+EMBOLISM = pd.DataFrame(EMBOLISM[CODE].values.tolist(),
+                        index=EMBOLISM.index).stack().reset_index().drop('level_2', axis=1)
+EMBOLISM['indicator'] = 'air_and_thrombotic_embolism'
 
-hysterectomy = pd.DataFrame.from_dict(hysterectomy, orient='index').stack().to_frame()
-hysterectomy = pd.DataFrame(hysterectomy[0].values.tolist(),
-                            index=hysterectomy.index)
-hysterectomy = pd.DataFrame(hysterectomy[code].values.tolist(),
-                            index=hysterectomy.index).stack().reset_index().drop('level_2', axis=1)
-hysterectomy['indicator'] = 'hysterectomy'
+HYSTERECTOMY = pd.DataFrame.from_dict(HYSTERECTOMY, orient='index').stack().to_frame()
+HYSTERECTOMY = pd.DataFrame(HYSTERECTOMY[0].values.tolist(),
+                            index=HYSTERECTOMY.index)
+HYSTERECTOMY = pd.DataFrame(HYSTERECTOMY[CODE].values.tolist(),
+                            index=HYSTERECTOMY.index).stack().reset_index().drop('level_2', axis=1)
+HYSTERECTOMY['indicator'] = 'HYSTERECTOMY'
 
-trach = pd.DataFrame.from_dict(trach, orient='index').stack().to_frame()
-trach = pd.DataFrame(trach[0].values.tolist(),
-                     index=trach.index)
-trach = pd.DataFrame(trach[code].values.tolist(),
-                     index=trach.index).stack().reset_index().drop('level_2', axis=1)
-trach['indicator'] = 'temporary_tracheostomy'
+TRACH = pd.DataFrame.from_dict(TRACH, orient='index').stack().to_frame()
+TRACH = pd.DataFrame(TRACH[0].values.tolist(),
+                     index=TRACH.index)
+TRACH = pd.DataFrame(TRACH[CODE].values.tolist(),
+                     index=TRACH.index).stack().reset_index().drop('level_2', axis=1)
+TRACH['indicator'] = 'temporary_tracheostomy'
 
-vent = pd.DataFrame.from_dict(vent, orient='index').stack().to_frame()
-vent = pd.DataFrame(vent[0].values.tolist(),
-                    index=vent.index)
-vent = pd.DataFrame(vent[code].values.tolist(),
-                    index=vent.index).stack().reset_index().drop('level_2', axis=1)
-vent['indicator'] = 'ventilation'
+VENT = pd.DataFrame.from_dict(VENT, orient='index').stack().to_frame()
+VENT = pd.DataFrame(VENT[0].values.tolist(),
+                    index=VENT.index)
+VENT = pd.DataFrame(VENT[CODE].values.tolist(),
+                    index=VENT.index).stack().reset_index().drop('level_2', axis=1)
+VENT['indicator'] = 'ventilation'
 
-transfusion = pd.DataFrame.from_dict(transfusion, orient='index').stack().to_frame()
-transfusion = pd.DataFrame(transfusion[0].values.tolist(),
-                           index=transfusion.index)
-transfusion = pd.DataFrame(transfusion[code].values.tolist(),
-                           index=transfusion.index).stack().reset_index().drop('level_2', axis=1)
+TRANSFUSION = pd.DataFrame.from_dict(TRANSFUSION, orient='index').stack().to_frame()
+TRANSFUSION = pd.DataFrame(TRANSFUSION[0].values.tolist(),
+                           index=TRANSFUSION.index)
+TRANSFUSION = pd.DataFrame(TRANSFUSION[CODE].values.tolist(),
+                           index=TRANSFUSION.index).stack().reset_index().drop('level_2', axis=1)
 
-columns = ['smm_type', 'smm_version', 'smm_code', 'indicator']
-acute_mi.columns = columns
-aneur.columns = columns
-renal.columns = columns
-adult_rds.columns = columns
-amniotic_emb.columns = columns
-card_arrest.columns = columns
-cardiac_rhythm.columns = columns
-intra_coag.columns = columns
-eclampsia.columns = columns
-heart_fail.columns = columns
-puerp_cv.columns = columns
-pulm_edema.columns = columns
-anest_comp.columns = columns
-sepsis.columns = columns
-shock.columns = columns
-sickle_cell.columns = columns
-embolism.columns = columns
-hysterectomy.columns = columns
-trach.columns = columns
-vent.columns = columns
-transfusion.columns = columns[:-1]
+SMM_COLUMNS = ['smm_type', 'smm_version', 'smm_code', 'indicator']
+ACUTE_MI.columns = SMM_COLUMNS
+ANEUR.columns = SMM_COLUMNS
+RENAL.columns = SMM_COLUMNS
+ADULT_RDS.columns = SMM_COLUMNS
+AMNIOTIC_EMB.columns = SMM_COLUMNS
+CARD_ARREST.columns = SMM_COLUMNS
+CARDIAC_RHYTHM.columns = SMM_COLUMNS
+INTRA_COAG.columns = SMM_COLUMNS
+ECLAMPSIA.columns = SMM_COLUMNS
+HEART_FAIL.columns = SMM_COLUMNS
+PUERP_CV.columns = SMM_COLUMNS
+PULM_EDEMA.columns = SMM_COLUMNS
+ANEST_COMP.columns = SMM_COLUMNS
+SEPSIS.columns = SMM_COLUMNS
+SHOCK.columns = SMM_COLUMNS
+SICKLE_CELL.columns = SMM_COLUMNS
+EMBOLISM.columns = SMM_COLUMNS
+HYSTERECTOMY.columns = SMM_COLUMNS
+TRACH.columns = SMM_COLUMNS
+VENT.columns = SMM_COLUMNS
+TRANSFUSION.columns = SMM_COLUMNS[:-1]
 
-_smm = pd.concat([acute_mi,
-                  aneur,
-                  renal,
-                  adult_rds,
-                  amniotic_emb,
-                  card_arrest,
-                  cardiac_rhythm,
-                  intra_coag,
-                  eclampsia,
-                  heart_fail,
-                  puerp_cv,
-                  pulm_edema,
-                  anest_comp,
-                  sepsis,
-                  shock,
-                  sickle_cell,
-                  embolism,
-                  hysterectomy,
-                  trach,
-                  vent,
+_SMM = pd.concat([ACUTE_MI,
+                  ANEUR,
+                  RENAL,
+                  ADULT_RDS,
+                  AMNIOTIC_EMB,
+                  CARD_ARREST,
+                  CARDIAC_RHYTHM,
+                  INTRA_COAG,
+                  ECLAMPSIA,
+                  HEART_FAIL,
+                  PUERP_CV,
+                  PULM_EDEMA,
+                  ANEST_COMP,
+                  SEPSIS,
+                  SHOCK,
+                  SICKLE_CELL,
+                  EMBOLISM,
+                  HYSTERECTOMY,
+                  TRACH,
+                  VENT,
                   ])
 
-_smm['smm'] = True
-transfusion['transfusion'] = True
+_SMM['smm'] = True
+TRANSFUSION['TRANSFUSION'] = True

@@ -9,7 +9,7 @@ def get_score(df: pd.DataFrame,
               patient_col: str,
               pregnancy_col: str):
     """
-    Entry point to the scoring section that directs the inputs to the appropriate version.
+    Entry point to the scoring section that directs the inputs to the appropriate VERSION.
 
     :param df: pandas dataframe containing patient and pregnancy identifiers with comorbidity indicators and weights
     :param method: Choice of 'leonard' or 'bateman' for obstetric index
@@ -42,15 +42,15 @@ def bateman_score(df: pd.DataFrame,
                   pregnancy_col: str):
 
     """
-    Totals up the score for the Batemen obstetric index. More severe preeclampsia and eclampsia preclude
-     mild preeclampsia. Pre-existing hypertension and/or preeclampsia/eclampsia precludes gestational hypertension.
+    Totals up the score for the Batemen obstetric index. More severe preeclampsia and ECLAMPSIA preclude
+     mild preeclampsia. Pre-existing hypertension and/or preeclampsia/ECLAMPSIA precludes gestational hypertension.
 
     :param df: pandas dataframe containing patient and pregnancy identifiers with comorbidity indicators and weights
     :param patient_col: column that gives the patient identifier
     :param pregnancy_col: column that gives the pregnancy identifier
 
-    -mild preeclampsia is only included if severe preeclampsia/eclampsia is absent
-    -gestational hypertension is only included if there is no pre-existing hypertension nor preeclampsia/eclampsia
+    -mild preeclampsia is only included if severe preeclampsia/ECLAMPSIA is absent
+    -gestational hypertension is only included if there is no pre-existing hypertension nor preeclampsia/ECLAMPSIA
 
     :return: Pandas dataframe containing patient and pregnancy identifiers with the total score
 
@@ -65,7 +65,7 @@ def bateman_score(df: pd.DataFrame,
     if pregnancy_col not in df.columns:
         raise ValueError(f'Pregnancy identifier column {pregnancy_col} is not in the provided dataframe.')
 
-    # Set up search terms for indicators for hypertension, can be reused for eclampsia exclusions
+    # Set up search terms for indicators for hypertension, can be reused for ECLAMPSIA exclusions
     terms = [bateman_map.indicator.iloc[5],
              bateman_map.indicator.iloc[4],
              bateman_map.indicator.iloc[7]]
@@ -85,7 +85,7 @@ def bateman_score(df: pd.DataFrame,
     hypertension_df = df[df.indicator.isin(terms)]
     gest_ht_df = df[df.indicator == bateman_map.indicator.iloc[3]]
 
-    # Identify the preeclampsia rows for which an eclampsia indicator is present for the same patient and pregnancy
+    # Identify the preeclampsia rows for which an ECLAMPSIA indicator is present for the same patient and pregnancy
     preeclampsia_df = preeclampsia_df.merge(eclampsia_df[[patient_col, pregnancy_col]],
                                             how='inner',
                                             left_on=[patient_col, pregnancy_col],

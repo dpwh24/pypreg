@@ -1,6 +1,6 @@
 """
 Source material codes have been translated into regex.
-They include the top-level code where feasible to account for idiosyncracies in different secondary data sources.
+They include the top-level CODE where feasible to account for idiosyncracies in different secondary data sources.
 
 Codes are sourced from:
 Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA, Creanga AA, Callaghan WM, Gagne JJ.
@@ -53,7 +53,7 @@ mild_pe[version] = (
 )
 
 # ======================
-# Severe preeclampsia / eclampsia
+# Severe preeclampsia / ECLAMPSIA
 # ======================
 eclampsia = dict()
 eclampsia[version] = (
@@ -61,7 +61,7 @@ eclampsia[version] = (
 )
 
 # ======================
-# Chronic renal disease
+# Chronic RENAL disease
 # ======================
 renal_disease = dict()
 renal_disease[version] = (
@@ -240,11 +240,11 @@ mild_pe['indicator'] = 'mild preeclampsia'
 
 eclampsia = pd.DataFrame.from_dict(eclampsia, orient='index').stack().to_frame()
 eclampsia = eclampsia.reset_index().drop('level_1', axis=1)
-eclampsia['indicator'] = 'eclampsia'
+eclampsia['indicator'] = 'ECLAMPSIA'
 
 renal_disease = pd.DataFrame.from_dict(renal_disease, orient='index').stack().to_frame()
 renal_disease = renal_disease.reset_index().drop('level_1', axis=1)
-renal_disease['indicator'] = 'chronic renal disease'
+renal_disease['indicator'] = 'chronic RENAL disease'
 
 hypertension = pd.DataFrame.from_dict(hypertension, orient='index').stack().to_frame()
 hypertension = hypertension.reset_index().drop('level_1', axis=1)
@@ -315,7 +315,7 @@ previous_csec = previous_csec.reset_index().drop('level_1', axis=1)
 previous_csec['indicator'] = 'previous cesarean'
 
 
-columns = ['version', 'code', 'indicator']
+columns = ['VERSION', 'CODE', 'indicator']
 pulm_ht.columns = columns
 placenta_prev.columns = columns
 sickle_cell.columns = columns
