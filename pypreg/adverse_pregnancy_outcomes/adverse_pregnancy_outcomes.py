@@ -15,11 +15,11 @@ ICD10, DRG, and CPT coding systems.
 
 import warnings
 import pandas as pd
-from .cesarean_mapping import cesarean
-from .fetal_growth_mapping import fg
-from .gestational_dm_mapping import gdm
-from .gestational_ht_mapping import ght
-from .preeclampsia_mapping import pe
+from .cesarean_mapping import CESAREAN
+from .fetal_growth_mapping import FG
+from .gestational_dm_mapping import GDM
+from .gestational_ht_mapping import GHT
+from .preeclampsia_mapping import PE
 
 
 def apo(df: pd.DataFrame,
@@ -152,44 +152,44 @@ def apo(df: pd.DataFrame,
     df[code] = df[code].str.upper()
 
     cesarean_encs = df.copy()
-    cesarean_encs['join'] = df[code].replace(cesarean['CODE'].to_list(),
-                                             cesarean['CODE'].to_list(),
+    cesarean_encs['join'] = df[code].replace(CESAREAN['CODE'].to_list(),
+                                             CESAREAN['CODE'].to_list(),
                                              regex=True)
     fg_encs = df.copy()
-    fg_encs['join'] = df[code].replace(fg['CODE'].to_list(),
-                                       fg['CODE'].to_list(),
+    fg_encs['join'] = df[code].replace(FG['CODE'].to_list(),
+                                       FG['CODE'].to_list(),
                                        regex=True)
     gdm_encs = df.copy()
-    gdm_encs['join'] = df[code].replace(gdm['CODE'].to_list(),
-                                        gdm['CODE'].to_list(),
+    gdm_encs['join'] = df[code].replace(GDM['CODE'].to_list(),
+                                        GDM['CODE'].to_list(),
                                         regex=True)
     ght_encs = df.copy()
-    ght_encs['join'] = df[code].replace(ght['CODE'].to_list(),
-                                        ght['CODE'].to_list(),
+    ght_encs['join'] = df[code].replace(GHT['CODE'].to_list(),
+                                        GHT['CODE'].to_list(),
                                         regex=True)
     pe_encs = df.copy()
-    pe_encs['join'] = df[code].replace(pe['CODE'].to_list(),
-                                       pe['CODE'].to_list(),
+    pe_encs['join'] = df[code].replace(PE['CODE'].to_list(),
+                                       PE['CODE'].to_list(),
                                        regex=True)
 
     # Get the instances of the APOs
-    cesarean_encs = cesarean_encs.merge(cesarean,
+    cesarean_encs = cesarean_encs.merge(CESAREAN,
                                         how='inner',
                                         left_on=[code_type, version, 'join'],
                                         right_on=[code_type, version, code]).drop(columns=['join'])
-    fg_encs = fg_encs.merge(fg,
+    fg_encs = fg_encs.merge(FG,
                             how='inner',
                             left_on=[code_type, version, 'join'],
                             right_on=[code_type, version, code]).drop(columns=['join'])
-    gdm_encs = gdm_encs.merge(gdm,
+    gdm_encs = gdm_encs.merge(GDM,
                               how='inner',
                               left_on=[code_type, version, 'join'],
                               right_on=[code_type, version, code]).drop(columns=['join'])
-    ght_encs = ght_encs.merge(ght,
+    ght_encs = ght_encs.merge(GHT,
                               how='inner',
                               left_on=[code_type, version, 'join'],
                               right_on=[code_type, version, code]).drop(columns=['join'])
-    pe_encs = pe_encs.merge(pe,
+    pe_encs = pe_encs.merge(PE,
                             how='inner',
                             left_on=[code_type, version, 'join'],
                             right_on=[code_type, version, code]).drop(columns=['join'])

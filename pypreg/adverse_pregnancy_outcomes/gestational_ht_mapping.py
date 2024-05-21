@@ -1,37 +1,41 @@
 """
 Codes sourced from
 
-Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA, Creanga AA, Callaghan WM, Gagne JJ.
-    Development of a comorbidity index for use in obstetric patients. Obstet Gynecol. 2013 Nov;122(5):957-965.
+Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA,
+    Creanga AA, Callaghan WM, Gagne JJ. Development of a comorbidity
+    index for use in obstetric patients. Obstet Gynecol. 2013 Nov;122(5):957-965.
     doi: 10.1097/AOG.0b013e3182a603bb. PMID: 24104771; PMCID: PMC3829199
 Leonard SA, Kennedy CJ, Carmichael SL, Lyell DJ, Main EK.
-    An Expanded Obstetric Comorbidity Scoring System for Predicting Severe Maternal Morbidity. Obstet Gynecol.
-    2020 Sep;136(3):440-449. doi: 10.1097/AOG.0000000000004022. PMID: 32769656; PMCID: PMC7523732
+    An Expanded Obstetric Comorbidity Scoring System for
+    Predicting Severe Maternal Morbidity. Obstet Gynecol.
+    2020 Sep;136(3):440-449. doi: 10.1097/AOG.0000000000004022.
+    PMID: 32769656; PMCID: PMC7523732
 """
 
 import pandas as pd
 
-ght = dict()
+GHT = dict()
 
-type = 'DX'
-version = 'ICD9'
-code = 'CODE'
+CODE_TYPE = 'DX'
+VERSION = 'ICD9'
+CODE = 'CODE'
 
-ght[type] = dict()
-ght[type][version] = dict()
-ght[type][version][code] = (
+GHT[CODE_TYPE] = dict()
+GHT[CODE_TYPE][VERSION] = dict()
+GHT[CODE_TYPE][VERSION][CODE] = (
     "^6423.*",
 )
 
-version = 'ICD10'
-ght[type][version] = dict()
-ght[type][version][code] = (
+VERSION = 'ICD10'
+GHT[CODE_TYPE][VERSION] = dict()
+GHT[CODE_TYPE][VERSION][CODE] = (
     "^O13.*",
 )
 
 
-ght = pd.DataFrame.from_dict(ght, orient='index').stack().to_frame()
-ght = pd.DataFrame(ght[0].values.tolist(), index=ght.index)
-ght = pd.DataFrame(ght[code].values.tolist(), index=ght.index).stack().reset_index().drop('level_2', axis=1)
+GHT = pd.DataFrame.from_dict(GHT, orient='index').stack().to_frame()
+GHT = pd.DataFrame(GHT[0].values.tolist(), index=GHT.index)
+GHT = pd.DataFrame(GHT[CODE].values.tolist(),
+                   index=GHT.index).stack().reset_index().drop('level_2', axis=1)
 
-ght.columns = ['code_type', 'VERSION', 'CODE']
+GHT.columns = ['code_type', 'VERSION', 'CODE']

@@ -1,30 +1,31 @@
 """
-Codes identified through CODE search of ICD-10 and crosswalk to ICD-9
+Codes identified through code search of ICD-10 and crosswalk to ICD-9
 """
 
 import pandas as pd
 
-fg = dict()
+FG = dict()
 
-type = 'DX'
-version = 'ICD9'
-code = 'CODE'
+CODE_TYPE = 'DX'
+VERSION = 'ICD9'
+CODE = 'CODE'
 
-fg[type] = dict()
-fg[type][version] = dict()
-fg[type][version][code] = (
+FG[CODE_TYPE] = dict()
+FG[CODE_TYPE][VERSION] = dict()
+FG[CODE_TYPE][VERSION][CODE] = (
     "^6565.*",
 )
 
-version = 'ICD10'
-fg[type][version] = dict()
-fg[type][version][code] = (
+VERSION = 'ICD10'
+FG[CODE_TYPE][VERSION] = dict()
+FG[CODE_TYPE][VERSION][CODE] = (
     "^O3659.*",
 )
 
 
-fg = pd.DataFrame.from_dict(fg, orient='index').stack().to_frame()
-fg = pd.DataFrame(fg[0].values.tolist(), index=fg.index)
-fg = pd.DataFrame(fg[code].values.tolist(), index=fg.index).stack().reset_index().drop('level_2', axis=1)
+FG = pd.DataFrame.from_dict(FG, orient='index').stack().to_frame()
+FG = pd.DataFrame(FG[0].values.tolist(), index=FG.index)
+FG = pd.DataFrame(FG[CODE].values.tolist(),
+                  index=FG.index).stack().reset_index().drop('level_2', axis=1)
 
-fg.columns = ['code_type', 'VERSION', 'CODE']
+FG.columns = ['code_type', 'VERSION', 'CODE']
