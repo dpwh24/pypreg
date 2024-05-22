@@ -46,7 +46,7 @@ ECTOPIC = dict()
 ECTOPIC[DIAGNOSIS] = dict()
 ECTOPIC[DIAGNOSIS][ICD10] = dict()
 ECTOPIC[DIAGNOSIS][ICD10][MOLL] = (
-    r"^O0[0,8].*",
+    r"^O0[08].*",
 )
 
 ECTOPIC[DIAGNOSIS][ICD9] = dict()
@@ -58,17 +58,17 @@ ECTOPIC[PROCEDURE] = dict()
 ECTOPIC[PROCEDURE][ICD9] = dict()
 ECTOPIC[PROCEDURE][ICD9][CROSSWALK] = (
     r"^743$",
-    r"^66[0,6]2$",
+    r"^66[06]2$",
 )
 
 ECTOPIC[PROCEDURE][ICD10] = dict()
 ECTOPIC[PROCEDURE][ICD10][MOLL] = (
-    r"^10(D2[7,8]|T2[0,3,4,7,8])ZZ$",
+    r"^10(D2[78]|T2[03478])ZZ$",
 )
 
 ECTOPIC[PROCEDURE][CPT] = dict()
 ECTOPIC[PROCEDURE][CPT][MOLL] = (
-    r"^591([0,4]0|[2,5][0,1]|3[0,5,6])$",
+    r"^591([04]0|[25][01]|3[056])$",
 )
 
 ECTOPIC[DRG] = dict()
@@ -88,7 +88,7 @@ TROPHOBLASTIC = dict()
 TROPHOBLASTIC[DIAGNOSIS] = dict()
 TROPHOBLASTIC[DIAGNOSIS][ICD10] = dict()
 TROPHOBLASTIC[DIAGNOSIS][ICD10][MOLL] = (
-    r"^O0(1|2([0,9]|89)).*",
+    r"^O0(1|2([09]|89)).*",
 )
 
 TROPHOBLASTIC[DIAGNOSIS][ICD9] = dict()
@@ -114,14 +114,14 @@ SPONTANEOUS_ABORTION[DIAGNOSIS][ICD10][MOLL] = (
 
 SPONTANEOUS_ABORTION[DIAGNOSIS][ICD9] = dict()
 SPONTANEOUS_ABORTION[DIAGNOSIS][ICD9][CROSSWALK] = (
-    r"^63[2,4].*",
+    r"^63[24].*",
 )
 
 SPONTANEOUS_ABORTION[PROCEDURE] = dict()
 SPONTANEOUS_ABORTION[PROCEDURE][CPT] = dict()
 SPONTANEOUS_ABORTION[PROCEDURE][CPT][MOLL] = (
     r"^01965$",
-    r"^598(12|2[0,1]|30)$"
+    r"^598(12|2[01]|30)$"
 )
 
 # ======================
@@ -143,30 +143,30 @@ THERAPEUTIC_ABORTION[DIAGNOSIS][ICD9][CROSSWALK] = (
 THERAPEUTIC_ABORTION[PROCEDURE] = dict()
 THERAPEUTIC_ABORTION[PROCEDURE][ICD10] = dict()
 THERAPEUTIC_ABORTION[PROCEDURE][ICD10][MOLL] = (
-    r"^10A0([03478]ZZ|7Z[6,W,X])$",
+    r"^10A0([03478]ZZ|7Z[6WX])$",
 )
 
 THERAPEUTIC_ABORTION[PROCEDURE][ICD9] = dict()
 THERAPEUTIC_ABORTION[PROCEDURE][ICD9][CROSSWALK] = (
     r"^7(491|50)$",
-    r"^69([0,5]1|93)$"
+    r"^69([05]1|93)$"
 )
 
 THERAPEUTIC_ABORTION[PROCEDURE][CPT] = dict()
 THERAPEUTIC_ABORTION[PROCEDURE][CPT][MOLL] = (
-    r"^0196[4,6]$",
-    r"^598(4[0,1]|5[0-2,5-7])$",
-    r"^S(0199|226[0,2,5-7])$",
+    r"^0196[46]$",
+    r"^598(4[01]|5[0-25-7])$",
+    r"^S(0199|226[025-7])$",
 )
 
 THERAPEUTIC_ABORTION[DRG] = dict()
 THERAPEUTIC_ABORTION[DRG][DRG] = dict()
 THERAPEUTIC_ABORTION[DRG][DRG][MOLL] = (
-    r"^77[0,9]$",
+    r"^77[09]$",
 )
 
 THERAPEUTIC_ABORTION[DRG][DRG][EXPANDED] = (
-    r"^38[0,1]$",
+    r"^38[01]$",
 )
 
 # ======================
@@ -176,14 +176,14 @@ STILLBIRTH = dict()
 STILLBIRTH[DIAGNOSIS] = dict()
 STILLBIRTH[DIAGNOSIS][ICD10] = dict()
 STILLBIRTH[DIAGNOSIS][ICD10][MOLL] = (
-    r"^Z37[1,4,7].*",
-    r"^O364XX[0-5,9]$",
+    r"^Z37[147].*",
+    r"^O364XX[0-59]$",
 )
 
 STILLBIRTH[DIAGNOSIS][ICD9] = dict()
 STILLBIRTH[DIAGNOSIS][ICD9][CROSSWALK] = (
     r"^6564[013]$",
-    r"^V27[1,4,7].*",
+    r"^V27[147].*",
 )
 
 # ======================
@@ -193,18 +193,18 @@ LIVE_BIRTH = dict()
 LIVE_BIRTH[DIAGNOSIS] = dict()
 LIVE_BIRTH[DIAGNOSIS][ICD10] = dict()
 LIVE_BIRTH[DIAGNOSIS][ICD10][MOLL] = (
-    r"^Z37([0,2,3]|[5,6][0-4,9]).*",
+    r"^Z37([023]|[56][0-49]).*",
     r"^O80.*",
 )
 
 LIVE_BIRTH[DIAGNOSIS][ICD10][EXPANDED] = (
-    r"^Z38[0,3,6].*",
+    r"^Z38[036].*",
 )
 
 LIVE_BIRTH[DIAGNOSIS][ICD9] = dict()
 LIVE_BIRTH[DIAGNOSIS][ICD9][CROSSWALK] = (
     r"^650$",
-    r"^V27[0,2,3,5,6]$",
+    r"^V27[02356]$",
 )
 
 LIVE_BIRTH[DIAGNOSIS][ICD9][EXPANDED] = (
@@ -220,10 +220,10 @@ DELIVERY[DIAGNOSIS][ICD10] = dict()
 DELIVERY[DIAGNOSIS][ICD10][MOLL] = (
     r"^Z3(79|90)$",
     r"^O420.*",
-    r"^O6([3-5,7-9]|0[1,2]|6[0-3,5,6,8,9]).*",
-    r"^O7([0,4,6,7]|[1,2]1|5[0,2,3,5,8,9]).*",
+    r"^O6([3-57-9]|0[12]|6[0-35689]).*",
+    r"^O7([0467]|[12]1|5[023589]).*",
     r"^O8(2|8[0-3,8]2)$",
-    r"^O9(8[0-9]2|9([0,1,4-7]2|2[1,8]4|3[1-5]4|8[1-4]4)|A[1-5]2).*",
+    r"^O9(8[0-9]2|9([014-7]2|2[18]4|3[1-5]4|8[1-4]4)|A[1-5]2).*",
 )
 
 DELIVERY[DIAGNOSIS][ICD10][EXPANDED] = (
@@ -233,40 +233,40 @@ DELIVERY[DIAGNOSIS][ICD10][EXPANDED] = (
 DELIVERY[DIAGNOSIS][ICD9] = dict()
 DELIVERY[DIAGNOSIS][ICD9][CROSSWALK] = (
     r"^V2(40|79).*",
-    r"^64(1[3,8,9]1|421|681|7[0-6,8,9]1|8[1-6,8,9]1|9([0-4]1|8)).*",
-    r'^65(2[2,4,6,8,9]1|3[0-5]1|491|6[3,8]1|8[1,3]1|9([2,3,8,9][013]?|71))$',
-    r"^66(0[0-5,7-9]|[2,3]|4[0-4,6]|[5,6]1|8[0-2,8,9][1,2]|9[0,5-9]).*",
-    r"^67([4,9]0[1,2]|3[0-3,8][1,2]).*",
+    r"^64(1[389]1|421|681|7[0-689]1|8[1-689]1|9([0-4]1|8)).*",
+    r'^65(2[24689]1|3[0-5]1|491|6[38]1|8[13]1|9([2389][013]?|71))$',
+    r"^66(0[0-57-9]|[23]|4[0-46]|[56]1|8[0-289][12]|9[05-9]).*",
+    r"^67([49]0[12]|3[0-38][12]).*",
 )
 
 DELIVERY[DIAGNOSIS][ICD9][EXPANDED] = (
     r"^64(0[089]1|1[0-2]1|2[0-79][12]|3[0-289]1|5[12]1|6([0379]1|[124-6][12]|82)|"
     r"7[0-689]2|8([1-689]2|[07][12])|9([0-4]2|6[12]|[57]1)).*",
-    r"^65([1,5][0-9]1|2[0,1,3,5,7]1|3[6-9]1|4([0,1,3-8][1,2]|21|92)|"
-    r"6[0-2,5-7,9]1|701|8[0,2,4,8,9]1|9[0,1,4-6]1).*",
-    r"^66(061|1[0-4,9]1|4[5,8,9]|5([0,3-6]1|22|[7-9][1,2])|"
-    r"6(0|[2,3]2)|7[0,1]2|9([1,2,4][1,2]|32)).*",
-    r"^67(0[0-3,8]2|1([0-2,5,8,9][1,2]|31|42)|202|4([1-4,8,9]2|5[1,2])|"
-    r"5[0-2,8,9][1,2]|6[0-6,8,9][1,2]|8[0,1]1|91[1,2]).*",
+    r"^65([15][0-9]1|2[01357]1|3[6-9]1|4([013-8][12]|21|92)|"
+    r"6[0-25-79]1|701|8[02489]1|9[014-6]1).*",
+    r"^66(061|1[0-49]1|4[589]|5([03-6]1|22|[7-9][12])|"
+    r"6(0|[23]2)|7[01]2|9([124][12]|32)).*",
+    r"^67(0[0-38]2|1([0-2589][12]|31|42)|202|4([1-489]2|5[12])|"
+    r"5[0-289][12]|6[0-689][12]|8[01]1|91[12]).*",
 )
 
 DELIVERY[PROCEDURE] = dict()
 DELIVERY[PROCEDURE][ICD10] = dict()
 DELIVERY[PROCEDURE][ICD10][MOLL] = (
     r"^0W8NXZZ$",
-    r"^10(D(0|1[7,8]Z9)|E0).*",
+    r"^10(D(0|1[78]Z9)|E0).*",
 )
 
 DELIVERY[PROCEDURE][ICD9] = dict()
 DELIVERY[PROCEDURE][ICD9][CROSSWALK] = (
-    r'^7(2[0-3,5-9][0-9]?|3(22|[5,6,9][0-9]?)|4([0-4]|99)|54)$',
+    r'^7(2[0-35-9][0-9]?|3(22|[569][0-9]?)|4([0-4]|99)|54)$',
 )
 
 DELIVERY[PROCEDURE][CPT] = dict()
 DELIVERY[PROCEDURE][CPT][MOLL] = (
-    r"^0196[0-3,7-9]$",
-    r"^59(05[0,1]|4(09|1[0,4])|5(1[4,5]|25)|6(1[2,4]|2[0,2]))$",
-    r"^994(36|6[4,5])$",
+    r"^0196[0-37-9]$",
+    r"^59(05[01]|4(09|1[04])|5(1[45]|25)|6(1[24]|2[02]))$",
+    r"^994(36|6[45])$",
     r"^G9356$",
 )
 
@@ -274,7 +274,7 @@ DELIVERY[DRG] = dict()
 DELIVERY[DRG][DRG] = dict()
 DELIVERY[DRG][DRG][MOLL] = (
     r"^37[0-5]$",
-    r"^7(6[5-8]|7[4,5])$",
+    r"^7(6[5-8]|7[45])$",
 )
 
 # ======================

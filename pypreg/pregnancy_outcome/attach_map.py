@@ -55,39 +55,39 @@ def attach_map(df: pd.DataFrame,
     df_dx10 = df_dx[df_dx[version_col] == versions[1]].copy()
 
     # Apply the regex to the cleaned CODE column
-    df_dx9['regex'] = df_dx9['adjusted_code'].replace(dx9_outcomes['CODE'].to_list(),
-                                                      dx9_outcomes['CODE'].to_list(),
+    df_dx9['regex'] = df_dx9['adjusted_code'].replace(dx9_outcomes['code'].to_list(),
+                                                      dx9_outcomes['code'].to_list(),
                                                       regex=True)
-    df_dx10['regex'] = df_dx10['adjusted_code'].replace(dx10_outcomes['CODE'].to_list(),
-                                                        dx10_outcomes['CODE'].to_list(),
+    df_dx10['regex'] = df_dx10['adjusted_code'].replace(dx10_outcomes['code'].to_list(),
+                                                        dx10_outcomes['code'].to_list(),
                                                         regex=True)
-    df_px['regex'] = df_px['adjusted_code'].replace(px_outcomes['CODE'].to_list(),
-                                                    px_outcomes['CODE'].to_list(),
+    df_px['regex'] = df_px['adjusted_code'].replace(px_outcomes['code'].to_list(),
+                                                    px_outcomes['code'].to_list(),
                                                     regex=True)
-    df_drg['regex'] = df_drg['adjusted_code'].replace(drg_outcomes['CODE'].to_list(),
-                                                      drg_outcomes['CODE'].to_list(),
+    df_drg['regex'] = df_drg['adjusted_code'].replace(drg_outcomes['code'].to_list(),
+                                                      drg_outcomes['code'].to_list(),
                                                       regex=True)
 
     # Attach the OUTCOMES by matching on the regex string
-    matched_dx9 = df_dx9.merge(dx9_outcomes[['CODE', 'outcome']],
+    matched_dx9 = df_dx9.merge(dx9_outcomes[['code', 'outcome']],
                                how='inner',
                                left_on='regex',
-                               right_on='CODE',
+                               right_on='code',
                                suffixes=('', '_x'))
-    matched_dx10 = df_dx10.merge(dx10_outcomes[['CODE', 'outcome']],
+    matched_dx10 = df_dx10.merge(dx10_outcomes[['code', 'outcome']],
                                  how='inner',
                                  left_on='regex',
-                                 right_on='CODE',
+                                 right_on='code',
                                  suffixes=('', '_x'))
-    matched_px = df_px.merge(px_outcomes[['CODE', 'outcome']],
+    matched_px = df_px.merge(px_outcomes[['code', 'outcome']],
                              how='inner',
                              left_on='regex',
-                             right_on='CODE',
+                             right_on='code',
                              suffixes=('', '_x'))
-    matched_drg = df_drg.merge(drg_outcomes[['CODE', 'outcome']],
+    matched_drg = df_drg.merge(drg_outcomes[['code', 'outcome']],
                                how='inner',
                                left_on='regex',
-                               right_on='CODE',
+                               right_on='code',
                                suffixes=('', '_x'))
 
     # Combine the output into one dataframe
@@ -124,9 +124,9 @@ def map_version_split(expanded: bool = False):
         map_df = OUTCOMES
 
     # Limit the OUTCOMES regex to their relevant sections to avoid erroneous matches
-    dx9_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == ICD9)]
-    dx10_outcomes = map_df[(map_df.CODE_TYPE == 'DX') & (map_df.VERSION == ICD10)]
-    px_outcomes = map_df[map_df.CODE_TYPE == 'PX']
-    drg_outcomes = map_df[map_df.CODE_TYPE == 'DRG']
+    dx9_outcomes = map_df[(map_df.code_type == 'DX') & (map_df.version == ICD9)]
+    dx10_outcomes = map_df[(map_df.code_type == 'DX') & (map_df.version == ICD10)]
+    px_outcomes = map_df[map_df.code_type == 'PX']
+    drg_outcomes = map_df[map_df.code_type == 'DRG']
 
     return dx9_outcomes, dx10_outcomes, px_outcomes, drg_outcomes

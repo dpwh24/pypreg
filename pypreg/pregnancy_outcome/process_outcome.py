@@ -200,7 +200,7 @@ def validate_outcomes(df: pd.DataFrame,
                     df_valid = df[df['outcome_valid']]
                     # If there are no previously found valid classified encounters
                     # if len(df_valid.index) == 0:
-                    if not df_valid.index:
+                    if df_valid.empty:
                         # This encounter is valid by default as it sits at
                         # the top of the hierarchy in this patient's data
                         df.outcome_valid.iloc[idx] = True
@@ -488,7 +488,7 @@ def standardize_type_and_version(df: pd.DataFrame,
     df_types = set(df[type_col].unique().flat)
     this_types = set([val for value in types.values() for val in value])
     if not df_types.issubset(this_types):
-        warnings.warn(f"Some CODE types ({df_types-this_types}) do not match {this_types}."
+        warnings.warn(f"Some code types ({df_types-this_types}) do not match {this_types}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Check the contents of the Version column and warn user if
@@ -566,9 +566,9 @@ def process_outcomes(df: pd.DataFrame,
     package_cols = {admit_date_col: 'admit',
                     patient_col: 'group_id',
                     encounter_col: 'encounter_id',
-                    version_col: 'VERSION',
+                    version_col: 'version',
                     type_col: 'code_type',
-                    code_col: 'CODE',
+                    code_col: 'code',
                     }
     # Set a dictionary to restore the original column names
     restore_cols = {i: j for j, i in package_cols.items()}
