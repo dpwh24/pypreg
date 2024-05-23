@@ -615,10 +615,12 @@ def process_outcomes(df: pd.DataFrame,
     df_spacing_data.drop_duplicates(inplace=True)
 
     # Validate the OUTCOMES for each patient
-    pregs = df_spacing_data.groupby(patient_col).apply(validate_outcomes,
-                                                       outcome_col=OUTCOME_COL,
-                                                       admit_col=admit_date_col,
-                                                       encounter_col=encounter_col)
+    pregs = df_spacing_data.groupby(patient_col,
+                                    group_keys=False)\
+        .apply(validate_outcomes,
+               outcome_col=OUTCOME_COL,
+               admit_col=admit_date_col,
+               encounter_col=encounter_col)
 
     # Only keep the valid patients
     output = select_valid(pregs)
@@ -631,7 +633,9 @@ def process_outcomes(df: pd.DataFrame,
     output = number_pregnancy(output, patient_col=patient_col, admit_col=admit_date_col)
 
     # Adjust the start window date if needed
-    output = output.groupby(patient_col).apply(check_window)
+    output = output.groupby(patient_col,
+                            group_keys=False)\
+        .apply(check_window)
 
     # Restore the pandas settings
     pd.options.mode.chained_assignment = 'warn'

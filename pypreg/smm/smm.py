@@ -191,7 +191,7 @@ def smm(df: pd.DataFrame,
                              left_on='regex',
                              right_on='smm_code',
                              suffixes=('', '_x'))
-    matched_transfusion = df_transfusion.merge(TRANSFUSION[['smm_code', 'TRANSFUSION']],
+    matched_transfusion = df_transfusion.merge(TRANSFUSION[['smm_code', 'transfusion']],
                                                how='inner',
                                                left_on='regex',
                                                right_on='smm_code',
@@ -296,7 +296,7 @@ def smm(df: pd.DataFrame,
         smm_encs.index.name = None
     # Prep the output data
     warnings.simplefilter('ignore', category=FutureWarning)
-    output_df = smm_encs.merge(matched_transfusion[[enc_id, 'TRANSFUSION']],
+    output_df = smm_encs.merge(matched_transfusion[[enc_id, 'transfusion']],
                                how='outer',
                                left_on=enc_id,
                                right_on=enc_id)

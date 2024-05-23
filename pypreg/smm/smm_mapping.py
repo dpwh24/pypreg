@@ -586,7 +586,7 @@ ECLAMPSIA = pd.DataFrame(ECLAMPSIA[0].values.tolist(),
                          index=ECLAMPSIA.index)
 ECLAMPSIA = pd.DataFrame(ECLAMPSIA[CODE].values.tolist(),
                          index=ECLAMPSIA.index).stack().reset_index().drop('level_2', axis=1)
-ECLAMPSIA['indicator'] = 'ECLAMPSIA'
+ECLAMPSIA['indicator'] = 'eclampsia'
 
 HEART_FAIL = pd.DataFrame.from_dict(HEART_FAIL, orient='index').stack().to_frame()
 HEART_FAIL = pd.DataFrame(HEART_FAIL[0].values.tolist(),
@@ -621,14 +621,14 @@ SEPSIS = pd.DataFrame(SEPSIS[0].values.tolist(),
                       index=SEPSIS.index)
 SEPSIS = pd.DataFrame(SEPSIS[CODE].values.tolist(),
                       index=SEPSIS.index).stack().reset_index().drop('level_2', axis=1)
-SEPSIS['indicator'] = 'SEPSIS'
+SEPSIS['indicator'] = 'sepsis'
 
 SHOCK = pd.DataFrame.from_dict(SHOCK, orient='index').stack().to_frame()
 SHOCK = pd.DataFrame(SHOCK[0].values.tolist(),
                      index=SHOCK.index)
 SHOCK = pd.DataFrame(SHOCK[CODE].values.tolist(),
                      index=SHOCK.index).stack().reset_index().drop('level_2', axis=1)
-SHOCK['indicator'] = 'SHOCK'
+SHOCK['indicator'] = 'shock'
 
 SICKLE_CELL = pd.DataFrame.from_dict(SICKLE_CELL, orient='index').stack().to_frame()
 SICKLE_CELL = pd.DataFrame(SICKLE_CELL[0].values.tolist(),
@@ -649,7 +649,7 @@ HYSTERECTOMY = pd.DataFrame(HYSTERECTOMY[0].values.tolist(),
                             index=HYSTERECTOMY.index)
 HYSTERECTOMY = pd.DataFrame(HYSTERECTOMY[CODE].values.tolist(),
                             index=HYSTERECTOMY.index).stack().reset_index().drop('level_2', axis=1)
-HYSTERECTOMY['indicator'] = 'HYSTERECTOMY'
+HYSTERECTOMY['indicator'] = 'hysterectomy'
 
 TRACH = pd.DataFrame.from_dict(TRACH, orient='index').stack().to_frame()
 TRACH = pd.DataFrame(TRACH[0].values.tolist(),
@@ -717,4 +717,4 @@ _SMM = pd.concat([ACUTE_MI,
                   ])
 
 _SMM['smm'] = True
-TRANSFUSION['TRANSFUSION'] = True
+TRANSFUSION['transfusion'] = True

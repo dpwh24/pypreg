@@ -1,7 +1,6 @@
 if __name__  == "__main__":
-    import os
     import pandas as pd
-
+    from pandas.testing import assert_frame_equal
 
     def test_smm():
         from pypreg import smm
@@ -62,7 +61,44 @@ if __name__  == "__main__":
         df = pd.DataFrame(data, columns=cols)
 
         df = smm(df, enc_id=cols[0], code_type=cols[1], version=cols[2], code=cols[3], indicators=True)
-        print(df)
+
+        expected_data = [[1, True, True, True, True, True, True,
+                          True, True, True, True, True, True, True,
+                          True, True, True, True, False, True, True, True, True],
+                         [2, True, False, False, False, False, False,
+                          False, False, False, True, False, False, False,
+                          False, False, False, False, False, False, False, False, False]
+                         ]
+
+        cols = ['encounter_id',
+                'smm',
+                'eclampsia',
+                'amniotic_fluid_embolism',
+                'severe_anesthesia_complications',
+                'acute_renal_failure',
+                'cardiac_arrest_ventricular_fibrillation',
+                'acute_myocardial_infarction',
+                'hysterectomy',
+                'adult_respiratory_distress_syndrome',
+                'ventilation',
+                'disseminated_intravascular_coagulation',
+                'heart_failure_arrest_during_surgery_or_procedure',
+                'air_and_thrombotic_embolism',
+                'sickle_cell_disease_with_crisis',
+                'temporary_tracheostomy',
+                'conversion_of_cardiac_rhythm',
+                'puerperal_cerebrovascular_disorders',
+                'aneurysm',
+                'shock',
+                'pulmonary_edema_acute_heart_failure',
+                'sepsis',
+                'transfusion']
+
+        expected_df = pd.DataFrame(expected_data, columns=cols)
+        df = df.reindex(columns=cols).reset_index(drop=True)
+
+        assert_frame_equal(df, expected_df)
+
 
     def test_outcome_map_split():
         from pypreg import OUTCOMES, map_version_split
@@ -78,7 +114,6 @@ if __name__  == "__main__":
 
     def test_basic_preg_outcomes():
         from pypreg import process_outcomes, OUTCOME_LIST
-        from pandas.testing import assert_frame_equal
 
         basic_date = pd.to_datetime('2010-01-01')
 
@@ -137,7 +172,6 @@ if __name__  == "__main__":
 
     def test_preg_hierarchy():
         from pypreg import process_outcomes, OUTCOME_LIST
-        from pandas.testing import assert_frame_equal
 
         basic_date = pd.to_datetime('2010-01-01')
 
@@ -211,8 +245,66 @@ if __name__  == "__main__":
         outcome['end_window'] = pd.to_datetime(outcome['end_window'])
 
         assert_frame_equal(outcome, expected_df)
+
+    def test_multiple_pregs():
+        from pypreg import process_outcomes, OUTCOME_LIST
+
+        data = [[1, 1, pd.to_datetime('2010-01-01'), 'DX', '9', '633.1'],
+                [1, 8, pd.to_datetime('2010-01-05'), 'DX', '9', '632.5'],
+                [1, 2, pd.to_datetime('2010-2-26'), 'DX', '9', '631.8'],
+                [1, 3, pd.to_datetime('2010-4-9'), 'DX', '9', '632.5'],
+                [1, 4, pd.to_datetime('2010-6-4'), 'DX', '9', '635.9'],
+                [1, 5, pd.to_datetime('2010-11-5'), 'DX', '9', 'V27.1'],
+                [1, 6, pd.to_datetime('2011-5-6'), 'DX', '9', '650'],
+                [1, 7, pd.to_datetime('2011-10-21'), 'DX', '9', '652.21'],
+                ]
+
+        cols = ['PATIENT_SK', 'ENCOUNTER_ID', 'ADMITTED_DT_TM', 'CODE_TYPE', 'CODE_VERSION', 'CODE']
+
+        df = pd.DataFrame(data, columns=cols)
+
+        outcome = process_outcomes(df,
+                                   patient_col=cols[0],
+                                   encounter_col=cols[1],
+                                   admit_date_col=cols[2],
+                                   version_col=cols[4],
+                                   type_col=cols[3],
+                                   code_col=cols[5])
+
+        expected = [[1, 1, pd.to_datetime('2010-01-01'), OUTCOME_LIST[4],
+                     pd.to_datetime('2009-10-9'), pd.to_datetime('2009-11-20'), 1],
+                    [1, 2, pd.to_datetime('2010-2-26'), OUTCOME_LIST[3],
+                     pd.to_datetime('2010-1-15'), pd.to_datetime('2010-1-15'), 2],
+                    [1, 3, pd.to_datetime('2010-4-9'), OUTCOME_LIST[6],
+                     pd.to_datetime('2010-3-12'), pd.to_datetime('2010-3-12'), 3],
+                    [1, 4, pd.to_datetime('2010-6-4'), OUTCOME_LIST[5],
+                     pd.to_datetime('2010-4-23'), pd.to_datetime('2010-4-23'), 4],
+                    [1, 5, pd.to_datetime('2010-11-5'), OUTCOME_LIST[1],
+                     pd.to_datetime('2010-6-18'), pd.to_datetime('2010-6-18'), 5],
+                    [1, 6, pd.to_datetime('2011-5-6'), OUTCOME_LIST[0],
+                     pd.to_datetime('2010-12-3'), pd.to_datetime('2010-12-3'), 6],
+                    [1, 7, pd.to_datetime('2011-10-21'), OUTCOME_LIST[2],
+                     pd.to_datetime('2011-6-3'), pd.to_datetime('2011-6-3'), 7]
+                    ]
+
+        expected_cols = [cols[0],
+                         cols[1],
+                         cols[2],
+                         'outcome',
+                         'start_window',
+                         'end_window',
+                         'preg_num']
+
+        expected_df = pd.DataFrame(expected, columns=expected_cols)
+        outcome = outcome[[x for x in outcome.columns if x in expected_cols]].reset_index(drop=True)
+
+        outcome['start_window'] = pd.to_datetime(outcome['start_window'])
+        outcome['end_window'] = pd.to_datetime(outcome['end_window'])
+
+        assert_frame_equal(outcome, expected_df)
     
 
     test_smm()
     test_outcome_map_split()
     test_basic_preg_outcomes()
+    test_multiple_pregs()
