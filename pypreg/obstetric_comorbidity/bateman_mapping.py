@@ -222,7 +222,7 @@ PREVIOUS_CSEC[VERSION] = (
 # ======================
 PULM_HT = pd.DataFrame.from_dict(PULM_HT, orient='index').stack().to_frame()
 PULM_HT = PULM_HT.reset_index().drop('level_1', axis=1)
-PULM_HT['indicator'] = 'pulmonary HYPERTENSION'
+PULM_HT['indicator'] = 'pulmonary hypertension'
 
 PLACENTA_PREV = pd.DataFrame.from_dict(PLACENTA_PREV, orient='index').stack().to_frame()
 PLACENTA_PREV = PLACENTA_PREV.reset_index().drop('level_1', axis=1)
@@ -234,7 +234,7 @@ SICKLE_CELL['indicator'] = 'sickle cell disease'
 
 GEST_HT = pd.DataFrame.from_dict(GEST_HT, orient='index').stack().to_frame()
 GEST_HT = GEST_HT.reset_index().drop('level_1', axis=1)
-GEST_HT['indicator'] = 'gestational HYPERTENSION'
+GEST_HT['indicator'] = 'gestational hypertension'
 
 MILD_PE = pd.DataFrame.from_dict(MILD_PE, orient='index').stack().to_frame()
 MILD_PE = MILD_PE.reset_index().drop('level_1', axis=1)
@@ -242,15 +242,15 @@ MILD_PE['indicator'] = 'mild preeclampsia'
 
 ECLAMPSIA = pd.DataFrame.from_dict(ECLAMPSIA, orient='index').stack().to_frame()
 ECLAMPSIA = ECLAMPSIA.reset_index().drop('level_1', axis=1)
-ECLAMPSIA['indicator'] = 'ECLAMPSIA'
+ECLAMPSIA['indicator'] = 'eclampsia'
 
 RENAL_DISEASE = pd.DataFrame.from_dict(RENAL_DISEASE, orient='index').stack().to_frame()
 RENAL_DISEASE = RENAL_DISEASE.reset_index().drop('level_1', axis=1)
-RENAL_DISEASE['indicator'] = 'chronic RENAL disease'
+RENAL_DISEASE['indicator'] = 'chronic renal disease'
 
 HYPERTENSION = pd.DataFrame.from_dict(HYPERTENSION, orient='index').stack().to_frame()
 HYPERTENSION = HYPERTENSION.reset_index().drop('level_1', axis=1)
-HYPERTENSION['indicator'] = 'preexisting HYPERTENSION'
+HYPERTENSION['indicator'] = 'preexisting hypertension'
 
 ISCHEMIC_HD = pd.DataFrame.from_dict(ISCHEMIC_HD, orient='index').stack().to_frame()
 ISCHEMIC_HD = ISCHEMIC_HD.reset_index().drop('level_1', axis=1)

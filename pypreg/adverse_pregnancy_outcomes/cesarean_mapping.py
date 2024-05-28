@@ -19,7 +19,7 @@ CESAREAN = dict()
 
 CODE_TYPE = 'PX'
 VERSION = 'ICD9'
-CODE = 'CODE'
+CODE = 'code'
 
 CESAREAN[CODE_TYPE] = dict()
 CESAREAN[CODE_TYPE][VERSION] = dict()
@@ -85,4 +85,4 @@ CESAREAN = pd.DataFrame(CESAREAN[CODE].values.tolist(),
                         index=CESAREAN.index).stack().reset_index().drop('level_2',
                                                                          axis=1)
 
-CESAREAN.columns = ['code_type', 'VERSION', 'CODE']
+CESAREAN.columns = ['code_type', 'version', 'code']

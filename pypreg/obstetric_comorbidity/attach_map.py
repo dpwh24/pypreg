@@ -46,17 +46,17 @@ def assign_weights(df: pd.DataFrame,
     df[code_col] = df[code_col].str.replace('.', '', regex=False)
 
     # Rename the CODE column
-    df.rename(columns={code_col: 'CODE'}, inplace=True)
+    df.rename(columns={code_col: 'code'}, inplace=True)
 
     # Set up the regex match
-    df['join'] = df[code_col].replace(map_df['CODE'].to_list(),
-                                      map_df['CODE'].to_list(), regex=True)
+    df['join'] = df[code_col].replace(map_df['code'].to_list(),
+                                      map_df['code'].to_list(), regex=True)
 
     # Join on the matching regex pattern
     output = df.merge(map_df,
                       how='left',
                       left_on='join',
-                      right_on='CODE',
+                      right_on='code',
                       suffixes=('', '_y')).drop(columns=['join', 'code_y'])
 
     # If the age column is given, include the age category in the score

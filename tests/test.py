@@ -2,6 +2,97 @@ if __name__  == "__main__":
     import pandas as pd
     from pandas.testing import assert_frame_equal
 
+    def test_bateman_score():
+        from pypreg import calc_index
+
+        all_bateman_codes = [[1, 1, '416.09', '9'],
+                             [1, 1, '641.09', '9'],
+                             [1, 1, '282.49', '9'],
+                             [1, 1, '642.39', '9'],
+                             [1, 1, '642.49', '9'],
+                             [1, 1, '642.59', '9'],
+                             [1, 1, '581.49', '9'],
+                             [1, 1, '401.49', '9'],
+                             [1, 1, '412.49', '9'],
+                             [1, 1, '747.49', '9'],
+                             [1, 1, '710.09', '9'],
+                             [1, 1, 'V08.49', '9'],
+                             [1, 1, '651.49', '9'],
+                             [1, 1, '304.49', '9'],
+                             [1, 1, '291.49', '9'],
+                             [1, 1, '649.09', '9'],
+                             [1, 1, '424.49', '9'],
+                             [1, 1, '428.22', '9'],
+                             [1, 1, '493.49', '9'],
+                             [1, 1, '250.49', '9'],
+                             [1, 1, '648.89', '9'],
+                             [1, 1, '649.19', '9'],
+                             [1, 1, '277.09', '9'],
+                             [1, 1, '654.29', '9']]
+
+        max_bateman_codes = [[1, 1, '416.09', '9', 45],
+                             [1, 1, '641.09', '9', 45],
+                             [1, 1, '282.49', '9', 45],
+                             [1, 1, '642.39', '9', 45],
+                             [1, 1, '642.49', '9', 45],
+                             [1, 1, '642.59', '9', 45],
+                             [1, 1, '581.49', '9', 45],
+                             [1, 1, '412.49', '9', 45],
+                             [1, 1, '747.49', '9', 45],
+                             [1, 1, '710.09', '9', 45],
+                             [1, 1, 'V08.49', '9', 45],
+                             [1, 1, '651.49', '9', 45],
+                             [1, 1, '304.49', '9', 45],
+                             [1, 1, '291.49', '9', 45],
+                             [1, 1, '649.09', '9', 45],
+                             [1, 1, '424.49', '9', 45],
+                             [1, 1, '428.22', '9', 45],
+                             [1, 1, '493.49', '9', 45],
+                             [1, 1, '250.49', '9', 45],
+                             [1, 1, '648.89', '9', 45],
+                             [1, 1, '649.19', '9', 45],
+                             [1, 1, '277.09', '9', 45],
+                             [1, 1, '654.29', '9', 45]]
+
+
+    def test_apo():
+        from pypreg import apo
+
+        data = [[1, 1, 'DX', '9', '669.75'],
+                [1, 1, 'DX', '9', '656.55'],
+                [1, 1, 'DX', '9', '648.85'],
+                [1, 1, 'DX', '9', '642.37'],
+                [1, 1, 'DX', '9', '642.75'],
+                [1, 2, 'DX', '9', '700.75'],
+                [1, 2, 'DX', '9', '701.75'],
+                [1, 2, 'DX', '9', '705.75'],
+                [1, 2, 'DX', '9', '707.75'],
+                [1, 2, 'DX', '9', '723.75']]
+
+        cols = ['patient_id', 'preg_id', 'code_type', 'code_version', 'code']
+        df = pd.DataFrame(data, columns=cols)
+
+        result = apo(df, patient_id=cols[0],
+                     preg_id=cols[1],
+                     code_type=cols[2],
+                     version=cols[3],
+                     code=cols[4])
+
+        expected = [[1, 1, True, True, True, True, True],
+                    [1, 2, False, False, False, False, False]]
+        expected_cols = [cols[0],
+                         cols[1],
+                         'cesarean',
+                         'fetal growth restriction',
+                         'gest diabetes mellitus',
+                         'gest hypertension',
+                         'preeclampsia']
+
+        expected_df = pd.DataFrame(expected, columns=expected_cols)
+
+        assert_frame_equal(result, expected_df)
+
+
     def test_smm():
         from pypreg import smm
 
@@ -308,3 +399,4 @@ if __name__  == "__main__":
     test_outcome_map_split()
     test_basic_preg_outcomes()
     test_multiple_pregs()
+    test_apo()

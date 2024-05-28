@@ -57,9 +57,9 @@ def apo(df: pd.DataFrame,
 
     package_cols = {patient_id: 'patient_sk',
                     preg_id: 'preg_id',
-                    version: 'VERSION',
+                    version: 'version',
                     code_type: 'code_type',
-                    code: 'CODE'
+                    code: 'code'
                     }
     restore_cols = {i: j for j, i in package_cols.items()}
 
@@ -107,7 +107,7 @@ def apo(df: pd.DataFrame,
     df_types = set(df[code_type].unique().flat)
     this_types = set([val for value in types.values() for val in value])
     if not df_types.issubset(this_types):
-        warnings.warn(f"Some CODE types ({df_types - this_types}) do not match {this_types}."
+        warnings.warn(f"Some code types ({df_types - this_types}) do not match {this_types}."
                       f" Ensure these are not in error.", stacklevel=2)
 
     # Check the contents of the Version column and warn user if the contents
@@ -117,7 +117,7 @@ def apo(df: pd.DataFrame,
     df_versions = set(df[version].unique().flat)
     this_versions = set([val for value in versions.values() for val in value])
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some CODE versions ({df_versions - this_versions})"
+        warnings.warn(f"Some code versions ({df_versions - this_versions})"
                       f" do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
@@ -152,24 +152,24 @@ def apo(df: pd.DataFrame,
     df[code] = df[code].str.upper()
 
     cesarean_encs = df.copy()
-    cesarean_encs['join'] = df[code].replace(CESAREAN['CODE'].to_list(),
-                                             CESAREAN['CODE'].to_list(),
+    cesarean_encs['join'] = df[code].replace(CESAREAN['code'].to_list(),
+                                             CESAREAN['code'].to_list(),
                                              regex=True)
     fg_encs = df.copy()
-    fg_encs['join'] = df[code].replace(FG['CODE'].to_list(),
-                                       FG['CODE'].to_list(),
+    fg_encs['join'] = df[code].replace(FG['code'].to_list(),
+                                       FG['code'].to_list(),
                                        regex=True)
     gdm_encs = df.copy()
-    gdm_encs['join'] = df[code].replace(GDM['CODE'].to_list(),
-                                        GDM['CODE'].to_list(),
+    gdm_encs['join'] = df[code].replace(GDM['code'].to_list(),
+                                        GDM['code'].to_list(),
                                         regex=True)
     ght_encs = df.copy()
-    ght_encs['join'] = df[code].replace(GHT['CODE'].to_list(),
-                                        GHT['CODE'].to_list(),
+    ght_encs['join'] = df[code].replace(GHT['code'].to_list(),
+                                        GHT['code'].to_list(),
                                         regex=True)
     pe_encs = df.copy()
-    pe_encs['join'] = df[code].replace(PE['CODE'].to_list(),
-                                       PE['CODE'].to_list(),
+    pe_encs['join'] = df[code].replace(PE['code'].to_list(),
+                                       PE['code'].to_list(),
                                        regex=True)
 
     # Get the instances of the APOs
@@ -231,5 +231,9 @@ def apo(df: pd.DataFrame,
                left_on=[patient_id, preg_id],
                right_on=[patient_id, preg_id])\
         .fillna(False)
+
+    apo_out.rename(columns={patient_id: restore_cols[patient_id],
+                            preg_id: restore_cols[preg_id]},
+                   inplace=True)
 
     return apo_out

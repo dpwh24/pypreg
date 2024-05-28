@@ -8,7 +8,7 @@ FG = dict()
 
 CODE_TYPE = 'DX'
 VERSION = 'ICD9'
-CODE = 'CODE'
+CODE = 'code'
 
 FG[CODE_TYPE] = dict()
 FG[CODE_TYPE][VERSION] = dict()
@@ -28,4 +28,4 @@ FG = pd.DataFrame(FG[0].values.tolist(), index=FG.index)
 FG = pd.DataFrame(FG[CODE].values.tolist(),
                   index=FG.index).stack().reset_index().drop('level_2', axis=1)
 
-FG.columns = ['code_type', 'VERSION', 'CODE']
+FG.columns = ['code_type', 'version', 'code']

@@ -18,7 +18,7 @@ GHT = dict()
 
 CODE_TYPE = 'DX'
 VERSION = 'ICD9'
-CODE = 'CODE'
+CODE = 'code'
 
 GHT[CODE_TYPE] = dict()
 GHT[CODE_TYPE][VERSION] = dict()
@@ -38,4 +38,4 @@ GHT = pd.DataFrame(GHT[0].values.tolist(), index=GHT.index)
 GHT = pd.DataFrame(GHT[CODE].values.tolist(),
                    index=GHT.index).stack().reset_index().drop('level_2', axis=1)
 
-GHT.columns = ['code_type', 'VERSION', 'CODE']
+GHT.columns = ['code_type', 'version', 'code']

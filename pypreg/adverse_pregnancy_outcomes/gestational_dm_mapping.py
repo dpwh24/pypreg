@@ -19,7 +19,7 @@ GDM = dict()
 
 CODE_TYPE = 'DX'
 VERSION = 'ICD9'
-CODE = 'CODE'
+CODE = 'code'
 
 GDM[CODE_TYPE] = dict()
 GDM[CODE_TYPE][VERSION] = dict()
@@ -40,4 +40,4 @@ GDM = pd.DataFrame(GDM[0].values.tolist(), index=GDM.index)
 GDM = pd.DataFrame(GDM[CODE].values.tolist(),
                    index=GDM.index).stack().reset_index().drop('level_2', axis=1)
 
-GDM.columns = ['code_type', 'VERSION', 'CODE']
+GDM.columns = ['code_type', 'version', 'code']

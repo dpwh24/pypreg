@@ -40,7 +40,7 @@ def calc_index(df: pd.DataFrame,
     Main function. Accepts a pandas dataframe of patient encounter data.
     Only ICD9/ICD10 diagnostic codes are accepted. Appends the Leonard or
     Bateman score as chosen by the user. Bateman returns a single score,
-    Leonard returns both a TRANSFUSION and non-TRANSFUSION score.
+    Leonard returns both a transfusion and non-transfusion score.
 
     :param df: Pandas dataframe containing patient and pregnancy identifiers
         with ICD9/10 diagnostic codes
@@ -62,8 +62,8 @@ def calc_index(df: pd.DataFrame,
 
     package_cols = {patient_col: 'group_id',
                     pregnancy_col: 'preg_num',
-                    version_col: 'VERSION',
-                    code_col: 'CODE'
+                    version_col: 'version',
+                    code_col: 'code'
                     }
     restore_cols = {i: j for j, i in package_cols.items()}
 
@@ -120,7 +120,7 @@ def calc_index(df: pd.DataFrame,
     import warnings
 
     if not df_versions.issubset(this_versions):
-        warnings.warn(f"Some CODE versions ({df_versions - this_versions})"
+        warnings.warn(f"Some code versions ({df_versions - this_versions})"
                       f" do not match {this_versions}."
                       f" Ensure these are not in error.", stacklevel=2)
 
@@ -128,7 +128,7 @@ def calc_index(df: pd.DataFrame,
     versions = pd.DataFrame.from_dict(versions, orient='index').stack().to_frame()
     versions = pd.DataFrame(versions[0].values.tolist(),
                             index=versions.index).reset_index().drop('level_1', axis=1)
-    versions.columns = ['VERSION', 'version_match']
+    versions.columns = ['version', 'version_match']
 
     # Replace Version in the provided dataframe with a standard form
     df = df.merge(versions,

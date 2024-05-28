@@ -260,7 +260,7 @@ CESAREAN['indicator'] = 'previous cesarean'
 
 PULM_HT = pd.DataFrame.from_dict(PULM_HT, orient='index').stack().to_frame()
 PULM_HT = PULM_HT.reset_index().drop('level_1', axis=1)
-PULM_HT['indicator'] = 'pulmonary HYPERTENSION'
+PULM_HT['indicator'] = 'pulmonary hypertension'
 
 MULTIPLE_GEST = pd.DataFrame.from_dict(MULTIPLE_GEST, orient='index').stack().to_frame()
 MULTIPLE_GEST = MULTIPLE_GEST.reset_index().drop('level_1', axis=1)
@@ -284,11 +284,11 @@ CARDIAC_DISEASE['indicator'] = 'cardiac disease'
 
 HYPERTENSION = pd.DataFrame.from_dict(HYPERTENSION, orient='index').stack().to_frame()
 HYPERTENSION = HYPERTENSION.reset_index().drop('level_1', axis=1)
-HYPERTENSION['indicator'] = 'chronic HYPERTENSION'
+HYPERTENSION['indicator'] = 'chronic hypertension'
 
 RENAL = pd.DataFrame.from_dict(RENAL, orient='index').stack().to_frame()
 RENAL = RENAL.reset_index().drop('level_1', axis=1)
-RENAL['indicator'] = 'RENAL disease'
+RENAL['indicator'] = 'renal disease'
 
 AUTOIMMUNE = pd.DataFrame.from_dict(AUTOIMMUNE, orient='index').stack().to_frame()
 AUTOIMMUNE = AUTOIMMUNE.reset_index().drop('level_1', axis=1)
@@ -410,7 +410,7 @@ WEIGHTS = {GEST_DM['indicator'][0]: (1, 1),
 
 WEIGHTS = pd.DataFrame.from_dict(WEIGHTS,
                                  orient='index',
-                                 columns=['smm score', 'non-TRANSFUSION smm score'])
+                                 columns=['smm score', 'non-transfusion smm score'])
 
 # Consolidate the map
 LEONARD_MAP = pd.concat([
