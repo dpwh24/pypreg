@@ -82,9 +82,10 @@ def bateman_score(df: pd.DataFrame,
                          f'is not in the provided dataframe.')
 
     # Set up search terms for indicators for hypertension, can be reused for eclampsia exclusions
+    # terms should be for eclampsia/preeclampsia and preexisting hypertension
     terms = [BATEMAN_MAP.indicator.iloc[5],
              BATEMAN_MAP.indicator.iloc[4],
-             BATEMAN_MAP.indicator.iloc[7]]
+             BATEMAN_MAP.indicator.iloc[8]]
 
     # Reference the weight column name
     weight_col = BATEMAN_MAP.columns[3]
