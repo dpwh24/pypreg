@@ -3,7 +3,7 @@ if __name__  == "__main__":
     from pandas.testing import assert_frame_equal
 
     def test_leonard_score():
-        from pypreg import calc_index
+        from src.pypreg import calc_index
 
         max_leonard_codes = [[1, 1, 'O24.49', '10', 35],
                              [1, 1, 'O98.79', '10', 35],
@@ -70,7 +70,7 @@ if __name__  == "__main__":
 
 
     def test_bateman_score():
-        from pypreg import calc_index
+        from src.pypreg import calc_index
 
         all_bateman_codes = [[1, 1, '416.09', '9'],
                              [1, 1, '641.09', '9'],
@@ -202,7 +202,7 @@ if __name__  == "__main__":
 
 
     def test_apo():
-        from pypreg import apo
+        from src.pypreg import apo
 
         data = [[1, 1, 'DX', '9', '669.75'],
                 [1, 1, 'DX', '9', '656.55'],
@@ -240,7 +240,7 @@ if __name__  == "__main__":
 
 
     def test_smm():
-        from pypreg import smm
+        from src.pypreg import smm
 
         data = [[1, 'DX', "9", "410.12", "acute_myocardial_infarction"],
                 [1, 'DX', "10", "I22.0", "acute_myocardial_infarction"],
@@ -338,7 +338,7 @@ if __name__  == "__main__":
 
 
     def test_outcome_map_split():
-        from pypreg import OUTCOMES, map_version_split
+        from src.pypreg import OUTCOMES, map_version_split
 
         out = map_version_split()
 
@@ -350,7 +350,7 @@ if __name__  == "__main__":
         print(out[3][out[3].outcome == 'THERAPEUTIC_ABORTION'].code.str.cat(sep='|'))
 
     def test_basic_preg_outcomes():
-        from pypreg import process_outcomes, OUTCOME_LIST
+        from src.pypreg import process_outcomes, OUTCOME_LIST
 
         basic_date = pd.to_datetime('2010-01-01')
 
@@ -408,7 +408,7 @@ if __name__  == "__main__":
         assert_frame_equal(outcome, expected_df)
 
     def test_preg_hierarchy():
-        from pypreg import process_outcomes, OUTCOME_LIST
+        from src.pypreg import process_outcomes, OUTCOME_LIST
 
         basic_date = pd.to_datetime('2010-01-01')
 
@@ -484,7 +484,7 @@ if __name__  == "__main__":
         assert_frame_equal(outcome, expected_df)
 
     def test_multiple_pregs():
-        from pypreg import process_outcomes, OUTCOME_LIST
+        from src.pypreg import process_outcomes, OUTCOME_LIST
 
         data = [[1, 1, pd.to_datetime('2010-01-01'), 'DX', '9', '633.1'],
                 [1, 8, pd.to_datetime('2010-01-05'), 'DX', '9', '632.5'],
