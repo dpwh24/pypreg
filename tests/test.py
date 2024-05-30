@@ -4,6 +4,8 @@ if __name__  == "__main__":
     import pandas as pd
     from pandas.testing import assert_frame_equal
 
+    pd.set_option('future.no_silent_downcasting', True)
+
     def test_outcome_list_output():
         from src.pypreg import OUTCOME_LIST
 

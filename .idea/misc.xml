@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="pypreg" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="pypreg" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (pypreg)" project-jdk-type="Python SDK" />
 </project>

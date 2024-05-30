@@ -35,7 +35,7 @@ def calc_index(df: pd.DataFrame,
                code_col: str,
                version_col: str,
                method: str,
-               age_col: str = None,):
+               age_col: str = None):
     """
     Main function. Accepts a pandas dataframe of patient encounter data.
     Only ICD9/ICD10 diagnostic codes are accepted. Appends the Leonard or

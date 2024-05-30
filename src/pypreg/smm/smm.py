@@ -40,8 +40,8 @@ def smm(df: pd.DataFrame,
     Severe Maternal Morbidity(SMM).
 
     :param df: A pandas dataframe that contains at least 4 columns to identify
-    the delivery encounter, the code_type of CODE, the VERSION of the CODE,
-    and the CODE itself - encounters may exist on multiple lines to account
+    the delivery encounter, the code_type of code, the version of the code,
+    and the code itself - encounters may exist on multiple lines to account
     for multiple codes
     :param enc_id: Encounter identifier that contains the pregnancy outcome
     :param code_type: One of either DX - Diagnosis or PX - Procedure
@@ -49,10 +49,10 @@ def smm(df: pd.DataFrame,
     (9/ICD9, 10/ICD10/ICD10-CM/ICD10-PCS)
     :param code: The DX or PX CODE assigned during that encounter
     :param indicators: Optional boolean to return the full slate of indicators
-    and not only SMM and Transfusion columns
+    and not only SMM and transfusion columns
 
     :return: Returns a condensed pandas dataframe with the delivery
-    encounter identifier and indicators for SMM and TRANSFUSION.
+    encounter identifier and indicators for SMM and transfusion.
     Optionally returned individualized indicators for each of the 20 other classes that make up SMM.
 
     """
@@ -63,9 +63,9 @@ def smm(df: pd.DataFrame,
                        f" are present in the data.")
 
     package_cols = {enc_id: 'encounter_id',
-                    version: 'VERSION',
+                    version: 'version',
                     code_type: 'code_type',
-                    code: 'CODE'
+                    code: 'code'
                     }
     restore_cols = {i: j for j, i in package_cols.items()}
 
@@ -150,7 +150,7 @@ def smm(df: pd.DataFrame,
     df[code] = df[code].str.upper()
 
     # Limit the outcomes regex to their relevant sections to avoid erroneous matches
-    dx9_smm, dx10_smm, px_smm = map_version_split()
+    dx9_smm, dx10_smm, px_smm = smm_map_version_split()
 
     # Limit the data to be matched by code_type
     df_dx = df[df[code_type] == 'DX'].copy().drop_duplicates()
@@ -197,21 +197,9 @@ def smm(df: pd.DataFrame,
                                                right_on='smm_code',
                                                suffixes=('', '_x'))
 
-    # # Apply SMM and Transfusion indicators to the pandas df
-    # smm_encs = df.merge(_SMM[['smm_type', 'smm_version', 'smm_code', 'smm']],
-    #                     how='inner',
-    #                     left_on=[code_type, VERSION, CODE],
-    #                     right_on=['smm_type', 'smm_version', 'smm_code'])\
-    #     .drop_duplicates()
-    # transfusion_encs = df.merge(TRANSFUSION,
-    #                             how='inner',
-    #                             left_on=[code_type, VERSION, CODE],
-    #                             right_on=['smm_type', 'smm_version', 'smm_code'])
-
     smm_encs = pd.concat([matched_dx9,
                           matched_dx10,
                           matched_px])
-
 
     # If the user wants a reporting of each indicator in addition to SMM and TRANSFUSION
     if indicators:
@@ -294,6 +282,7 @@ def smm(df: pd.DataFrame,
                                   left_on=enc_id,
                                   right_index=True)
         smm_encs.index.name = None
+
     # Prep the output data
     warnings.simplefilter('ignore', category=FutureWarning)
     output_df = smm_encs.merge(matched_transfusion[[enc_id, 'transfusion']],
@@ -310,7 +299,7 @@ def smm(df: pd.DataFrame,
     return output_df
 
 
-def map_version_split():
+def smm_map_version_split():
     """
     Splits the map into separate components like ICD9 Dx, ICD10 DX, and PX
 
