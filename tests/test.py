@@ -1,6 +1,18 @@
+import src.pypreg.pregnancy_outcome
+
 if __name__  == "__main__":
     import pandas as pd
     from pandas.testing import assert_frame_equal
+
+    def test_outcome_list_output():
+        from src.pypreg import OUTCOME_LIST
+
+        print(OUTCOME_LIST)
+
+    def test_outcomes_output():
+        from src.pypreg import OUTCOMES
+
+        print(OUTCOMES.head())
 
     def test_leonard_score():
         from src.pypreg import calc_index
@@ -548,3 +560,5 @@ if __name__  == "__main__":
     test_apo()
     test_bateman_score()
     test_leonard_score()
+    test_outcomes_output()
+    test_outcome_list_output()
