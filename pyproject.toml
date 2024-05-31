@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pypreg"
+version = "0.0.1"
+authors = [
+  { name="David Walsh", email="dwalsh@umkc.edu" },
+]
+description = "A collection of tools to assist with pregnancy research."
+
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+dynamic = ["dependencies"]
+dependencies = {file = ["requirements.txt"]}
+[project.urls]
+Homepage = "https://github.com/dpwh24/pypreg"
+Issues = "https://github.com/dpwh24/pypreg/issues"
