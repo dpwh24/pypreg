@@ -236,4 +236,10 @@ def apo(df: pd.DataFrame,
                             preg_id: restore_cols[preg_id]},
                    inplace=True)
 
+    apo_out = apo_out.astype({'cesarean': 'bool',
+                              'fetal growth restriction': 'bool',
+                              'gest diabetes mellitus': 'bool',
+                              'gest hypertension': 'bool',
+                              'preeclampsia': 'bool'})
+
     return apo_out

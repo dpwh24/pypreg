@@ -203,8 +203,8 @@ def validate_outcomes(df: pd.DataFrame,
                     if df_valid.empty:
                         # This encounter is valid by default as it sits at
                         # the top of the hierarchy in this patient's data
-                        df.outcome_valid.iloc[idx] = True
-                        df.event_date.iloc[idx] = df[admit_col].iloc[idx]
+                        df.loc[idx, 'outcome_valid'] = True
+                        df.loc[idx, 'event_date'] = df.loc[idx, admit_col]
                     else:
                         # If other valid encounters exist, add the current
                         # encounter to that timeline and sort it
@@ -246,8 +246,8 @@ def validate_outcomes(df: pd.DataFrame,
                                     valid = valid_before
                                     event_dt = event_before
                             # Set the validity
-                            df.outcome_valid.iloc[idx] = valid
-                            df.event_date.iloc[idx] = event_dt
+                            df.loc[idx, 'outcome_valid'] = valid
+                            df.loc[idx, 'event_date'] = event_dt
 
     return df
 
@@ -428,9 +428,9 @@ def check_window(df: pd.DataFrame):
     df.reset_index(drop=True, inplace=True)
     for idx, row in df.iterrows():
         if idx > 0:
-            if df.start_window.iloc[idx] <= df.event_date.iloc[idx - 1]:
-                df.start_window.iloc[idx] = calc_preg_window(df.event_date.iloc[idx - 1],
-                                                             -1 * df.subsequent_preg.iloc[idx - 1])
+            if df.loc[idx, 'start_window'] <= df.loc[idx - 1, 'event_date']:
+                df.loc[idx, 'start_window'] = calc_preg_window(df.loc[idx - 1, 'event_date'],
+                                                             -1 * df.loc[idx - 1, 'subsequent_preg'])
 
     return df
 
@@ -616,11 +616,13 @@ def process_outcomes(df: pd.DataFrame,
 
     # Validate the OUTCOMES for each patient
     pregs = df_spacing_data.groupby(patient_col,
-                                    group_keys=False)\
+                                    group_keys=True)\
         .apply(validate_outcomes,
                outcome_col=OUTCOME_COL,
                admit_col=admit_date_col,
-               encounter_col=encounter_col)
+               encounter_col=encounter_col,
+               include_groups=False)\
+        .reset_index(level=0, names=patient_col)
 
     # Only keep the valid patients
     output = select_valid(pregs)
@@ -634,8 +636,10 @@ def process_outcomes(df: pd.DataFrame,
 
     # Adjust the start window date if needed
     output = output.groupby(patient_col,
-                            group_keys=False)\
-        .apply(check_window)
+                            group_keys=True)\
+        .apply(check_window,
+               include_groups=False)\
+        .reset_index(level=0, names=patient_col)
 
     # Restore the pandas settings
     pd.options.mode.chained_assignment = 'warn'

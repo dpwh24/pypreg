@@ -291,6 +291,7 @@ def smm(df: pd.DataFrame,
                                right_on=enc_id)
     warnings.simplefilter('always')
     output_df.fillna(False, inplace=True)
+    output_df['transfusion'] = output_df['transfusion'].astype(bool)
     output_df.drop(columns=[code, version, code_type, 'smm_code', 'regex'], inplace=True)
     output_df.drop_duplicates(inplace=True)
 

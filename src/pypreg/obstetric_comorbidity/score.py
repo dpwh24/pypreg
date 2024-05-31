@@ -127,7 +127,7 @@ def bateman_score(df: pd.DataFrame,
                       left_on=[patient_col, pregnancy_col, indicator_col],
                       right_on=[patient_col, pregnancy_col, indicator_col],
                       suffixes=('_x', ''))
-    output['weight'].fillna(output[f'{weight_col}_x'], inplace=True)
+    output.fillna({'weight': output[f'{weight_col}_x']}, inplace=True)
     output.drop(columns=[f'{weight_col}_x'], inplace=True)
 
     # Correct the weights for gestational hypertension
@@ -136,7 +136,7 @@ def bateman_score(df: pd.DataFrame,
                           left_on=[patient_col, pregnancy_col, indicator_col],
                           right_on=[patient_col, pregnancy_col, indicator_col],
                           suffixes=('_x', ''))
-    output['weight'].fillna(output[f'{weight_col}_x'], inplace=True)
+    output.fillna({'weight': output[f'{weight_col}_x']}, inplace=True)
     output.drop(columns=[f'{weight_col}_x'], inplace=True)
 
     # Sum the weights to get the score
