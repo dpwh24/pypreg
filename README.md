@@ -1,5 +1,6 @@
 # pypreg
-pypreg is a package that classifies pregnancy outcome types from health data with options to include severe maternal morbidity, adverse pregnancy outcomes, and obstetric comorbidity scores.
+pypreg is a collection of packages that classifies pregnancy outcome types from health data, identifies severe maternal 
+morbidity, adverse pregnancy outcomes, and calculates obstetric comorbidity scores.
 
 ## Features
 
