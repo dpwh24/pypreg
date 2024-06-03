@@ -1,4 +1,6 @@
 """
+Copyright (C) 2023 Dave Walsh
+
 Utility functions to process a pandas dataframe of codes and
 attach the comorbidity scores from one of the maps.
 """

@@ -2,6 +2,8 @@
 Source material codes have been translated into regex and crosswalked to ICD-9 by David Walsh.
 They include the top-level CODE to account for idiosyncracies in different secondary data sources.
 
+Copyright (C) 2023 Dave Walsh
+
 Original codes are sourced from:
     Moll K FK Wong H-L. Task order HHSF22301001T: Pregnancy OUTCOMES
 validation final report. U.S. Food; Drug Administration; 2020. Available at:

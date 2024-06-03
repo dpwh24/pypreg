@@ -1,4 +1,6 @@
 """
+Copyright (C) 2023 Dave Walsh
+
 Codes sourced from
 
 Bateman BT, Mhyre JM, Hernandez-Diaz S, Huybrechts KF, Fischer MA,

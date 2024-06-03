@@ -1,8 +1,7 @@
 """
 SMM Severe Maternal Morbidity
 
-Author:
-Dave Walsh 30 May 2023
+Copyright (C) 2023 Dave Walsh
 Department of Biomedical and Health Informatics
 UMKC
 

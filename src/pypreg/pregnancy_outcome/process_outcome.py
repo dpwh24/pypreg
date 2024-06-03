@@ -2,6 +2,8 @@
 This module is a collection of functions needed to take longitudinal
 patient data and identify and classify pregnancies.
 
+Copyright (C) 2023 Dave Walsh
+
 Available functions
 subsequent_outcome : Returns a pandas dataframe with the date of the next
     possible outcome for each outcome type

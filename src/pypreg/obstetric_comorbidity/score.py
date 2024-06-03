@@ -1,4 +1,6 @@
 """
+Copyright (C) 2023 Dave Walsh
+
 Process the weights by patient and pregnancy number.
 """
 import pandas as pd

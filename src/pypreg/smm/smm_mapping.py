@@ -1,4 +1,6 @@
 """
+Copyright (C) 2023 Dave Walsh
+
 Update 03Jan2024
 Codes in FAD SAS CODE do not appear to be current with CDC nor HCUP definitions.
 Codes were instead harmonized with CDC definition per:

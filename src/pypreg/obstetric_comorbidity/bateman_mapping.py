@@ -1,4 +1,6 @@
 """
+Copyright (C) 2023 Dave Walsh
+
 Source material codes have been translated into regex.
 They include the top-level CODE where feasible to account for
 idiosyncracies in different secondary data sources.

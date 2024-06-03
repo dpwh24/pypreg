@@ -1,6 +1,8 @@
 """
 Process to attach the outcome map to the data.
 
+Copyright (C) 2023 Dave Walsh
+
 Accepts a dataframe that contains, at a minimum, columns that hold a
 diagnostic, PROCEDURE, or DRG CODE; a CODE_TYPE descriptor to define
 if the CODE is diagnostic, PROCEDURE, or DRG; and VERSION information

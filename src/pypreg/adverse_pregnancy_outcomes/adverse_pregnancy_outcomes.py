@@ -1,8 +1,7 @@
 """
 Adverse Pregnancy Outcomes
 
-Author:
-Dave Walsh 22 Aug 2023
+Copyright (C) 2023 Dave Walsh
 Department of Biomedical and Health Informatics
 UMKC
 
