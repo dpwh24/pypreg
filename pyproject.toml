@@ -4,6 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pypreg"
+license = {file = 'LICENSE'}
 version = "0.0.1"
 authors = [
   { name="David Walsh", email="dwalsh@umkc.edu" },
@@ -21,8 +22,8 @@ classifiers = [
     "Intended Audience :: Healthcare Industry",
     "Topic :: Scientific/Engineering :: Bio-Informatics"
 ]
-dynamic = ["dependencies"]
-dependencies = {file = ["requirements.txt"]}
+dependencies = ["pandas~=2.2.*"]
+
 [project.urls]
 Homepage = "https://github.com/dpwh24/pypreg"
 Issues = "https://github.com/dpwh24/pypreg/issues"
